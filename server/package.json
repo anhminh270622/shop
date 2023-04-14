@@ -1,0 +1,9 @@
+{
+	"devDependencies": {
+		"json-server": "^0.17.3",
+		"nodemon": "^2.0.22"
+	},
+	"scripts": {
+		"dev": "nodemon server.js"
+	}
+}
