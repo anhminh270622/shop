@@ -6,7 +6,7 @@
 			"description": "Với Revive Foam, một loại bọt siêu mềm được thiết kế để giúp bạn thư giãn và nạp năng lượng trở lại, sự thoải mái không ngừng của Nike Offcourt Slide thật thú vị. Công nghệ lớp xốp hai lớp đầy sáng tạo và lớp lót mềm mại trên quai dép đảm bảo trải nghiệm tuyệt vời trên toàn bộ bàn chân. Đế dép có các vân vòng tròn xoay của thiết kế Air Force 1 mang tính biểu tượng và khối chữ NIKE đúc nổi trên quai dép một cách mạnh mẽ.",
 			"parameter": null,
 			"price": 1399000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"trademark": "NIKE",
 			"images": [
@@ -43,7 +43,7 @@
 			"description": "Từ bãi biển đến khán đài, Nike Victori One hoàn thiện một thiết kế cổ điển, phải có. Mang lại cảm giác thoải mái nhẹ, dễ mặc, nó được cập nhật bằng bọt mềm hơn, phản ứng nhanh hơn. Mẫu tay nắm có đường viền giúp nâng đỡ và giữ chân bạn cố định trong khi dây đeo có đệm mới cho cảm giác đẹp như vẻ ngoài của nó.",
 			"parameter": null,
 			"price": 939000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"trademark": "NIKE",
 			"images": [
@@ -80,7 +80,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 1759000,
-			"price-sale": 30,
+			"price_sale": 30,
 			"tag": null,
 			"trademark": "NIKE",
 			"images": [
@@ -117,7 +117,7 @@
 			"description": "Nike On Deck là một đôi dép xỏ ngón có thiết kế đơn giản và dễ dàng sử dụng. Kiểu dáng cổ điển nhưng không kém phần chất lượng, đôi dép này sở hữu đầu ngón chân tròn giúp giới hạn ma sát trong khi lớp đệm giữa bằng đệm xốp mang đến độ êm ái tuyệt vời cho bàn chân. Đế dép được thiết kế theo phong cách Waffle cổ điển giúp tăng cường độ đàn hồi, độ bám và độ bền.",
 			"parameter": "Lớp đệm bằng bọt cho cảm giác êm ái Đế dép được thiết kế theo phong cách Waffle cổ điển, tăng độ bám, đàn hồi và độ bền Thiết kế có trọng lượng nhẹ",
 			"price": 779000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"trademark": "NIKE",
 			"images": [
@@ -154,7 +154,7 @@
 			"description": "Nike On Deck là một đôi dép xỏ ngón có thiết kế đơn giản và dễ dàng sử dụng. Kiểu dáng cổ điển nhưng không kém phần chất lượng, đôi dép này sở hữu đầu ngón chân tròn giúp giới hạn ma sát trong khi lớp đệm giữa bằng đệm xốp mang đến độ êm ái tuyệt vời cho bàn chân. Đế dép được thiết kế theo phong cách Waffle cổ điển giúp tăng cường độ đàn hồi, độ bám và độ bền.",
 			"parameter": null,
 			"price": 919000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": null,
 			"trademark": "NIKE",
 			"images": [
@@ -188,7 +188,7 @@
 			"description": "Nike On Deck là một đôi dép xỏ ngón có thiết kế đơn giản và dễ dàng sử dụng. Kiểu dáng cổ điển nhưng không kém phần chất lượng, đôi dép này sở hữu đầu ngón chân tròn giúp giới hạn ma sát trong khi lớp đệm giữa bằng đệm xốp mang đến độ êm ái tuyệt vời cho bàn chân. Đế dép được thiết kế theo phong cách Waffle cổ điển giúp tăng cường độ đàn hồi, độ bám và độ bền.",
 			"parameter": null,
 			"price": 600000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"trademark": "NIKE",
 			"images": [
@@ -225,7 +225,7 @@
 			"description": "Bất kể bạn đang ra phòng thay đồ sau buổi tập nặng đô hay thư giãn trên ghế sofa tại nhà, đôi dép này sẽ bao bọc đôi chân bạn trong cảm giác nhẹ nhàng và thoải mái. Dép có thể kết hợp cùng tất và quần short cho outfit hoàn hảo sau giờ tập, hoặc với bộ đồ bơi yêu thích của bạn tạo nên phong cách bãi biển. Thiết kế 3 Sọc adidas hoàn thiện phong cách thể thao của bạn.",
 			"parameter": null,
 			"price": 1000000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"trademark": "ADIDAS",
 			"images": [
@@ -262,7 +262,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 750000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": null,
 			"trademark": "ADIDAS",
 			"images": [
@@ -299,7 +299,7 @@
 			"description": "Từ bãi biển đến khán đài, Nike Victori One hoàn thiện một thiết kế cổ điển, là đôi dép mà bạn không thể nào bỏ qua. Mang đến sự nhẹ nhàng và dễ phối hợp với mọi trang phục, dép có lớp đệm mới mềm hơn tạo cảm giác thoải mái cho cả ngày dài. Phần lót chân có đường viền với họa tiết giúp nâng đỡ và giữ chân bạn ở đúng vị trí. Quai dép rộng, có đệm mang lại cảm giác tuyệt vời như vẻ ngoài của nó.",
 			"parameter": "Chữ in đậm  NIKE và dấu Swoosh trên dây đeo Họa tiết xu hướng hợp thời trang",
 			"price": 1079000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"trademark": "NIKE",
 			"images": [
@@ -336,7 +336,7 @@
 			"description": "Cho dù bạn đang tập gym hay đi mua sắm, chúng tôi đã tạo ra một sự kết hợp hoàn hảo mang lại phong cách nhanh chóng và sự thoải mái đáng kinh ngạc. Khe thoát khí lớn, có thể nhìn thấy ở gót chân được kết hợp với phần đệm chân bằng bọt thoải mái để tạo nên sự thoải mái nổi bật.",
 			"parameter": null,
 			"price": 1559000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"trademark": "NIKE",
 			"images": [
@@ -373,7 +373,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 1559000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"trademark": "NIKE",
 			"images": [
@@ -419,7 +419,7 @@
 				"Mã sản phẩm: FW6530"
 			],
 			"price": 1800000,
-			"price-sale": 20,
+			"price_sale": 20,
 			"tag": "Khuyến mại Adidas",
 			"trademark": "ADIDAS",
 			"images": [
@@ -430,7 +430,7 @@
 					"url": "https://product.hstatic.net/200000174405/product/giay-bong-da-adidas-nam-fw6530-2_2f955f79d04542cbbb1a2b3b5e92c3aa_c4778ae727d441189d418e8c2e47e1fc_master.jpg"
 				}
 			],
-			"type": "soccer-soccer-shoe",
+			"type": "soccer-shoe",
 			"sizes": [
 				{
 					"size": "35-38",
@@ -455,7 +455,7 @@
 			],
 			"parameter": null,
 			"price": 1900000,
-			"price-sale": 20,
+			"price_sale": 20,
 			"tag": "Khuyến mại Adidas",
 			"trademark": "ADIDAS",
 			"images": [
@@ -475,7 +475,7 @@
 					"url": "https://product.hstatic.net/200000174405/product/gx2633-5_1b86cfd73dff40a68799754b85a2b290_master.jpg"
 				}
 			],
-			"type": "soccer-soccer-shoe",
+			"type": "soccer-shoe",
 			"sizes": [
 				{
 					"size": "35-38",
@@ -500,7 +500,7 @@
 			],
 			"parameter": null,
 			"price": 1600000,
-			"price-sale": 30,
+			"price_sale": 30,
 			"tag": "Khuyến mại Adidas",
 			"trademark": "ADIDAS",
 			"images": [
@@ -540,7 +540,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 1200000,
-			"price-sale": 20,
+			"price_sale": 20,
 			"tag": "Khuyến mại Adidas",
 			"trademark": "ADIDAS",
 			"images": [
@@ -579,7 +579,7 @@
 			],
 			"parameter": null,
 			"price": 1600000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"trademark": "ADIDAS",
 			"images": [
@@ -630,7 +630,7 @@
 				"Thiên hướng sử dụng: Kỹ thuật, tranh chấp bóng."
 			],
 			"price": 2319000,
-			"price-sale": 40,
+			"price_sale": 40,
 			"tag": "Khuyến mại Adidas",
 			"trademark": "ADIDAS",
 			"images": [
@@ -669,7 +669,7 @@
 			],
 			"parameter": null,
 			"price": 590000,
-			"price-sale": 40,
+			"price_sale": 40,
 			"tag": "Khuyến mại Adidas",
 			"trademark": "ADIDAS",
 			"images": [
@@ -711,7 +711,7 @@
 			],
 			"parameter": null,
 			"price": 468000,
-			"price-sale": 10,
+			"price_sale": 10,
 			"tag": "Khuyến mại tổng hợp",
 			"trademark": "AKKA",
 			"images": [
@@ -748,7 +748,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 1751200,
-			"price-sale": 20,
+			"price_sale": 20,
 			"tag": "Khuyến mại Nike",
 			"trademark": "NIKE",
 			"images": [
@@ -785,7 +785,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 2319000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"trademark": "NIKE",
 			"images": [
@@ -822,7 +822,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 1487400,
-			"price-sale": 40,
+			"price_sale": 40,
 			"tag": "Khuyến mại Nike",
 			"trademark": "NIKE",
 			"images": [
@@ -861,7 +861,7 @@
 			],
 			"parameter": null,
 			"price": 1859000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"trademark": "NIKE",
 			"images": [
@@ -900,7 +900,7 @@
 			],
 			"parameter": null,
 			"price": 1544500,
-			"price-sale": 50,
+			"price_sale": 50,
 			"tag": "Khuyến mại Nike",
 			"images": [
 				{
@@ -946,7 +946,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 1589400,
-			"price-sale": 40,
+			"price_sale": 40,
 			"tag": "Khuyến mại Nike",
 			"images": [
 				{
@@ -983,7 +983,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 2779000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": null,
 			"images": [
 				{
@@ -1020,7 +1020,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 2069000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": null,
 			"images": [
 				{
@@ -1061,7 +1061,7 @@
 			],
 			"parameter": null,
 			"price": 1699000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"images": [
 				{
@@ -1102,7 +1102,7 @@
 			],
 			"parameter": null,
 			"price": 1699000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"images": [
 				{
@@ -1141,7 +1141,7 @@
 			],
 			"parameter": null,
 			"price": 2019000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"images": [
 				{
@@ -1178,7 +1178,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 1464500,
-			"price-sale": 50,
+			"price_sale": 50,
 			"tag": "Khuyến mại Nike",
 			"images": [
 				{
@@ -1215,7 +1215,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 2639000,
-			"price-sale": 50,
+			"price_sale": 50,
 			"tag": null,
 			"images": [
 				{
@@ -1255,7 +1255,7 @@
 			],
 			"parameter": null,
 			"price": 240000,
-			"price-sale": 20,
+			"price_sale": 20,
 			"tag": "Khuyến mại Adidas",
 			"images": [
 				{
@@ -1275,7 +1275,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 180000,
-			"price-sale": 40,
+			"price_sale": 40,
 			"tag": "Khuyến mại Adidas",
 			"images": [
 				{
@@ -1299,7 +1299,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 150000,
-			"price-sale": 50,
+			"price_sale": 50,
 			"tag": "Khuyến mại Adidas",
 			"images": [
 				{
@@ -1319,7 +1319,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 329000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": null,
 			"images": [
 				{
@@ -1339,7 +1339,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 287200,
-			"price-sale": 20,
+			"price_sale": 20,
 			"tag": "Khuyến mại Nike",
 			"images": [
 				{
@@ -1359,7 +1359,7 @@
 			"description": null,
 			"parameter": null,
 			"price": 175000,
-			"price-sale": 50,
+			"price_sale": 50,
 			"tag": null,
 			"images": [
 				{
@@ -1376,7 +1376,7 @@
 			"description": "Ra sân theo phong cách 3 Sọc với đôi tất golf adidas này. Chất liệu pha cotton có độ co giãn phù hợp để bạn có thể thoải mái di chuyển trên sân. Cổ tất có gân bo cố định khi bạn chinh phục vòng golf. Khi mua các sản phẩm cotton từ chúng tôi là bạn đang ủng hộ ngành trồng bông bền vững hơn.",
 			"parameter": null,
 			"price": 175000,
-			"price-sale": 50,
+			"price_sale": 50,
 			"tag": null,
 			"images": [
 				{
@@ -1396,7 +1396,7 @@
 			"description": "Được làm bằng vải nhẹ để tạo cảm giác êm ái và ít cồng kềnh hơn, tất Nike mang đến sự thoải mái lâu dài trong một thiết kế vừa vặn hỗ trợ bạn tập luyện từ đầu đến cuối.",
 			"parameter": null,
 			"price": 489000,
-			"price-sale": 0,
+			"price_sale": 0,
 			"tag": "new",
 			"images": [
 				{
@@ -1406,6 +1406,21 @@
 			"type": "hose",
 			"quantity": 100,
 			"trademark": "ADIDAS"
+		}
+	],
+
+	"advertisement": [
+		{
+			"id": 1,
+			"url": "https://theme.hstatic.net/200000174405/1000870307/14/slideshow_1.jpg?v=779"
+		},
+		{
+			"id": 2,
+			"url": "https://theme.hstatic.net/200000174405/1000870307/14/slideshow_3.jpg?v=779"
+		},
+		{
+			"id": 3,
+			"url": "https://theme.hstatic.net/200000174405/1000870307/14/slideshow_6.jpg?v=779"
 		}
 	]
 }

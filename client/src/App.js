@@ -1,4 +1,6 @@
 import "./App.css"
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import HeaderPage from "./pages/HeaderPage";
 import { publicRouters, privateRouters } from "./routers";
 import {
@@ -12,16 +14,18 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <HeaderPage />
-        {
-          publicRouters && publicRouters.map((route, index) => {
-            return (
-              <Routes>
-                <Route key={index}></Route>
-              </Routes>
-            )
-          })
-        }
+        <Header />
+        <Routes>
+
+          {
+            publicRouters && publicRouters.map((route, index) => {
+              return (
+                <Route key={index} path={route.path} element={route.component}> </Route>
+              )
+            })
+          }
+        </Routes>
+        <Footer />
       </BrowserRouter>
     </div >
   )

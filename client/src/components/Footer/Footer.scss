@@ -1,0 +1,30 @@
+.footer {
+	width: 100%;
+	margin-top: 100px;
+	.footer-wrapper {
+		ul {
+			width: 80%;
+			display: flex;
+			margin: auto;
+			justify-content: space-between;
+			list-style: none;
+			.left {
+				flex: 1;
+				img {
+					width: 100px;
+					height: 100px;
+				}
+			}
+			.right {
+				flex: 3;
+
+				.category {
+				}
+				.contact {
+				}
+				.rules {
+				}
+			}
+		}
+	}
+}
