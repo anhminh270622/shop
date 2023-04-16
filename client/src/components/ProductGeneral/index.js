@@ -1,11 +1,13 @@
 import React from 'react';
 import './ProductGeneral.scss';
 import { useNavigate } from 'react-router-dom';
+import { priceConvertCost, priceSaleConvert } from '../Define';
 export default function ProductGeneral(props) {
     const { id, price, description, tag, name, trademark, image, sale, type } = props;
     const firtImg = image && image.length > 0 ? image[0] : null;
     // console.log(firtImg)
-    const cost = sale !== 0 ? price * (sale / 100) : '';
+    // const cost = sale !== 0 ? ((price * sale / 100).toLocaleString() + "đ") : '';
+    // const costToString = cost
     const navigate = useNavigate();
 
 
@@ -28,21 +30,21 @@ export default function ProductGeneral(props) {
         <div className="product-general">
             <div className="item">
                 <div className="image" onClick={handleClick}>
-                    <img
+                    <img className='product-image'
                         src={firtImg.url}
                         alt=""
                     />
                 </div>
                 <div className="title">
                     <h3>{trademark}</h3>
-                    <p className="description">{name}</p>
+                    <p onClick={handleClick} className="description">{name}</p>
                     <p className="price">
-                        <span>{sale === 0 ? '' : sale}</span>
+                        <span className={sale ? "sale-padding" : ""}>{priceSaleConvert(sale)} </span>
                         <span> {price.toLocaleString()}đ</span>
-                        <span className="cost">{cost}</span>
+                        <span className="cost"><s>{priceConvertCost(price, sale)}</s></span>
                     </p>
                 </div>
-                <span className="new">{tag}</span>
+                <span className="new">{tag === "new" ? tag : ""}</span>
             </div>
         </div>
     );

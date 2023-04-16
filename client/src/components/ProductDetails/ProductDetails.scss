@@ -3,6 +3,7 @@
 	display: flex;
 	margin: 20px auto;
 	height: auto;
+	padding-top: 55px;
 	.left {
 		flex: 2;
 		display: flex;
@@ -34,6 +35,19 @@
 				font-weight: 500;
 			}
 		}
+		.price {
+			display: flex;
+			font-weight: 700;
+			color: red;
+			width: 70%;
+			justify-content: space-between;
+			.sale {
+			}
+			.cost {
+				color: #ccc;
+			}
+		}
+
 		.size {
 			display: flex;
 			.size-index {

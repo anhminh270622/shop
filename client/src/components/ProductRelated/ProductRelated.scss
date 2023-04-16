@@ -1,0 +1,23 @@
+.ralated {
+	width: 95%;
+	margin: auto;
+	height: auto;
+	.ralated-wrapper {
+		width: 100%;
+		h2 {
+			text-align: center;
+		}
+		.items {
+			display: flex;
+			width: 80%;
+			border-radius: 10px;
+			gap: 15px;
+			.item {
+				width: 100%;
+				img {
+					width: 300px;
+				}
+			}
+		}
+	}
+}

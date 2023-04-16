@@ -1,0 +1,20 @@
+.hose {
+	width: 95%;
+	margin: 55px auto;
+	h1 {
+		text-align: center;
+		padding: 30px 0;
+	}
+	.container {
+		display: flex;
+		.filter {
+			flex: 1;
+		}
+		.items {
+			flex: 3;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 20px;
+		}
+	}
+}
