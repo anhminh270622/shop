@@ -3,7 +3,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useEffect, useState } from 'react';
-import { priceConvertCost, priceConvert, priceSaleConvert } from '../Define';
+import { priceConvertCost, priceConvert, priceSaleConvert, Scroll } from '../Define';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
@@ -47,7 +47,7 @@ function ProductDetails() {
                 size: size,
                 quantity: count,
                 firtImg: firtImg,
-                price: priceConvert(price),
+                price: price,
                 cost: priceConvertCost(price, sale)
             })
         } else {
@@ -63,30 +63,7 @@ function ProductDetails() {
     const Reduce = () => {
         setCount(count - 1);
     };
-    //thêm vào giỏ hàng
-    const navigate = useNavigate()
-    // function handleCart() {
-    //     // const state = {
-    //     //     price: price
-    //     // }
-    //     navigate("/cart", {
-    //         state: {
-    //             id: id,
-    //             price: price,
-    //             name: name,
-    //             sale: sale,
-    //             firtImg: firtImg
-    //         }
-    //     });
 
-    //     // console.log("thành  công");
-    //     // console.log("id", id);
-    // }
-    // const navigate = useNavigate();
-    //post dữ liệu vào data json cart
-    function handleCart() {
-
-    }
     return (
         <div className="product-details">
             <ToastContainer />
@@ -162,12 +139,7 @@ function ProductDetails() {
                 <div className="description">
                     <div className="title">Mô tả</div>
                     <p>{description}</p>
-                    {/* {description && description.map((desc, index) => (
-                        <>
-                            <p key={index}>{desc}</p>
-                            <br />
-                        </>
-                    ))} */}
+
                 </div>
             </div>
         </div>

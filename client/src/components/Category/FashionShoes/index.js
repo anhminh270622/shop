@@ -9,17 +9,34 @@ export default function FashionShoes() {
     const [fashionShoes, setFashionShoes] = useState("")
     // const { type } = useParams()
     // console.log(type)
+    const [sort, setSort] = useState('price');
+    const [order, setOrder] = useState('asc');
     useEffect(() => {
-        axios.get("http://localhost:3000/api/products?type=fashion-shoe")
-            .then(response => setFashionShoes(response.data))
-            .catch((error) =>
-                console.log(error)
+        axios
+            .get(
+                `http://localhost:3000/api/products?type=fashion-shoe&_sort=${sort}&_order=${order}`
             )
-    }, [])
-    return (
-        <div className="fashionShoes">
-            <h1>Giày thời trang</h1>
+            .then((response) => setFashionShoes(response.data)
+            )
+            .catch((error) => console.log(error));
+        // console.log('sort:', sort, 'order:', order);
 
+    }, [sort, order]);
+    const handleOnchange = (e) => {
+        setSort(e.target.value.split(' ')[0]);
+        setOrder(e.target.value.split(' ')[1]);
+    };
+    return (
+        <div className="sandal">
+            <div className="top">
+                <h1>Giày thời trang</h1>
+                <select onChange={handleOnchange}>
+                    <option value="price asc">Price: Tăng dần</option>
+                    <option value="price desc">Price: Giảm dần</option>
+                    <option value="trademark asc">Thương hiệu:A-Z</option>
+                    <option value="trademark desc">Thương hiệu:Z-A</option>
+                </select>
+            </div>
             <div className='container'>
                 <div className="filter">
                     <Filter />

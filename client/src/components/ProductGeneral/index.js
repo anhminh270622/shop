@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProductGeneral.scss';
 import { useNavigate } from 'react-router-dom';
-import { priceConvertCost, priceSaleConvert } from '../Define';
+import { priceConvertCost, priceSaleConvert, Scroll } from '../Define';
 export default function ProductGeneral(props) {
     const { id, price, description, tag, name, trademark, image, sale, type } = props;
     const firtImg = image && image.length > 0 ? image[0] : null;
@@ -24,6 +24,7 @@ export default function ProductGeneral(props) {
             type: type
         }
         navigate(`/${type}/${id}`, { state })
+        Scroll()
 
     }
     return (

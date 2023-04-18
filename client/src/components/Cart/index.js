@@ -9,10 +9,12 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { priceConvert, Scroll } from '../Define';
 import axios from 'axios';
 export default function Cart() {
     const [count, setCount] = useState(1);
     const [cart, setCart] = useState("")
+    // const [sum, setSum] = useState(0)
     //đếm số lượng size
     const Increase = () => {
         setCount(count + 1);
@@ -23,6 +25,7 @@ export default function Cart() {
     const navigate = useNavigate();
     const handleClose = () => {
         navigate('/');
+        Scroll()
     };
 
     const updateCart = () => {
@@ -34,9 +37,17 @@ export default function Cart() {
                 console.error(error)
             })
     }
+    //tổng đơn giá trị đơn hàng
+    const SumCart = () => {
+        let totalPrice = 0;
+        for (let i = 0; i < cart.length; i++) {
+            totalPrice += cart[i].price * cart[i].quantity;
+        }
+        return priceConvert(totalPrice);
+    };
     useEffect(() => {
         updateCart()
-
+        SumCart()
     }, [cart])
     const handleClickDelete = (id) => {
         toast.success('Xóa thành công!', {
@@ -66,17 +77,13 @@ export default function Cart() {
                         return (
                             <div className="content-wrapper" key={item.id}>
                                 <div className="left">
-                                    <input
-                                        type="checkbox"
-                                        className="check"
-                                    />
                                     <div className="image">
                                         <img src={item.firtImg.url} />
                                     </div>
                                     <div className="detail">
                                         <p className="name">{item.name}</p>
                                         <p className="price">
-                                            <span>{item.price}</span>
+                                            <span>{priceConvert(item.price)}</span>
                                             {item.cost ? <s>({item.cost})</s> : ""}
 
                                         </p>
@@ -104,11 +111,7 @@ export default function Cart() {
                     <hr />
                     <div className="buy">
                         <div className="left">
-                            <div className="all"> <input
-                                type="checkbox">
-                            </input>
-                                <span>Chọn tất cả</span>
-                            </div>
+
                             <TextareaAutosize
                                 aria-label="empty textarea"
                                 placeholder="Ghi chú"
@@ -118,7 +121,9 @@ export default function Cart() {
                         <div className="right">
                             <div className="sum">
                                 <p>Tổng tiền</p>
-                                <h3>1,000,000 đ</h3>
+                                <h3>
+                                    {SumCart()}
+                                </h3>
                             </div>
                             <div className="button">
                                 <Button

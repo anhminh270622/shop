@@ -1,5 +1,6 @@
 import "./Footer.scss"
 import Logo from "../../assets/image/logo.png"
+import ScrollToTopButton from "../ScrollTopButton";
 function Footer() {
     return (<>
         <div className="footer">
@@ -46,6 +47,8 @@ function Footer() {
                         </ul>
                     </li>
                 </ul>
+                <ScrollToTopButton />
+
             </div>
         </div>
     </>);

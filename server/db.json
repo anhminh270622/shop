@@ -1414,12 +1414,24 @@
     },
     {
       "id": 2,
-      "url": "https://theme.hstatic.net/200000174405/1000870307/14/slideshow_3.jpg?v=779"
+      "url": "https://admin.thegioigiay.com/upload//home-banner/07-02-2023/916923225_Cat%20&%20Sofa_1190x359.jpg"
     },
     {
       "id": 3,
       "url": "https://theme.hstatic.net/200000174405/1000870307/14/slideshow_6.jpg?v=779"
     }
   ],
-  "cart": []
+  "cart": [
+    {
+      "id": "NKA308DX5074010S",
+      "name": "Tất sportswear nike NSW EVERYDAY ESSENTIAL AN DX5074-010",
+      "size": 42,
+      "quantity": 1,
+      "firtImg": {
+        "url": "https://product.hstatic.net/200000174405/product/dx5074-010-1_2e005f1f7a6c4648937b3e9158159845_1024x1024.jpg"
+      },
+      "price": 489000,
+      "cost": ""
+    }
+  ]
 }
