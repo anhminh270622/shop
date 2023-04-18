@@ -4,6 +4,8 @@ import SandalPage from '../pages/SandalPage';
 import SoccerShoesPage from '../pages/SoccerShoesPage';
 import FashionShoesPage from '../pages/FashionShoesPage';
 import HosePage from '../pages/HosePage';
+import CartPage from '../pages/CartPage';
+import NotFoundPage from '../pages/NotFoundPage';
 export const publicRouters = [
     {
         path: '/',
@@ -21,14 +23,6 @@ export const publicRouters = [
         path: '/hose',
         component: <HosePage />,
     },
-    // {
-    //     path: '/:type',
-    //     component: <HosePage />,
-    // },
-    // {
-    //     path: '/:type',
-    //     component: <FashionShoesPage />,
-    // },
     {
         path: '/soccer-shoe',
         component: <SoccerShoesPage />,
@@ -37,6 +31,14 @@ export const publicRouters = [
         path: '/fashion-shoe',
         component: <FashionShoesPage />,
     },
+    {
+        path: '/cart',
+        component: <CartPage />
+    },
+    {
+        path: '*',
+        component: <NotFoundPage />
+    }
 ];
 export const privateRouters = [];
 // export { publicRouters, privateRouters }

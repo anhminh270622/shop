@@ -2,38 +2,94 @@ import './ProductDetails.scss';
 import { useLocation, useParams } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { priceConvertCost, priceConvert, priceSaleConvert } from '../Define';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-function ProductDetails(firtImg) {
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
+function ProductDetails() {
     const [img, setImg] = useState(0);
+    const [count, setCount] = useState(1);
+    const [size, setSize] = useState('');
+    const [active, setActive] = useState("");
     const location = useLocation();
-    const { state } = location;
     const { id } = useParams();
-    // console.log(id)
     const { price, description, tag, name, trademark, image, sale, type } =
         location.state || {};
-
     const numbers = [];
     for (let i = 35; i <= 44; i++) {
         numbers.push(i);
     }
-    // console.log(numbers)
-    firtImg = image && image.length > 0 ? image[img] : null;
+    // console.log(size)
+    const handleSize = (item) => {
+        setSize(item);
+        setActive(item);
+    };
+    // useEffect(() => {
+    //     handleSize();
+    //     console.log(size);
+    // }, [size]);
+    const firtImg = image && image.length > 0 ? image[img] : null;
     function handleOnClick(index) {
-        // console.log(index);
         setImg(index);
     }
     const handleClick = () => {
-        toast.success('Đã thêm vào giỏ hàng!', {
-            position: toast.POSITION.TOP_RIGHT
-        });
+        if (size) {
+            toast.success('Đã thêm vào giỏ hàng!', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+            setActive("")
+            setCount(1)
+            axios.post("http://localhost:3000/api/cart", {
+                id: id,
+                name: name,
+                size: size,
+                quantity: count,
+                firtImg: firtImg,
+                price: priceConvert(price),
+                cost: priceConvertCost(price, sale)
+            })
+        } else {
+            toast.error('Vui lòng chọn size!', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }
+
     };
+    const Increase = () => {
+        setCount(count + 1);
+    };
+    const Reduce = () => {
+        setCount(count - 1);
+    };
+    //thêm vào giỏ hàng
+    const navigate = useNavigate()
+    // function handleCart() {
+    //     // const state = {
+    //     //     price: price
+    //     // }
+    //     navigate("/cart", {
+    //         state: {
+    //             id: id,
+    //             price: price,
+    //             name: name,
+    //             sale: sale,
+    //             firtImg: firtImg
+    //         }
+    //     });
+
+    //     // console.log("thành  công");
+    //     // console.log("id", id);
+    // }
+    // const navigate = useNavigate();
+    //post dữ liệu vào data json cart
+    function handleCart() {
+
+    }
     return (
         <div className="product-details">
             <ToastContainer />
-
             <div className="left">
                 <div className="image-small">
                     {image &&
@@ -66,26 +122,37 @@ function ProductDetails(firtImg) {
                     </p>
                     <p className="sale">{priceSaleConvert(sale)}</p>
                 </div>
-
                 <p className="size">
                     <span>Size:</span>
                     <span className="size-index">
                         {numbers.length > 0 &&
                             numbers.map((item) => {
-                                return <button key={item}>{item}</button>;
+                                const buttonClass = item === active ? 'active' : '';
+                                return (
+                                    <button
+                                        key={item}
+                                        onClick={() => handleSize(item)}
+                                        className={buttonClass}
+                                    >
+
+                                        {item}
+                                    </button>
+                                );
                             })}
                     </span>
                 </p>
                 <div className="count">
-                    <button>
+                    <button
+                        onClick={Reduce}
+                        disabled={count === 1 ? true : false}>
                         <RemoveIcon />
                     </button>
-                    <input value={1}></input>
-                    <button>
+                    <input value={count}></input>
+                    <button onClick={Increase}>
                         <AddIcon />
                     </button>
                 </div>
-                <div className="cart">
+                <div className="cart" >
                     <button onClick={handleClick}>Thêm vào giỏ hàng</button>
                 </div>
                 <div className="tag">

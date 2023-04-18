@@ -1,0 +1,111 @@
+.cart {
+	width: 90%;
+	margin: auto;
+	.Toastify__toast-container--top-right {
+		top: 3rem;
+		right: 0;
+	}
+	.title {
+		margin-top: 55px;
+
+		h1 {
+			text-align: center;
+			padding: 20px 0;
+		}
+	}
+	.content {
+		.content-wrapper {
+			margin-bottom: 10px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			.left {
+				display: flex;
+				align-items: center;
+
+				.check {
+					cursor: pointer;
+					width: 20px;
+					height: 20px;
+				}
+				.image {
+					img {
+						width: 100px;
+						height: 100px;
+					}
+					padding: 0 20px;
+				}
+				.detail {
+					.name {
+						font-weight: 600;
+					}
+					.price {
+						margin: 0;
+						s {
+							color: #ccc;
+							padding-left: 5px;
+						}
+					}
+					.size {
+						margin-top: 5px;
+					}
+					.quantity {
+						display: flex;
+						button {
+							cursor: pointer;
+							svg {
+								font-size: 10px;
+							}
+							// background: transparent;
+						}
+						input {
+							width: 30px;
+							text-align: center;
+						}
+					}
+				}
+			}
+			.right {
+				button {
+					background: red;
+					color: white;
+				}
+			}
+		}
+		.buy {
+			display: flex;
+			justify-content: space-between;
+			.left {
+				.all {
+					display: flex;
+					align-items: center;
+					padding: 10px 0;
+					input {
+						width: 20px;
+						height: 20px;
+						cursor: pointer;
+					}
+					span {
+						padding-left: 10px;
+					}
+				}
+			}
+			.right {
+				.sum {
+				}
+				.button {
+					display: flex;
+					.close {
+						color: white;
+						background-color: #007fff;
+						margin-right: 10px;
+					}
+					.buy {
+						background-color: green;
+						color: white;
+					}
+				}
+			}
+		}
+	}
+}

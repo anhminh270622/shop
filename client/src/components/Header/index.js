@@ -5,9 +5,11 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Link, useNavigate } from 'react-router-dom';
 import ScrollToTop from 'react-scroll-to-top';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 function Header() {
 	const navigate = useNavigate();
+	const [countCart, setCountCart] = useState('')
 	const [isScrollToTopVisible, setIsScrollToTopVisible] = useState(false);
 
 	function handleScrollToTopClick() {
@@ -15,6 +17,11 @@ function Header() {
 		setIsScrollToTopVisible(true);
 	}
 
+	axios.get("http://localhost:3000/api/cart")
+		.then((response) =>
+			setCountCart(response.data)
+		).catch((error) =>
+			console.error(error))
 	return (
 		<>
 			<div className="header">
@@ -46,13 +53,18 @@ function Header() {
 						<li>Liên hệ</li>
 					</ul>
 					<ul className="right">
-						<li className="cart">
-							<AddShoppingCartIcon />
-							<span className="count">16</span>
-						</li>
-						<li className="user">
-							<AccountCircleIcon />
-						</li>
+						<Link to="/cart">
+							<li className="cart">
+								<AddShoppingCartIcon />
+								<span className="count">{countCart.length}</span>
+							</li>
+						</Link>
+						<Link to="/">
+							<li className="user">
+								<AccountCircleIcon />
+							</li>
+						</Link>
+
 					</ul>
 				</div>
 			</div>
