@@ -6,6 +6,7 @@ import FashionShoesPage from '../pages/FashionShoesPage';
 import HosePage from '../pages/HosePage';
 import CartPage from '../pages/CartPage';
 import NotFoundPage from '../pages/NotFoundPage';
+import SearchResultsPage from '../pages/SearchResultsPage';
 export const publicRouters = [
     {
         path: '/',
@@ -34,6 +35,10 @@ export const publicRouters = [
     {
         path: '/cart',
         component: <CartPage />
+    },
+    {
+        path: '/search',
+        component: <SearchResultsPage />
     },
     {
         path: '*',

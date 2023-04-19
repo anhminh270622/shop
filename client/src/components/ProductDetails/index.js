@@ -3,16 +3,21 @@ import { useLocation, useParams } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useEffect, useState } from 'react';
-import { priceConvertCost, priceConvert, priceSaleConvert, Scroll } from '../Define';
+import {
+    priceConvertCost,
+    priceConvert,
+    priceSaleConvert,
+    Scroll,
+} from '../Define';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
 function ProductDetails() {
     const [img, setImg] = useState(0);
     const [count, setCount] = useState(1);
     const [size, setSize] = useState('');
-    const [active, setActive] = useState("");
+    const [active, setActive] = useState('');
     const location = useLocation();
     const { id } = useParams();
     const { price, description, tag, name, trademark, image, sale, type } =
@@ -30,7 +35,7 @@ function ProductDetails() {
     //     handleSize();
     //     console.log(size);
     // }, [size]);
-    const firtImg = image && image.length > 0 ? image[img] : null;
+    const firstImg = image && image.length > 0 ? image[img] : null;
     function handleOnClick(index) {
         setImg(index);
     }
@@ -39,23 +44,22 @@ function ProductDetails() {
             toast.success('Đã thêm vào giỏ hàng!', {
                 position: toast.POSITION.TOP_RIGHT,
             });
-            setActive("")
-            setCount(1)
-            axios.post("http://localhost:3000/api/cart", {
+            setActive('');
+            setCount(1);
+            axios.post('http://localhost:3000/api/cart', {
                 id: id,
                 name: name,
                 size: size,
                 quantity: count,
-                firtImg: firtImg,
+                firstImg: firstImg,
                 price: price,
-                cost: priceConvertCost(price, sale)
-            })
+                cost: priceConvertCost(price, sale),
+            });
         } else {
             toast.error('Vui lòng chọn size!', {
                 position: toast.POSITION.TOP_RIGHT,
             });
         }
-
     };
     const Increase = () => {
         setCount(count + 1);
@@ -81,7 +85,7 @@ function ProductDetails() {
                 </div>
                 <div className="image-big">
                     <img
-                        src={firtImg.url}
+                        src={firstImg.url}
                         alt=""
                     />
                 </div>
@@ -111,7 +115,6 @@ function ProductDetails() {
                                         onClick={() => handleSize(item)}
                                         className={buttonClass}
                                     >
-
                                         {item}
                                     </button>
                                 );
@@ -129,7 +132,7 @@ function ProductDetails() {
                         <AddIcon />
                     </button>
                 </div>
-                <div className="cart" >
+                <div className="cart">
                     <button onClick={handleClick}>Thêm vào giỏ hàng</button>
                 </div>
                 <div className="tag">
@@ -139,7 +142,6 @@ function ProductDetails() {
                 <div className="description">
                     <div className="title">Mô tả</div>
                     <p>{description}</p>
-
                 </div>
             </div>
         </div>

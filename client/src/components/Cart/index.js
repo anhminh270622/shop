@@ -12,15 +12,25 @@ import 'react-toastify/dist/ReactToastify.css';
 import { priceConvert, Scroll } from '../Define';
 import axios from 'axios';
 export default function Cart() {
-    const [count, setCount] = useState(1);
-    const [cart, setCart] = useState("")
-    // const [sum, setSum] = useState(0)
+    const [counts, setCounts] = useState(0);
+    const [cart, setCart] = useState('')
     //đếm số lượng size
-    const Increase = () => {
-        setCount(count + 1);
+    const Increase = (id) => {
+        setCart(prevCart => prevCart.map(item => {
+            if (item.id === id) {
+                return { ...item, quantity: item.quantity + 1 };
+            }
+            return item;
+        }));
     };
-    const Reduce = () => {
-        setCount(count - 1);
+
+    const Reduce = (id) => {
+        setCart(prevCart => prevCart.map(item => {
+            if (item.id === id && item.quantity > 1) {
+                return { ...item, quantity: item.quantity - 1 };
+            }
+            return item;
+        }));
     };
     const navigate = useNavigate();
     const handleClose = () => {
@@ -32,7 +42,6 @@ export default function Cart() {
         axios.get("http://localhost:3000/api/cart")
             .then((response) => {
                 setCart(response.data)
-
             }).catch((error) => {
                 console.error(error)
             })
@@ -74,11 +83,12 @@ export default function Cart() {
                 </div>
                 <div className="content">
                     {cart && cart.map(item => {
+
                         return (
                             <div className="content-wrapper" key={item.id}>
                                 <div className="left">
                                     <div className="image">
-                                        <img src={item.firtImg.url} />
+                                        <img src={item.firstImg.url} />
                                     </div>
                                     <div className="detail">
                                         <p className="name">{item.name}</p>
@@ -90,12 +100,12 @@ export default function Cart() {
                                         <p className="size">{item.size}</p>
                                         <div className="quantity">
                                             <button
-                                                onClick={Reduce}
+                                                onClick={() => Reduce(item.id)}
                                                 disabled={item.quantity === 1 ? true : false}>
                                                 <RemoveIcon />
                                             </button>
                                             <input value={item.quantity}></input>
-                                            <button onClick={Increase}>
+                                            <button onClick={() => Increase(item.id)}>
                                                 <AddIcon />
                                             </button>
                                         </div>

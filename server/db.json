@@ -1423,14 +1423,14 @@
   ],
   "cart": [
     {
-      "id": "NKA308DX5074010S",
-      "name": "Tất sportswear nike NSW EVERYDAY ESSENTIAL AN DX5074-010",
-      "size": 42,
-      "quantity": 1,
-      "firtImg": {
-        "url": "https://product.hstatic.net/200000174405/product/dx5074-010-1_2e005f1f7a6c4648937b3e9158159845_1024x1024.jpg"
+      "id": "NKA306DH2987106D",
+      "name": "Giầy sportswear Nike Court Vision White Navy nam DH2987-106",
+      "size": 44,
+      "quantity": 4,
+      "firstImg": {
+        "url": "https://product.hstatic.net/200000174405/product/dh3160-100-1_82af257cb12d402ab8c1e7d88475c991_master.jpg"
       },
-      "price": 489000,
+      "price": 2019000,
       "cost": ""
     }
   ]

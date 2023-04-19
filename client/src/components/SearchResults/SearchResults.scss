@@ -1,0 +1,21 @@
+.search-results {
+	width: 95%;
+	// display: flex;
+	margin: 55px auto;
+	.top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		h1 {
+			text-align: center;
+		}
+	}
+	.container {
+		display: flex;
+		.search-item {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 20px;
+		}
+	}
+}

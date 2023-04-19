@@ -2,9 +2,15 @@
 	width: 95%;
 	// display: flex;
 	margin: auto;
-	h1 {
-		text-align: center;
+	.top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		h1 {
+			text-align: center;
+		}
 	}
+
 	.product-item {
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
