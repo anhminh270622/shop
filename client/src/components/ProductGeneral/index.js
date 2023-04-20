@@ -25,7 +25,6 @@ export default function ProductGeneral(props) {
         }
         navigate(`/${type}/${id}`, { state })
         Scroll()
-
     }
     return (
         <div className="product-general">

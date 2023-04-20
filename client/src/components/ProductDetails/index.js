@@ -31,10 +31,6 @@ function ProductDetails() {
         setSize(item);
         setActive(item);
     };
-    // useEffect(() => {
-    //     handleSize();
-    //     console.log(size);
-    // }, [size]);
     const firstImg = image && image.length > 0 ? image[img] : null;
     function handleOnClick(index) {
         setImg(index);
@@ -42,7 +38,7 @@ function ProductDetails() {
     const handleClick = () => {
         if (size) {
             toast.success('Đã thêm vào giỏ hàng!', {
-                position: toast.POSITION.TOP_RIGHT,
+                position: toast.POSITION.TOP_RIGHT
             });
             setActive('');
             setCount(1);
@@ -53,6 +49,7 @@ function ProductDetails() {
                 quantity: count,
                 firstImg: firstImg,
                 price: price,
+                type: type,
                 cost: priceConvertCost(price, sale),
             });
         } else {
@@ -61,6 +58,39 @@ function ProductDetails() {
             });
         }
     };
+
+    // const handleClick = () => {
+    //     if (size) {
+    //         const cartItems = axios.get('http://localhost:3000/api/cart').data;
+    //         console.log('cartItems', cartItems)
+    //         const existingItem = cartItems.find(item => item.id === id);
+
+    //         if (existingItem) {
+    //             existingItem.size = size;
+    //             existingItem.quantity += count;
+    //         } else {
+    //             toast.success('Đã thêm vào giỏ hàng!', {
+    //                 position: toast.POSITION.TOP_RIGHT,
+    //             });
+    //             axios.post('http://localhost:3000/api/cart', {
+    //                 id: id,
+    //                 name: name,
+    //                 type: type,
+    //                 size: size,
+    //                 quantity: count,
+    //                 firstImg: firstImg,
+    //                 price: price,
+    //                 cost: priceConvertCost(price, sale),
+    //             });
+    //         }
+    //         setActive('');
+    //         setCount(1);
+    //     } else {
+    //         toast.error('Vui lòng chọn size!', {
+    //             position: toast.POSITION.TOP_RIGHT,
+    //         });
+    //     }
+    // };
     const Increase = () => {
         setCount(count + 1);
     };
@@ -127,7 +157,7 @@ function ProductDetails() {
                         disabled={count === 1 ? true : false}>
                         <RemoveIcon />
                     </button>
-                    <input value={count}></input>
+                    <input value={count} onChange={(e) => setCount(e.target.value)} />
                     <button onClick={Increase}>
                         <AddIcon />
                     </button>

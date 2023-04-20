@@ -3,18 +3,17 @@ import Logo from '../../assets/image/logo.png';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Scroll } from '../Define';
-// import { animateScroll } from 'react-scroll';
 function Header() {
 	const navigate = useNavigate();
 	const [countCart, setCountCart] = useState('');
 	const [input, setInput] = useState('');
-
 	function handleScrollToTopClick() {
 		Scroll();
+		navigate('/')
 	}
 	function handleSearch() {
 		Scroll();
@@ -27,24 +26,20 @@ function Header() {
 	const handleKeyDown = (e) => {
 		if (e.keyCode === 13) {
 			handleSearch();
+
 		}
+		Scroll()
+	};
+	const updateCart = () => {
+		axios.get('http://localhost:3000/api/cart')
+			.then((response) => {
+				setCountCart(response.data);
+			})
+			.catch((error) => console.error(error));
 	};
 	useEffect(() => {
-		axios
-			.get('http://localhost:3000/api/cart')
-			.then((response) => setCountCart(response.data))
-			.catch((error) => console.error(error));
-	}, [countCart]);
-	// axios
-	// 	.get('http://localhost:3000/api/cart')
-	// 	.then((response) => setCountCart(response.data))
-	// 	.catch((error) => console.error(error));
-
-
-	// axios
-	// 	.get('http://localhost:3000/api/cart')
-	// 	.then((response) => setCountCart(response.data))
-	// 	.catch((error) => console.error(error));
+		updateCart();
+	}, []);
 	return (
 		<>
 			<div className="header">
@@ -59,23 +54,21 @@ function Header() {
 					</div>
 					<ul className="center">
 						<div className="sections">
-							<NavLink
-								exact={true}
+							<li
+								// exact={true}
 								to="/"
-								activeClassName="active-home"
-								onClick={handleScrollToTopClick}
-							>
+								onClick={handleScrollToTopClick}>
 								Trang chủ
-							</NavLink>
-							<NavLink
-								activeClassName="active-categories"
-								className="categories"
-							>
+							</li>
+							<li
+								className="categories">
 								<span>Thể loại</span>
 								<span>
 									<KeyboardArrowDownIcon />
 								</span>
-								<ul className="section" onClick={Scroll}>
+								<ul
+									className="section"
+									onClick={Scroll}>
 									<Link to="/sandal">
 										<li>Dép</li>
 									</Link>
@@ -89,11 +82,12 @@ function Header() {
 										<li>Vớ</li>
 									</Link>
 								</ul>
-							</NavLink>
-							<NavLink to="/contact" activeClassName="active-contact">
+							</li>
+							<li
+								to="/contact"
+							>
 								Liên hệ
-							</NavLink>
-
+							</li>
 						</div>
 						<div className="search">
 							<div className="group">
@@ -118,7 +112,9 @@ function Header() {
 						</div>
 					</ul>
 					<ul className="right">
-						<Link to="/cart" onClick={Scroll}>
+						<Link
+							to="/cart"
+							onClick={Scroll}>
 							<li className="cart">
 								<AddShoppingCartIcon />
 								{countCart && countCart.length !== 0 ? (

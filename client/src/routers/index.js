@@ -7,6 +7,8 @@ import HosePage from '../pages/HosePage';
 import CartPage from '../pages/CartPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import SearchResultsPage from '../pages/SearchResultsPage';
+import LoginPage from '../pages/LoginPage';
+import RegisterPage from '../pages/RegisterPage';
 export const publicRouters = [
     {
         path: '/',
@@ -45,5 +47,18 @@ export const publicRouters = [
         component: <NotFoundPage />
     }
 ];
-export const privateRouters = [];
+export const privateRouters = [
+    {
+        path: '',
+        component: <LoginPage />
+    },
+    {
+        path: '/register',
+        component: <RegisterPage />
+    },
+    {
+        path: '*',
+        component: <NotFoundPage />
+    }
+];
 // export { publicRouters, privateRouters }

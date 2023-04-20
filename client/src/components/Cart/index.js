@@ -14,38 +14,34 @@ import axios from 'axios';
 export default function Cart() {
     const [counts, setCounts] = useState(0);
     const [cart, setCart] = useState('')
+    const [isCartLoaded, setIsCartLoaded] = useState(false);
     //đếm số lượng size
     const Increase = (id) => {
-        setCart(prevCart => prevCart.map(item => {
-            if (item.id === id) {
-                return { ...item, quantity: item.quantity + 1 };
-            }
-            return item;
-        }));
     };
 
     const Reduce = (id) => {
-        setCart(prevCart => prevCart.map(item => {
-            if (item.id === id && item.quantity > 1) {
-                return { ...item, quantity: item.quantity - 1 };
-            }
-            return item;
-        }));
+
     };
     const navigate = useNavigate();
     const handleClose = () => {
         navigate('/');
         Scroll()
     };
-
     const updateCart = () => {
         axios.get("http://localhost:3000/api/cart")
             .then((response) => {
                 setCart(response.data)
+                setIsCartLoaded(true); // đánh dấu đã lấy dữ liệu từ API
             }).catch((error) => {
                 console.error(error)
             })
     }
+    useEffect(() => {
+        if (!isCartLoaded) { // kiểm tra xem đã lấy dữ liệu từ API chưa
+            updateCart()
+            SumCart()
+        }
+    }, [cart, isCartLoaded])
     //tổng đơn giá trị đơn hàng
     const SumCart = () => {
         let totalPrice = 0;
@@ -54,10 +50,8 @@ export default function Cart() {
         }
         return priceConvert(totalPrice);
     };
-    useEffect(() => {
-        updateCart()
-        SumCart()
-    }, [cart])
+
+
     const handleClickDelete = (id) => {
         toast.success('Xóa thành công!', {
             position: toast.POSITION.TOP_RIGHT,
@@ -70,10 +64,25 @@ export default function Cart() {
             .catch((error) => {
                 console.error(error)
             })
-        console.log(cart.length - 1)
     }
-
-
+    const handleCart = (type, id) => {
+        // navigate(`/${type}/${id}`)
+        console.log(`handleCart`, type, id)
+    }
+    // function handleCart() {
+    //     const state = {
+    //         price: price,
+    //         description: description,
+    //         tag: tag,
+    //         name: name,
+    //         trademark: trademark,
+    //         image: image,
+    //         sale: sale,
+    //         type: type
+    //     }
+    //     navigate(`/${type}/${id}`, { state })
+    //     Scroll()
+    // }
     return (
         <>
             <div className="cart">
@@ -83,19 +92,17 @@ export default function Cart() {
                 </div>
                 <div className="content">
                     {cart && cart.map(item => {
-
                         return (
                             <div className="content-wrapper" key={item.id}>
-                                <div className="left">
-                                    <div className="image">
+                                <div className="left" >
+                                    <div className="image" onClick={() => handleCart(item.type, item.id)}>
                                         <img src={item.firstImg.url} />
                                     </div>
                                     <div className="detail">
-                                        <p className="name">{item.name}</p>
+                                        <p className="name" >{item.name}</p>
                                         <p className="price">
                                             <span>{priceConvert(item.price)}</span>
                                             {item.cost ? <s>({item.cost})</s> : ""}
-
                                         </p>
                                         <p className="size">{item.size}</p>
                                         <div className="quantity">
@@ -104,7 +111,7 @@ export default function Cart() {
                                                 disabled={item.quantity === 1 ? true : false}>
                                                 <RemoveIcon />
                                             </button>
-                                            <input value={item.quantity}></input>
+                                            <input defaultValue={item.quantity} readOnly />
                                             <button onClick={() => Increase(item.id)}>
                                                 <AddIcon />
                                             </button>

@@ -1,5 +1,6 @@
 {
 	"devDependencies": {
+		"chokidar": "^3.5.3",
 		"json-server": "^0.17.3",
 		"nodemon": "^2.0.22"
 	},

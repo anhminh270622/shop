@@ -14,18 +14,18 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
+        {/* <Header /> */}
         <Routes>
 
           {
-            publicRouters && publicRouters.map((route, index) => {
+            privateRouters && privateRouters.map((route, index) => {
               return (
                 <Route key={index} path={route.path} element={route.component}> </Route>
               )
             })
           }
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </div >
   )
