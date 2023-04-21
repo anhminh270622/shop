@@ -26,8 +26,9 @@ function Header() {
 	const handleKeyDown = (e) => {
 		if (e.keyCode === 13) {
 			handleSearch();
+			Scroll();
 		}
-		Scroll();
+		
 	};
 	const updateCart = () => {
 		axios
@@ -50,6 +51,8 @@ function Header() {
 		navigate('/admin');
 		localStorage.setItem('admin','true')
 		Scroll();
+		window.location.reload();
+
 	}
 	const LogOut = () => {
 		localStorage.setItem('login', 'false');

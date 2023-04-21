@@ -9,8 +9,12 @@ import NotFoundPage from '../pages/NotFoundPage';
 import SearchResultsPage from '../pages/SearchResultsPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
+import WarehouseAdminPage from '../pages/WarehouseAdminPage';
 import HomeAdminPage from '../pages/HomeAdminPage';
-import WarehouseAdmin from '../pages/WarehouseAdmin';
+import UserAdminPage from '../pages/UserAdminPage';
+import StatusAdminPage from '../pages/StatusAdminPage';
+import OrderAdminPage from '../pages/OrderAdminPage';
+
 export const privateRouters = [
     {
         path: '/',
@@ -45,10 +49,6 @@ export const privateRouters = [
         component: <SearchResultsPage />
     },
     {
-        path: '/admin',
-        component: <HomeAdminPage />
-    },
-    {
         path: '*',
         component: <NotFoundPage />
     }
@@ -56,12 +56,20 @@ export const privateRouters = [
 export const privateAdmin = [
         {
             path: '/admin',
-            component: <HomeAdminPage />
+            component: <StatusAdminPage/>
+        },
+        {
+            path: '/admin/user',
+            component: <UserAdminPage/>
+        },
+        {
+            path: '/admin/order',
+            component: <OrderAdminPage/>
         },
         {
             path: '/admin/warehouse',
-            component: <WarehouseAdmin/>
-        },
+            component: <WarehouseAdminPage/>
+        }
 
 ]
 export const publicRouters = [

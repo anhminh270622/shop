@@ -1,17 +1,18 @@
 .sidebar {
 	background: #0C2162ed;
 	color: #fff;
-	height: calc(100vh - 55px);
+	height: 100%;
 	.sidebar-wrapper {
 		h1 {
 			text-align: center;
 			margin: 0;
+			padding: 20px 0;
 		}
 		ul {
 			margin-top: 50px;
 			list-style: none;
 			width: 80%;
-			li {
+			a {
 				display: flex;
 				align-items: center;
 				background-color: #fff;
@@ -21,6 +22,7 @@
 				color: #000;
 				border-radius: 20px;
 				padding: 5px 10px;
+				text-decoration: none;
 				svg {
 					width: 20%;
                     height: 20%;
@@ -31,7 +33,12 @@
 					font-size: 20px;
 				}
 			}
-			
+			.close{
+				cursor: pointer;
+				&:hover{
+					color:red;
+				}
+			}
 		}
 	}
 }

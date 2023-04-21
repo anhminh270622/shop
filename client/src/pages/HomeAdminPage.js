@@ -1,8 +1,9 @@
-import Admin from "../components/Admin";
+import Warehouse from "../components/Admin/Warehouse";
+
 
 function HomeAdminPage() {
     return (
-        <Admin />
+        <Warehouse/> 
     );
 }
 

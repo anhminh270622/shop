@@ -1,20 +1,17 @@
 import React from 'react';
 import './Admin.scss';
 import SideBar from './SideBar';
-import ContentAdmin from './ContentAdmin';
 import Header from './Header';
-export default function Admin() {
+export default function Admin({ children }) {
     return (
         <div className="admin">
-            <div className="top">
-                <Header />
-            </div>
+
             <div className="container">
                 <div className="sidebar">
                     <SideBar />
                 </div>
                 <div className="content-admin">
-                    <ContentAdmin />
+                    {children}
                 </div>
 
             </div>
