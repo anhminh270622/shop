@@ -7,15 +7,15 @@ import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [login, setLogin] = useState('');
-
+    const navigate = useNavigate();
     useEffect(() => {
         fetchData();
     }, []);
-
     const fetchData = () => {
         axios.get('http://localhost:3000/api/user')
             .then(response => {
@@ -30,12 +30,18 @@ export default function Login() {
         if (email && password && login && login.length > 0) {
             const foundUser = login.find(user => user.email === email && user.password === password);
             if (foundUser) {
-                console.log('thành công');
-                // Navigate to dashboard or do whatever you want here
+                localStorage.setItem('login', 'true')
+                localStorage.setItem('avatar', 'https://product.hstatic.net/200000174405/product/f35538-1_9d20486f06094ef5a63a069de2968353_master.jpg')
+                navigate('/')
+                window.location.reload();
+
             } else {
-                console.log('thất bại');
+                toast.error('Tài khoản hoặc mật khẩu không đúng!', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
                 // Show error message to user here
             }
+
         }
     };
     // toast.success('Đăng nhập thành công!', {
@@ -49,6 +55,7 @@ export default function Login() {
     // );
     return (
         <div className="login">
+            <ToastContainer />
             <div className="login-wrapper">
                 <div className="main">
                     <img src="https://inkythuatso.com/uploads/thumbnails/800/2022/03/avatar-mac-dinh-nu-co-mau-30-10-31-43.jpg"></img>

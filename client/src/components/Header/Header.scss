@@ -185,8 +185,42 @@
 				font-weight: bold;
 			}
 		}
-		.user {
+		li.user {
 			padding-left: 20px;
+			position: relative;
+			p {
+				font-weight: 600;
+			}
+			img {
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				position: relative;
+			}
+			ul.profile {
+				background: #fff;
+				height: auto;
+				position: absolute;
+				top: 30px;
+				width: 200px;
+				padding-left: 0;
+				display: none;
+				padding-top: 14px;
+				li {
+					padding: 5px 20px;
+					color: #000;
+					font-weight: 600;
+					&:hover {
+						background: #ccc;
+						color: #fff;
+					}
+				}
+			}
+			&:hover {
+				ul {
+					display: block;
+				}
+			}
 		}
 	}
 }

@@ -13,7 +13,7 @@ function Header() {
 	const [input, setInput] = useState('');
 	function handleScrollToTopClick() {
 		Scroll();
-		navigate('/')
+		navigate('/');
 	}
 	function handleSearch() {
 		Scroll();
@@ -26,20 +26,38 @@ function Header() {
 	const handleKeyDown = (e) => {
 		if (e.keyCode === 13) {
 			handleSearch();
-
 		}
-		Scroll()
+		Scroll();
 	};
 	const updateCart = () => {
-		axios.get('http://localhost:3000/api/cart')
+		axios
+			.get('http://localhost:3000/api/cart')
 			.then((response) => {
 				setCountCart(response.data);
 			})
 			.catch((error) => console.error(error));
 	};
+
 	useEffect(() => {
 		updateCart();
 	}, []);
+	const Login = () => {
+		navigate('/login');
+		Scroll();
+	}
+
+	const Admin = () => {
+		navigate('/admin');
+		localStorage.setItem('admin','true')
+		Scroll();
+	}
+	const LogOut = () => {
+		localStorage.setItem('login', 'false');
+		navigate('/');
+		localStorage.setItem('avatar', null);
+		window.location.reload();
+		Scroll();
+	};
 	return (
 		<>
 			<div className="header">
@@ -60,8 +78,7 @@ function Header() {
 								onClick={handleScrollToTopClick}>
 								Trang chủ
 							</li>
-							<li
-								className="categories">
+							<li className="categories">
 								<span>Thể loại</span>
 								<span>
 									<KeyboardArrowDownIcon />
@@ -83,11 +100,7 @@ function Header() {
 									</Link>
 								</ul>
 							</li>
-							<li
-								to="/contact"
-							>
-								Liên hệ
-							</li>
+							<li to="/contact">Liên hệ</li>
 						</div>
 						<div className="search">
 							<div className="group">
@@ -112,23 +125,39 @@ function Header() {
 						</div>
 					</ul>
 					<ul className="right">
-						<Link
-							to="/cart"
-							onClick={Scroll}>
-							<li className="cart">
-								<AddShoppingCartIcon />
-								{countCart && countCart.length !== 0 ? (
-									<span className="count">{countCart.length}</span>
-								) : (
-									''
-								)}
-							</li>
-						</Link>
-						<Link to="/">
-							<li className="user">
-								<AccountCircleIcon />
-							</li>
-						</Link>
+						{localStorage.getItem('avatar') !== 'null' ? (
+							<Link
+								to="/cart"
+								onClick={Scroll}>
+								<li className="cart">
+									<AddShoppingCartIcon />
+									{countCart && countCart.length !== 0 ? (
+										<span className="count">{countCart.length}</span>
+									) : (
+										''
+									)}
+								</li>
+							</Link>
+						) : (
+							<AddShoppingCartIcon />
+						)}
+
+						<li
+							className="user"
+						>
+							{localStorage.getItem('avatar') !== 'null' ? (
+								<>
+									<img src={localStorage.getItem('avatar')}></img>
+									<ul className="profile">
+										<li onClick={LogOut}>Đăng xuất</li>
+										<li >Chỉnh sửa thông tin</li>
+										<li onClick={Admin}>Admin quản lý</li>
+									</ul>
+								</>
+							) : (
+								<p onClick={Login}>Đăng nhập</p>
+							)}
+						</li>
 					</ul>
 				</div>
 			</div>

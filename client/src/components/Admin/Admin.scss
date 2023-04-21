@@ -1,0 +1,19 @@
+.admin {
+
+	.top {}
+
+	.container {
+		display: flex;
+		height: 100vh;
+
+		.sidebar {
+			flex: 1;
+		}
+		.content-admin {
+			flex: 3;
+			background: white;
+		}
+	}
+
+
+}

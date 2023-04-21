@@ -20,6 +20,7 @@ function ProductDetails() {
     const [active, setActive] = useState('');
     const location = useLocation();
     const { id } = useParams();
+    const navigate = useNavigate();
     const { price, description, tag, name, trademark, image, sale, type } =
         location.state || {};
     const numbers = [];
@@ -36,27 +37,35 @@ function ProductDetails() {
         setImg(index);
     }
     const handleClick = () => {
-        if (size) {
-            toast.success('Đã thêm vào giỏ hàng!', {
+        if (localStorage.getItem('login') === 'true') {
+            if (size) {
+                toast.success('Đã thêm vào giỏ hàng!', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+                setActive('');
+                setCount(1);
+                axios.post('http://localhost:3000/api/cart', {
+                    id: id,
+                    name: name,
+                    size: size,
+                    quantity: count,
+                    firstImg: firstImg,
+                    price: price,
+                    type: type,
+                    cost: priceConvertCost(price, sale),
+                });
+            } else {
+                toast.error('Vui lòng chọn size!', {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            }
+        } else {
+            toast.warning('Vui lòng đăng nhập!', {
                 position: toast.POSITION.TOP_RIGHT
             });
-            setActive('');
-            setCount(1);
-            axios.post('http://localhost:3000/api/cart', {
-                id: id,
-                name: name,
-                size: size,
-                quantity: count,
-                firstImg: firstImg,
-                price: price,
-                type: type,
-                cost: priceConvertCost(price, sale),
-            });
-        } else {
-            toast.error('Vui lòng chọn size!', {
-                position: toast.POSITION.TOP_RIGHT,
-            });
+            // navigate('/login')
         }
+
     };
 
     // const handleClick = () => {

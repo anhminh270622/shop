@@ -68,7 +68,7 @@ export default function Register() {
                                 value={passwordEnter}></input>
                         </div>
                         <p>
-                            <Link to="/">Đăng Nhập</Link>
+                            <Link to="/login">Đăng Nhập</Link>
                         </p>
                         <button>Đăng ký</button>
                     </form>
