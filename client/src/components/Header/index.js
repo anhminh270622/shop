@@ -28,7 +28,7 @@ function Header() {
 			handleSearch();
 			Scroll();
 		}
-		
+
 	};
 	const updateCart = () => {
 		axios
@@ -48,8 +48,9 @@ function Header() {
 	}
 
 	const Admin = () => {
-		navigate('/admin');
-		localStorage.setItem('admin','true')
+
+		navigate('/');
+		localStorage.setItem('admin', 'true')
 		Scroll();
 		window.location.reload();
 
@@ -58,6 +59,7 @@ function Header() {
 		localStorage.setItem('login', 'false');
 		navigate('/');
 		localStorage.setItem('avatar', null);
+		localStorage.setItem('role', null);
 		window.location.reload();
 		Scroll();
 	};
@@ -154,7 +156,9 @@ function Header() {
 									<ul className="profile">
 										<li onClick={LogOut}>Đăng xuất</li>
 										<li >Chỉnh sửa thông tin</li>
-										<li onClick={Admin}>Admin quản lý</li>
+										{localStorage.getItem('role') === "admin" ? (
+											<li onClick={Admin}>Admin quản lý</li>
+										) : ""}
 									</ul>
 								</>
 							) : (

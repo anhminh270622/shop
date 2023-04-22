@@ -54,22 +54,22 @@ export const privateRouters = [
     }
 ];
 export const privateAdmin = [
-        {
-            path: '/admin',
-            component: <StatusAdminPage/>
-        },
-        {
-            path: '/admin/user',
-            component: <UserAdminPage/>
-        },
-        {
-            path: '/admin/order',
-            component: <OrderAdminPage/>
-        },
-        {
-            path: '/admin/warehouse',
-            component: <WarehouseAdminPage/>
-        }
+    {
+        path: '/',
+        component: <StatusAdminPage />
+    },
+    {
+        path: '/admin/user',
+        component: <UserAdminPage />
+    },
+    {
+        path: '/admin/order',
+        component: <OrderAdminPage />
+    },
+    {
+        path: '/admin/warehouse',
+        component: <WarehouseAdminPage />
+    }
 
 ]
 export const publicRouters = [

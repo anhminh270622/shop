@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import "./Login.scss"
+import React, { useEffect } from 'react';
+import './Login.scss';
 import MailIcon from '@mui/icons-material/Mail';
 import LockIcon from '@mui/icons-material/Lock';
 import { Link } from 'react-router-dom';
@@ -17,42 +17,30 @@ export default function Login() {
         fetchData();
     }, []);
     const fetchData = () => {
-        axios.get('http://localhost:3000/api/user')
-            .then(response => {
-                setLogin(response.data)
-            })
-    }
+        axios.get('http://localhost:3000/api/user').then((response) => {
+            setLogin(response.data);
+        });
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
-        //   navigate("/")
-        setEmail('')
-        setPassword('')
+        setEmail('');
+        setPassword('');
         if (email && password && login && login.length > 0) {
             const foundUser = login.find(user => user.email === email && user.password === password);
             if (foundUser) {
-                localStorage.setItem('login', 'true')
-                localStorage.setItem('avatar', 'https://product.hstatic.net/200000174405/product/f35538-1_9d20486f06094ef5a63a069de2968353_master.jpg')
-                navigate('/')
+                localStorage.setItem('login', 'true');
+                localStorage.setItem('avatar', 'https://product.hstatic.net/200000174405/product/f35538-1_9d20486f06094ef5a63a069de2968353_master.jpg');
+                if (foundUser.role === 'admin') {
+                    localStorage.setItem('role', 'admin');
+                }
+                navigate('/');
                 window.location.reload();
-
             } else {
-                toast.error('Tài khoản hoặc mật khẩu không đúng!', {
-                    position: toast.POSITION.TOP_RIGHT
-                });
-                // Show error message to user here
+                toast.error('Tài khoản hoặc mật khẩu không đúng!', { position: toast.POSITION.TOP_RIGHT });
             }
-
         }
+
     };
-    // toast.success('Đăng nhập thành công!', {
-    //     position: toast.POSITION.TOP_RIGHT
-    // })
-    // console.log(
-    //     'email:',
-    //     email,
-    //     'password:',
-    //     password,
-    // );
     return (
         <div className="login">
             <ToastContainer />
@@ -85,8 +73,6 @@ export default function Login() {
                     </form>
                 </div>
             </div>
-
-
         </div>
-    )
+    );
 }

@@ -1405,23 +1405,6 @@
       "type": "hose",
       "quantity": 100,
       "trademark": "ADIDAS"
-    },
-    {
-      "id": "NKA308DX5057010S",
-      "name": "tedd",
-      "description": "Được ",
-      "parameter": null,
-      "price": 489000,
-      "price_sale": 0,
-      "tag": "new",
-      "images": [
-        {
-          "url": "https://product.hstatic.net/200000174405/product/dx5074-010-1_2e005f1f7a6c4648937b3e9158159845_1024x1024.jpg"
-        }
-      ],
-      "type": "hose",
-      "quantity": 100,
-      "trademark": "ADIDAS"
     }
   ],
   "advertisement": [
@@ -1452,21 +1435,44 @@
       "cost": ""
     }
   ],
-  "user": [
+  "order": [
     {
-      "email": "anhsf@gmail.com",
-      "password": "minh",
-      "id": 2
+      "address": "minh",
+      "phone": "0203",
+      "note": "dởm",
+      "id": 1
     },
     {
+      "address": "minh",
+      "phone": "0203",
+      "note": "dởm",
+      "id": 2
+    }
+  ],
+  "user": [
+    {
       "email": "anhminh@gmail.com",
-      "password": "anh",
-      "id": 3
+      "password": "anhminh",
+      "id": 3,
+      "role": "admin"
     },
     {
       "email": "anh@gmail.com",
       "password": "anh",
+      "role": "client",
       "id": 7
+    },
+    {
+      "email": "minhtrang@gmail.com",
+      "password": "minhtrang",
+      "role": "client",
+      "id": 8
+    },
+    {
+      "email": "trang@gmail.com",
+      "password": "trang",
+      "role": "client",
+      "id": 9
     }
   ]
 }

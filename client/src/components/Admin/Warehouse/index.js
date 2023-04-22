@@ -8,6 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import AddProduct from './AddProduct';
 export default function Warehouse() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -37,34 +38,35 @@ export default function Warehouse() {
                         }}
                         startIcon={<DeleteIcon />}
                         onClick={() => handleDelete(params.row.id)}>
-                        Delete
+                        Xóa
                     </Button>
                     <Button
                         variant="contained"
                         sx={{}}
                         onClick={() => handleEdit(params.row.id)}
                         startIcon={<EditIcon />}>
-                        Edit
+                        Sửa
                     </Button>
                 </>
             ),
         },
     ];
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:3000/api/user/${id}`)
-            .then(
+        axios.delete(`http://localhost:3000/api/products/${id}`)
+            .then((response) =>
                 setWarehouse(warehouse.filter(item => item.id !== id)),
             )
     };
-
     const handleEdit = (id) => {
     };
-    useEffect(() => {
+    const fetchData = () => {
         axios.get('http://localhost:3000/api/products')
             .then(response => {
                 setWarehouse(response.data);
-                console.log(response.data)
             }).catch(error => console.error(error))
+    }
+    useEffect(() => {
+        fetchData();
     }, [])
     const style = {
         position: 'absolute',
@@ -90,12 +92,7 @@ export default function Warehouse() {
                         aria-describedby="modal-modal-description"
                     >
                         <Box sx={style}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                                Text in a modal
-                            </Typography>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                            </Typography>
+                            <AddProduct />
                         </Box>
                     </Modal>
                 </div>

@@ -15,7 +15,6 @@ export default function Register() {
     const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
-        // navigate("/")
         setEmail('');
         setPassword('');
         setPasswordEnter('');
@@ -25,15 +24,8 @@ export default function Register() {
         axios.post('http://localhost:3000/api/user', {
             email: email,
             password: password,
+            role: "client"
         });
-        console.log(
-            'email:',
-            email,
-            'password:',
-            password,
-            'passwordEnter:',
-            passwordEnter
-        );
     };
     return (
         <div className="register">

@@ -8,16 +8,37 @@ import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function User() {
     const [user, setUser] = useState('');
+    // const [addUser, setAddUser] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [id, setId] = useState('');
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [openEdit, setOpenEdit] = useState(false);
+
+    const handleOpen = () => {
+        setOpen(true)
+    }
+    // const handleOpenEdit = () => {
+    //     setOpenEdit(true)
+    // }
+    const handleClose = () => {
+        setEmail('')
+        setPassword('')
+        setId('')
+        setOpen(false);
+        setOpenEdit(false)
+    }
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'email', headerName: 'Email', width: 200 },
         { field: 'password', headerName: 'Password', width: 130 },
+        { field: 'role', headerName: 'Role', width: 70 },
         {
             field: 'actions',
             headerName: 'Actions',
@@ -34,15 +55,16 @@ export default function User() {
                             '&:hover': { background: 'red' },
                         }}
                         startIcon={<DeleteIcon />}
+                        disabled={params.row.role === 'admin' ? true : false}
                         onClick={() => handleDelete(params.row.id)}>
-                        Delete
+                        Xóa
                     </Button>
                     <Button
                         variant="contained"
                         sx={{}}
                         onClick={() => handleEdit(params.row.id)}
                         startIcon={<EditIcon />}>
-                        Edit
+                        Sửa
                     </Button>
                 </>
             ),
@@ -55,20 +77,48 @@ export default function User() {
                 setUser(user.filter((user) => user.id !== id));
             })
             .catch((error) => console.error(error));
+        toast.success('Xóa thành công!', {
+            position: toast.POSITION.TOP_RIGHT
+        });
     };
 
     const handleEdit = (id) => {
-        // Điều hướng đến trang chỉnh sửa user với ID tương ứng
-        console.log(`Editing user with ID ${id}`);
+        axios.get(`http://localhost:3000/api/user/${id}`)
+            .then((response) => {
+                // handleOpen()
+                setEmail(response.data.email)
+                setPassword(response.data.password)
+                setId(id)
+            })
+        setOpenEdit(true)
+
     };
-    useEffect(() => {
+    const handleSubmitEdit = () => {
+        axios.put(`http://localhost:3000/api/user/${id}`, {
+            email: email,
+            password: password,
+            role: "client"
+        }).then((response) => {
+            fetchData()
+        })
+        handleClose()
+
+        // handleClose()
+        // setEmail('')
+        // setPassword('')
+        // setId('')
+
+    }
+    const fetchData = () => {
         axios
             .get('http://localhost:3000/api/user')
             .then((response) => {
                 setUser(response.data);
-                console.log(response.data);
             })
             .catch((error) => console.error(error));
+    }
+    useEffect(() => {
+        fetchData()
     }, []);
     const style = {
         position: 'absolute',
@@ -80,26 +130,136 @@ export default function User() {
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
+        display: 'flex',
+        gap: '10px',
     };
+    const handleSubmit = () => {
+        if (email && password) {
+            axios.post('http://localhost:3000/api/user/', {
+                email: email,
+                password: password
+            }).then(response => {
+                // setUser([...user, data])
+                fetchData()
+            })
+            handleClose()
+        } else {
+            toast.warning('Vui lòng nhập!', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }
+        setEmail('')
+        setPassword('')
+    }
     return (
         <Box className="user">
+            <ToastContainer />
             <h2>Tài khoản người dùng</h2>
             <div>
-                <Button startIcon={<AddIcon />} variant='contained' onClick={handleOpen}>Thêm tài khoản</Button>
-                {/* <Button onClick={handleOpen}>Open modal</Button> */}
+                <Button
+                    startIcon={<AddIcon />}
+                    variant="contained"
+                    onClick={handleOpen}>
+                    Thêm tài khoản
+                </Button>
                 <Modal
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
+                    aria-describedby="modal-modal-description">
                     <Box sx={style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Text in a modal
+                        <Typography
+                            id="modal-modal-title"
+                            variant="h6"
+                            component="h2">
+                            Thêm tài khoản
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 101 101"
+                                id="user">
+                                <path d="M50.4 54.5c10.1 0 18.2-8.2 18.2-18.2S60.5 18 50.4 18s-18.2 8.2-18.2 18.2 8.1 18.3 18.2 18.3zm0-31.7c7.4 0 13.4 6 13.4 13.4s-6 13.4-13.4 13.4S37 43.7 37 36.3s6-13.5 13.4-13.5zM18.8 83h63.4c1.3 0 2.4-1.1 2.4-2.4 0-12.6-10.3-22.9-22.9-22.9H39.3c-12.6 0-22.9 10.3-22.9 22.9 0 1.3 1.1 2.4 2.4 2.4zm20.5-20.5h22.4c9.2 0 16.7 6.8 17.9 15.7H21.4c1.2-8.9 8.7-15.7 17.9-15.7z"></path>
+                            </svg>
                         </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        <Box
+                            component="form"
+                            id="modal-modal-description"
+                            sx={{ mt: 2 }}
+                        >
+                            <Box>
+                                <TextField
+                                    label="Email"
+                                    variant="standard"
+                                    value={email}
+                                    type="email"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </Box>
+                            <Box>
+                                <TextField
+                                    label="Mật khẩu"
+                                    variant="standard"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </Box>
+                            <Button
+                                variant="contained"
+                                sx={{ mt: 5, width: '100%' }}
+                                onClick={handleSubmit}>
+                                {' '}
+                                Thêm
+                            </Button>
+                        </Box>
+                    </Box>
+                </Modal>
+                <Modal
+                    open={openEdit}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description">
+                    <Box sx={style}>
+                        <Typography
+                            id="modal-modal-title"
+                            variant="h6"
+                            component="h2">
+                            Chỉnh sửa
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 101 101"
+                                id="user">
+                                <path d="M50.4 54.5c10.1 0 18.2-8.2 18.2-18.2S60.5 18 50.4 18s-18.2 8.2-18.2 18.2 8.1 18.3 18.2 18.3zm0-31.7c7.4 0 13.4 6 13.4 13.4s-6 13.4-13.4 13.4S37 43.7 37 36.3s6-13.5 13.4-13.5zM18.8 83h63.4c1.3 0 2.4-1.1 2.4-2.4 0-12.6-10.3-22.9-22.9-22.9H39.3c-12.6 0-22.9 10.3-22.9 22.9 0 1.3 1.1 2.4 2.4 2.4zm20.5-20.5h22.4c9.2 0 16.7 6.8 17.9 15.7H21.4c1.2-8.9 8.7-15.7 17.9-15.7z"></path>
+                            </svg>
                         </Typography>
+                        <Box
+                            component="form"
+                            id="modal-modal-description"
+                            sx={{ mt: 2 }}
+                        >
+                            <Box>
+                                <TextField
+                                    label="Email"
+                                    variant="standard"
+                                    value={email}
+                                    type="email"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </Box>
+                            <Box>
+                                <TextField
+                                    label="Mật khẩu"
+                                    variant="standard"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </Box>
+                            <Button
+                                variant="contained"
+                                sx={{ mt: 5, width: '100%' }}
+                                onClick={() => handleSubmitEdit()}>
+                                {' '}
+                                Sửa
+                            </Button>
+                        </Box>
                     </Box>
                 </Modal>
             </div>
