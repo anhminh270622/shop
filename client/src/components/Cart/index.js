@@ -24,6 +24,7 @@ export default function Cart() {
     const [address, setAddress] = useState('');
     const [sdt, setSdt] = useState('');
     const [note, setNote] = useState('');
+    const [nameOrder, setNameOrder] = useState('');
     //đếm số lượng size
     const Increase = (id) => { };
 
@@ -78,15 +79,33 @@ export default function Cart() {
         console.log(`handleCart`, type, id);
     };
     const handleBuy = () => {
-        axios.post('http://localhost:3000/api/order', {
-            address: address,
-            phone: sdt,
-            note: note,
-        }).then(response => {
+        axios.get(`http://localhost:3000/api/cart`)
+            .then(cartResponse => {
+                const cartItems = cartResponse.data;
+                const products = cartItems.map(item => `${item.name} - Size ${item.size}`);
+                axios.post('http://localhost:3000/api/order', {
+                    nameOrder: nameOrder,
+                    address: address,
+                    phone: sdt,
+                    note: note,
+                    product: products.join(', '),
+                    total: SumCart()
+                }).then(orderResponse => {
+                    // Xử lí khi đặt hàng thành công
+                    setNameOrder('')
+                    setNote('')
+                    setSdt('')
+                    setAddress('')
+                    toast.success('Mua hàng thành công!', {
+                        position: toast.POSITION.TOP_RIGHT,
+                        top: '3rem',
+                    });
+                    handleCloseModal()
 
-        })
-        console.log(`handleBuy`, address, sdt, note)
+                });
+            });
     };
+
     const style = {
         position: 'absolute',
         top: '50%',
@@ -112,9 +131,13 @@ export default function Cart() {
                         <Typography
                             variant="h6"
                             component="h2">
-                            Thông tin giao đơn hàng
+                            Thông tin giao hàng
                         </Typography>
                         <Box className="address">
+                            <div>
+                                <label>Tên khách hàng</label>
+                                <input type="text" value={nameOrder} onChange={(e) => setNameOrder(e.target.value)}></input>
+                            </div>
                             <div>
                                 <label>Địa chỉ</label>
                                 <input value={address} onChange={(e) => setAddress(e.target.value)}></input>

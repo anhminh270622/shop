@@ -29,6 +29,7 @@ export default function Login() {
             const foundUser = login.find(user => user.email === email && user.password === password);
             if (foundUser) {
                 localStorage.setItem('login', 'true');
+                localStorage.setItem('id', foundUser.id);
                 localStorage.setItem('avatar', 'https://product.hstatic.net/200000174405/product/f35538-1_9d20486f06094ef5a63a069de2968353_master.jpg');
                 if (foundUser.role === 'admin') {
                     localStorage.setItem('role', 'admin');

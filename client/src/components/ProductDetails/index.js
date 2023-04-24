@@ -13,6 +13,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+// import { addProductToCart } from './cartSlice';
+import { addProductToCart } from '../../redux/cartSlice';
 function ProductDetails() {
     const [img, setImg] = useState(0);
     const [count, setCount] = useState(1);
@@ -27,7 +30,6 @@ function ProductDetails() {
     for (let i = 35; i <= 44; i++) {
         numbers.push(i);
     }
-    // console.log(size)
     const handleSize = (item) => {
         setSize(item);
         setActive(item);
@@ -36,70 +38,125 @@ function ProductDetails() {
     function handleOnClick(index) {
         setImg(index);
     }
-    const handleClick = () => {
-        if (localStorage.getItem('login') === 'true') {
-            if (size) {
-                toast.success('Đã thêm vào giỏ hàng!', {
-                    position: toast.POSITION.TOP_RIGHT
-                });
-                setActive('');
-                setCount(1);
-                axios.post('http://localhost:3000/api/cart', {
-                    id: id,
-                    name: name,
-                    size: size,
-                    quantity: count,
-                    firstImg: firstImg,
-                    price: price,
-                    type: type,
-                    cost: priceConvertCost(price, sale),
-                });
-            } else {
-                toast.error('Vui lòng chọn size!', {
-                    position: toast.POSITION.TOP_RIGHT,
-                });
-            }
-        } else {
-            toast.warning('Vui lòng đăng nhập!', {
-                position: toast.POSITION.TOP_RIGHT
-            });
-            // navigate('/login')
-        }
-
-    };
-
     // const handleClick = () => {
-    //     if (size) {
-    //         const cartItems = axios.get('http://localhost:3000/api/cart').data;
-    //         console.log('cartItems', cartItems)
-    //         const existingItem = cartItems.find(item => item.id === id);
-
-    //         if (existingItem) {
-    //             existingItem.size = size;
-    //             existingItem.quantity += count;
-    //         } else {
+    //     if (localStorage.getItem('login') === 'true') {
+    //         if (size) {
     //             toast.success('Đã thêm vào giỏ hàng!', {
-    //                 position: toast.POSITION.TOP_RIGHT,
+    //                 position: toast.POSITION.TOP_RIGHT
     //             });
-    //             axios.post('http://localhost:3000/api/cart', {
+    //             setActive('');
+    //             setCount(1);
+    //             // axios.post('http://localhost:3000/api/cart/', {
+    //             //     itemId:id
+
+    //             // })
+    //             const cartItem = {
     //                 id: id,
     //                 name: name,
-    //                 type: type,
     //                 size: size,
     //                 quantity: count,
     //                 firstImg: firstImg,
     //                 price: price,
+    //                 type: type,
     //                 cost: priceConvertCost(price, sale),
+    //             };
+
+    //             const userId = localStorage.getItem('id');
+
+    //             axios.get(`http://localhost:3000/api/cart?userId=${userId}`)
+    //                 .then(response => {
+    //                     const existingCart = response.data;
+
+    //                     if (existingCart) {
+    //                         // Nếu giỏ hàng đã tồn tại cho người dùng này, thêm sản phẩm mới vào giỏ hàng.
+    //                         // existingCart.items.push(cartItem);
+
+    //                         // Gửi dữ liệu cập nhật lên server bằng phương thức PUT
+    //                         axios.put(`http://localhost:3000/api/cart/${existingCart.id}`, {
+    //                             items: existingCart.items,
+    //                         })
+    //                             .then(response => {
+    //                                 console.log('Giỏ hàng đã được cập nhật:', response.data);
+    //                             })
+    //                             .catch(error => console.error(error));
+    //                     } else {
+    //                         // Nếu không có giỏ hàng nào được tìm thấy cho người dùng này, tạo một giỏ hàng mới và thêm sản phẩm vào đó.
+    //                         axios.post(`http://localhost:3000/api/cart`, {
+    //                             userId: userId,
+    //                             items: [cartItem],
+    //                         })
+    //                             .then(response => {
+    //                                 console.log('Giỏ hàng mới đã được tạo:', response.data);
+    //                             })
+    //                             .catch(error => console.error(error));
+    //                     }
+    //                 })
+    //                 .catch(error => console.error(error));
+
+
+    //             // axios.post('http://localhost:3000/api/cart/items', {
+    //             //     id: id,
+    //             //     name: name,
+    //             //     size: size,
+    //             //     quantity: count,
+    //             //     firstImg: firstImg,
+    //             //     price: price,
+    //             //     type: type,
+    //             //     cost: priceConvertCost(price, sale),
+    //             // });
+    //         } else {
+    //             toast.error('Vui lòng chọn size!', {
+    //                 position: toast.POSITION.TOP_RIGHT,
     //             });
     //         }
-    //         setActive('');
-    //         setCount(1);
     //     } else {
-    //         toast.error('Vui lòng chọn size!', {
-    //             position: toast.POSITION.TOP_RIGHT,
+    //         toast.warning('Vui lòng đăng nhập!', {
+    //             position: toast.POSITION.TOP_RIGHT
     //         });
+    //         // navigate('/login')
     //     }
+
     // };
+    // console.log(userId);
+    const dispatch = useDispatch();
+    const handleClick = () => {
+        if (size) {
+            // const cartItems = axios.get('http://localhost:3000/api/cart').data;
+            // console.log('cartItems', cartItems)
+            // const existingItem = cartItems.find(item => item.id === id);
+
+            // if (existingItem) {
+            //     existingItem.size = size;
+            //     existingItem.quantity += count;
+            // } else {
+            toast.success('Đã thêm vào giỏ hàng!', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+            const product = {
+                id: id,
+                name: name,
+                type: type,
+                size: size,
+                quantity: count,
+                firstImg: firstImg,
+                price: price,
+                cost: priceConvertCost(price, sale),
+            }
+            const userId = localStorage.getItem('id')
+            dispatch(addProductToCart({ userId: userId, product }));
+            // axios.post('http://localhost:3000/api/cart', {
+            //     newItem
+            // })
+            ;
+            // }
+            setActive('');
+            setCount(1);
+        } else {
+            toast.error('Vui lòng chọn size!', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }
+    };
     const Increase = () => {
         setCount(count + 1);
     };
