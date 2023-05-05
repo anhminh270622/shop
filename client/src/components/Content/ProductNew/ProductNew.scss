@@ -13,7 +13,38 @@
 
 	.product-item {
 		display: grid;
-		grid-template-columns: repeat(5, 1fr);
+		// grid-template-columns: repeat(5, 1fr);
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
 		gap: 20px;
 	}
+}
+/* Thiết lập kiểu cho màn hình điện thoại */
+
+@media only screen and (max-width: 600px) {
+	.product-new {
+		.product-item {
+			grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+			.product-general {
+				.item {
+					.title {
+						h3 {
+							margin: 5px 0;
+						}
+						p {
+							font-size: 12px;
+							height: 75px;
+						}
+						.price {
+							display: flex;
+							flex-direction: column;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+	/* Thiết lập kiểu cho màn hình máy tính bảng */
 }

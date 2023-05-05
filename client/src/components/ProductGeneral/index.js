@@ -5,7 +5,6 @@ import { priceConvertCost, priceSaleConvert, Scroll } from '../Define';
 export default function ProductGeneral(props) {
     const { id, price, description, tag, name, trademark, image, sale, type } = props;
     const firtImg = image && image.length > 0 ? image[0] : null;
-    // console.log(firtImg)
     // const cost = sale !== 0 ? ((price * sale / 100).toLocaleString() + "đ") : '';
     // const costToString = cost
     const navigate = useNavigate();
@@ -14,6 +13,7 @@ export default function ProductGeneral(props) {
 
     function handleClick() {
         const state = {
+            id: id,
             price: price,
             description: description,
             tag: tag,

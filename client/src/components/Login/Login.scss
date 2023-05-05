@@ -1,5 +1,5 @@
 .login {
-	height: 100vh;
+	height: 90vh;
 
 	background-image: url('https://fado.vn/blog/wp-content/uploads/2019/09/giay-sneaker-la-gi.jpg');
 	background-repeat: no-repeat;
@@ -9,7 +9,7 @@
 	align-items: center;
 	justify-content: center;
 	.login-wrapper {
-		width: 30%;
+		min-width: 30%;
 		height: 70%;
 		background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
 		border-radius: 40px;
@@ -73,6 +73,21 @@
 					}
 				}
 			}
+		}
+	}
+}
+@media only screen and (max-width: 600px) {
+	.login {
+		.login-wrapper {
+			width: 80%;
+		}
+	}
+}
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+	/* Thiết lập kiểu cho màn hình máy tính bảng */
+	.login {
+		.login-wrapper {
+			width: 60%;
 		}
 	}
 }

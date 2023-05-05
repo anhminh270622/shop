@@ -6,10 +6,19 @@
 		display: flex;
 		height: 100vh;
 		.sidebar {
-			flex: 1;
+			width: 30%;
+			.sidebar {
+				width: 100%;
+				.sidebar-wrapper {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+				}
+			}
 		}
 		.content-admin {
-			flex: 3;
+			width: 70%;
 			background: white;
 			padding-left: 20px;
 		}

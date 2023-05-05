@@ -7,10 +7,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Scroll } from '../Define';
+import { useSelector } from 'react-redux';
 function Header() {
 	const navigate = useNavigate();
 	const [countCart, setCountCart] = useState('');
 	const [input, setInput] = useState('');
+	const quantityCart = useSelector(state => state.cart.quantityCart)
 	function handleScrollToTopClick() {
 		Scroll();
 		navigate('/');
@@ -136,8 +138,8 @@ function Header() {
 								onClick={Scroll}>
 								<li className="cart">
 									<AddShoppingCartIcon />
-									{countCart && countCart.length !== 0 ? (
-										<span className="count">{countCart.length}</span>
+									{quantityCart > 0 ? (
+										<span className="count">{quantityCart}</span>
 									) : (
 										''
 									)}

@@ -14,18 +14,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-// import { addProductToCart } from './cartSlice';
-import { addProductToCart } from '../../redux/cartSlice';
+import { addItem, addToCartById } from '../../redux/cartSlice';
 function ProductDetails() {
     const [img, setImg] = useState(0);
     const [count, setCount] = useState(1);
     const [size, setSize] = useState('');
     const [active, setActive] = useState('');
     const location = useLocation();
-    const { id } = useParams();
     const navigate = useNavigate();
-    const { price, description, tag, name, trademark, image, sale, type } =
+    const { id, price, description, tag, name, trademark, image, sale, type } =
         location.state || {};
+    const data = location.state;
     const numbers = [];
     for (let i = 35; i <= 44; i++) {
         numbers.push(i);
@@ -38,132 +37,88 @@ function ProductDetails() {
     function handleOnClick(index) {
         setImg(index);
     }
-    // const handleClick = () => {
-    //     if (localStorage.getItem('login') === 'true') {
-    //         if (size) {
-    //             toast.success('Đã thêm vào giỏ hàng!', {
-    //                 position: toast.POSITION.TOP_RIGHT
-    //             });
-    //             setActive('');
-    //             setCount(1);
-    //             // axios.post('http://localhost:3000/api/cart/', {
-    //             //     itemId:id
+    const userId = localStorage.getItem('id')
 
-    //             // })
-    //             const cartItem = {
-    //                 id: id,
-    //                 name: name,
-    //                 size: size,
-    //                 quantity: count,
-    //                 firstImg: firstImg,
-    //                 price: price,
-    //                 type: type,
-    //                 cost: priceConvertCost(price, sale),
-    //             };
-
-    //             const userId = localStorage.getItem('id');
-
-    //             axios.get(`http://localhost:3000/api/cart?userId=${userId}`)
-    //                 .then(response => {
-    //                     const existingCart = response.data;
-
-    //                     if (existingCart) {
-    //                         // Nếu giỏ hàng đã tồn tại cho người dùng này, thêm sản phẩm mới vào giỏ hàng.
-    //                         // existingCart.items.push(cartItem);
-
-    //                         // Gửi dữ liệu cập nhật lên server bằng phương thức PUT
-    //                         axios.put(`http://localhost:3000/api/cart/${existingCart.id}`, {
-    //                             items: existingCart.items,
-    //                         })
-    //                             .then(response => {
-    //                                 console.log('Giỏ hàng đã được cập nhật:', response.data);
-    //                             })
-    //                             .catch(error => console.error(error));
-    //                     } else {
-    //                         // Nếu không có giỏ hàng nào được tìm thấy cho người dùng này, tạo một giỏ hàng mới và thêm sản phẩm vào đó.
-    //                         axios.post(`http://localhost:3000/api/cart`, {
-    //                             userId: userId,
-    //                             items: [cartItem],
-    //                         })
-    //                             .then(response => {
-    //                                 console.log('Giỏ hàng mới đã được tạo:', response.data);
-    //                             })
-    //                             .catch(error => console.error(error));
-    //                     }
-    //                 })
-    //                 .catch(error => console.error(error));
-
-
-    //             // axios.post('http://localhost:3000/api/cart/items', {
-    //             //     id: id,
-    //             //     name: name,
-    //             //     size: size,
-    //             //     quantity: count,
-    //             //     firstImg: firstImg,
-    //             //     price: price,
-    //             //     type: type,
-    //             //     cost: priceConvertCost(price, sale),
-    //             // });
-    //         } else {
-    //             toast.error('Vui lòng chọn size!', {
-    //                 position: toast.POSITION.TOP_RIGHT,
-    //             });
-    //         }
-    //     } else {
-    //         toast.warning('Vui lòng đăng nhập!', {
-    //             position: toast.POSITION.TOP_RIGHT
-    //         });
-    //         // navigate('/login')
-    //     }
-
-    // };
-    // console.log(userId);
     const dispatch = useDispatch();
+    // const handleClick = () => {
+    //     if (size) {
+    //         toast.success('Đã thêm vào giỏ hàng!', {
+    //             position: toast.POSITION.TOP_RIGHT,
+    //         });
+    //         const product = {
+    //             id: id,
+    //             name: name,
+    //             type: type,
+    //             size: size,
+    //             quantity: count,
+    //             firstImg: firstImg,
+    //             price: price,
+    //             cost: priceConvertCost(price, sale),
+    //         }
+    //         const userId = localStorage.getItem('id')
+    //         console.log("userId", userId);
+    //         dispatch(addProductToCart({ userId: userId, product }));
+    //         setActive('');
+    //         setCount(1);
+    //     } else {
+    //         toast.error('Vui lòng chọn size!', {
+    //             position: toast.POSITION.TOP_RIGHT,
+    //         });
+    //     }
+    // };
+    const [isClicked, setIsClicked] = useState(false);
     const handleClick = () => {
+        if (!isClicked) {
+            setIsClicked(true);
+        }
         if (size) {
-            // const cartItems = axios.get('http://localhost:3000/api/cart').data;
-            // console.log('cartItems', cartItems)
-            // const existingItem = cartItems.find(item => item.id === id);
-
-            // if (existingItem) {
-            //     existingItem.size = size;
-            //     existingItem.quantity += count;
-            // } else {
             toast.success('Đã thêm vào giỏ hàng!', {
                 position: toast.POSITION.TOP_RIGHT,
             });
-            const product = {
+            dispatch(addItem({
+                userId: userId,
                 id: id,
+                price: price,
                 name: name,
-                type: type,
+                firstImg: firstImg,
                 size: size,
                 quantity: count,
-                firstImg: firstImg,
-                price: price,
-                cost: priceConvertCost(price, sale),
-            }
-            const userId = localStorage.getItem('id')
-            dispatch(addProductToCart({ userId: userId, product }));
-            // axios.post('http://localhost:3000/api/cart', {
-            //     newItem
-            // })
-            ;
+
+            }))
+            // const product = {
+            //     user: userId,
+            //     id: id,
+            //     name: name,
+            //     type: type,
+            //     size: size,
+            //     quantity: count,
+            //     firstImg: firstImg,
+            //     price: price,
+            //     cost: priceConvertCost(price, sale),
             // }
-            setActive('');
-            setCount(1);
+            // dispatch(addToCart({
+            //     user: userId,
+            //     idCart: id,
+            //     name: name,
+            //     type: type,
+            //     size: size,
+            //     quantity: count,
+            //     firstImg: firstImg,
+            //     price: price,
+            //     cost: priceConvertCost(price, sale),
+            // }));
         } else {
             toast.error('Vui lòng chọn size!', {
                 position: toast.POSITION.TOP_RIGHT,
             });
         }
-    };
+    }
     const Increase = () => {
         setCount(count + 1);
     };
     const Reduce = () => {
         setCount(count - 1);
     };
-
     return (
         <div className="product-details">
             <ToastContainer />
@@ -229,7 +184,7 @@ function ProductDetails() {
                     </button>
                 </div>
                 <div className="cart">
-                    <button onClick={handleClick}>Thêm vào giỏ hàng</button>
+                    <button onClick={() => handleClick()}>Thêm vào giỏ hàng</button>
                 </div>
                 <div className="tag">
                     <p>Tag</p>

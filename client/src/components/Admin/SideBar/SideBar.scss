@@ -1,5 +1,5 @@
 .sidebar {
-	background: #0C2162ed;
+	background: #0c2162ed;
 	color: #fff;
 	height: 100%;
 	.sidebar-wrapper {
@@ -9,9 +9,10 @@
 			padding: 20px 0;
 		}
 		ul {
-			margin-top: 50px;
 			list-style: none;
 			width: 80%;
+			padding-left: 0;
+			margin: 50px auto;
 			a {
 				display: flex;
 				align-items: center;
@@ -23,20 +24,21 @@
 				border-radius: 20px;
 				padding: 5px 10px;
 				text-decoration: none;
+				min-height: 52px;
 				svg {
 					width: 20%;
-                    height: 20%;
+					height: 20%;
 					margin-right: 5px;
 				}
-				h2{
+				h2 {
 					margin: 0;
 					font-size: 20px;
 				}
 			}
-			.close{
+			.close {
 				cursor: pointer;
-				&:hover{
-					color:red;
+				&:hover {
+					color: red;
 				}
 			}
 		}

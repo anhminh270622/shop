@@ -42,3 +42,60 @@
 		}
 	}
 }
+@media only screen and (max-width: 600px) {
+	.footer {
+		padding: 50px 0;
+		.footer-wrapper {
+			ul.title {
+				display: flex;
+				flex-direction: column;
+				width: 95%;
+				.left {
+					text-align: center;
+
+					img {
+						width: 40px;
+						height: 40px;
+					}
+				}
+				.right {
+					ul {
+						li {
+							padding: 0 3px;
+							h3 {
+								font-size: 11px;
+							}
+							ul {
+								li {
+									font-size: 10px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+	/* Thiết lập kiểu cho màn hình máy tính bảng */
+	.footer {
+		.footer-wrapper {
+			ul.title {
+				width: 95%;
+				.left {
+					img {
+						width: 70px;
+						height: 70px;
+					}
+				}
+				.right {
+					flex: 6;
+					li {
+						margin: 0 5px;
+					}
+				}
+			}
+		}
+	}
+}

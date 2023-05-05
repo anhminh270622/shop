@@ -5,15 +5,17 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { priceConvert, Scroll } from '../Define';
-import axios from 'axios';
 import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeItem, clearCart } from '../../redux/cartSlice';
+
 export default function Cart() {
     const [counts, setCounts] = useState(0);
     const [cart, setCart] = useState('');
@@ -26,8 +28,12 @@ export default function Cart() {
     const [note, setNote] = useState('');
     const [nameOrder, setNameOrder] = useState('');
     //đếm số lượng size
+    const items = useSelector(state => state.cart.items);
+    const quantityCart = useSelector(state => state.cart.quantityCart);
+    // const quantityProduct = useSelector(state => state.cart.quantityProduct);
+    console.log("items", items)
+    const dispatch = useDispatch();
     const Increase = (id) => { };
-
     const Reduce = (id) => { };
     const navigate = useNavigate();
     const handleClose = () => {
@@ -35,77 +41,75 @@ export default function Cart() {
         Scroll();
     };
     const updateCart = () => {
-        axios
-            .get('http://localhost:3000/api/cart')
-            .then((response) => {
-                setCart(response.data);
-                setIsCartLoaded(true);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        // axios
+        //     .get('http://localhost:3000/api/cart')
+        //     .then((response) => {
+        //         setCart(response.data);
+        //         setIsCartLoaded(true);
+        //     })
+        //     .catch((error) => {
+        //         console.error(error);
+        //     });
     };
     useEffect(() => {
         if (!isCartLoaded) {
             updateCart();
-            SumCart();
+            // SumCart();
         }
     }, [cart, isCartLoaded]);
     //tổng đơn giá trị đơn hàng
     const SumCart = () => {
         let totalPrice = 0;
-        for (let i = 0; i < cart.length; i++) {
-            totalPrice += cart[i].price * cart[i].quantity;
+        // for (let i = 0; i < cart.length; i++) {
+        //     totalPrice += cart[i].price * cart[i].quantity;
+        // }
+        for (let i = 0; i < items.length; i++) {
+            totalPrice += items[i].price * items[i].quantity;
         }
         return priceConvert(totalPrice);
     };
+    const clear = () => {
+        dispatch(clearCart())
+    }
 
-    const handleClickDelete = (id) => {
+    const handleClickDelete = (data) => {
         toast.success('Xóa thành công!', {
             position: toast.POSITION.TOP_RIGHT,
             top: '3rem',
         });
-        axios
-            .delete(`http://localhost:3000/api/cart/${id}`)
-            .then((response) => {
-                updateCart();
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        dispatch(removeItem(data))
     };
     const handleCart = (type, id) => {
         // navigate(`/${type}/${id}`)
         console.log(`handleCart`, type, id);
     };
     const handleBuy = () => {
-        axios.get(`http://localhost:3000/api/cart`)
-            .then(cartResponse => {
-                const cartItems = cartResponse.data;
-                const products = cartItems.map(item => `${item.name} - Size ${item.size}`);
-                axios.post('http://localhost:3000/api/order', {
-                    nameOrder: nameOrder,
-                    address: address,
-                    phone: sdt,
-                    note: note,
-                    product: products.join(', '),
-                    total: SumCart()
-                }).then(orderResponse => {
-                    // Xử lí khi đặt hàng thành công
-                    setNameOrder('')
-                    setNote('')
-                    setSdt('')
-                    setAddress('')
-                    toast.success('Mua hàng thành công!', {
-                        position: toast.POSITION.TOP_RIGHT,
-                        top: '3rem',
-                    });
-                    handleCloseModal()
+        // axios.get(`http://localhost:3000/api/cart`)
+        //     .then(cartResponse => {
+        //         const cartItems = cartResponse.data;
+        //         const products = cartItems.map(item => `${item.name} - Size ${item.size}`);
+        //         axios.post('http://localhost:3000/api/order', {
+        //             nameOrder: nameOrder,
+        //             address: address,
+        //             phone: sdt,
+        //             note: note,
+        //             product: products.join(', '),
+        //             total: SumCart()
+        //         }).then(orderResponse => {
+        //             // Xử lí khi đặt hàng thành công
+        //             setNameOrder('')
+        //             setNote('')
+        //             setSdt('')
+        //             setAddress('')
+        //             toast.success('Mua hàng thành công!', {
+        //                 position: toast.POSITION.TOP_RIGHT,
+        //                 top: '3rem',
+        //             });
+        //             handleCloseModal()
 
-                });
-            });
+        //         });
+        //     });
     };
-
     const style = {
         position: 'absolute',
         top: '50%',
@@ -117,6 +121,7 @@ export default function Cart() {
         boxShadow: 24,
         p: 4,
     };
+    // console.log("productSlice", fetchSomeData)
     return (
         <>
             <div className="cart">
@@ -160,11 +165,13 @@ export default function Cart() {
                     </Box>
                 </Modal>
                 <div className="title">
-                    <h1>Giỏ hàng của bạn có {cart.length} sản phẩm</h1>
+                    <h1>Giỏ hàng của bạn có {quantityCart} sản phẩm</h1>
+                    {/* <h1>Giỏ hàng của bạn có 1 sản phẩm</h1> */}
                 </div>
                 <div className="content">
-                    {cart &&
-                        cart.map((item) => {
+                    {items &&
+                        items.map((item) => {
+                            const data = item
                             return (
                                 <div
                                     className="content-wrapper"
@@ -177,6 +184,7 @@ export default function Cart() {
                                         </div>
                                         <div className="detail">
                                             <p className="name">{item.name}</p>
+                                            <p className="name">{item.s}</p>
                                             <p className="price">
                                                 <span>{priceConvert(item.price)}</span>
                                                 {item.cost ? <s>({item.cost})</s> : ''}
@@ -189,8 +197,7 @@ export default function Cart() {
                                                     <RemoveIcon />
                                                 </button>
                                                 <input
-                                                    defaultValue={item.quantity}
-                                                    readOnly
+                                                    value={item.quantity}
                                                 />
                                                 <button onClick={() => Increase(item.id)}>
                                                     <AddIcon />
@@ -199,7 +206,7 @@ export default function Cart() {
                                         </div>
                                     </div>
                                     <div className="right">
-                                        <Button onClick={() => handleClickDelete(item.id)}>
+                                        <Button onClick={() => handleClickDelete(data)}>
                                             Delete
                                         </Button>
                                     </div>
@@ -218,7 +225,7 @@ export default function Cart() {
 						</div> */}
                         <div className="right">
                             <div className="sum">
-                                <p>Tổng tiền</p>
+                                <p onClick={clear}>Tổng tiền</p>
                                 <h3>{SumCart()}</h3>
                             </div>
                             <div className="button">

@@ -3,12 +3,12 @@ import { animateScroll } from 'react-scroll';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 export const priceConvert = (price) => {
-	const convert = price.toLocaleString() + 'đ';
+	const convert = price?.toLocaleString() + 'đ';
 	return convert;
 };
 export const priceConvertCost = (price, sale) => {
 	const convert =
-		sale !== 0 ? (price + (price * sale) / 100).toLocaleString() + 'đ' : '';
+		sale !== 0 ? (price + (price * sale) / 100)?.toLocaleString() + 'đ' : '';
 	return convert;
 };
 

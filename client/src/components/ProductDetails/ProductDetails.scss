@@ -145,3 +145,17 @@
 		}
 	}
 }
+@media only screen and (max-width: 600px) {
+	.product-details {
+		display: block;
+		width: 90%;
+		.left {
+			.image-small {
+			}
+			.image-big {
+				width: 100%;
+				height: 400px;
+			}
+		}
+	}
+}
