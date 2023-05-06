@@ -1,0 +1,21 @@
+.buy {
+	padding-top: 55px;
+	height: 70vh;
+	width: 90%;
+	margin: auto;
+
+	.buy-top {
+	}
+	.buy-container {
+		display: flex;
+		align-items: center;
+		.info {
+			display: flex;
+			p {
+				padding: 5px;
+			}
+		}
+		.detail {
+		}
+	}
+}

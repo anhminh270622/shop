@@ -1,0 +1,12 @@
+.overview {
+	.overview-container {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 10px;
+		div {
+			border: 1px solid #ccc;
+			padding: 5px;
+			border-radius: 10px;
+		}
+	}
+}

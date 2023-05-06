@@ -14,11 +14,15 @@ import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItem, clearCart, quantityIncrease, quantityReduce } from '../../redux/cartSlice';
+import axios from 'axios';
+import {
+    removeItem,
+    clearCart,
+    quantityIncrease,
+    quantityReduce,
+} from '../../redux/cartSlice';
 
 export default function Cart() {
-    const [counts, setCounts] = useState(0);
-    const [cart, setCart] = useState('');
     const [isCartLoaded, setIsCartLoaded] = useState(false);
     const [open, setOpen] = React.useState(false);
     const handleOpenModal = () => setOpen(true);
@@ -28,88 +32,72 @@ export default function Cart() {
     const [note, setNote] = useState('');
     const [nameOrder, setNameOrder] = useState('');
     //đếm số lượng size
-    const items = useSelector(state => state.cart.items);
-    const quantityCart = useSelector(state => state.cart.quantityCart);
+    const items = useSelector((state) => state.cart.items);
+    const quantityCart = useSelector((state) => state.cart.quantityCart);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const Reduce = (item) => {
-        dispatch(quantityReduce(item))
+        dispatch(quantityReduce(item));
     };
     const Increase = (item) => {
-        dispatch(quantityIncrease(item))
+        dispatch(quantityIncrease(item));
     };
     const handleClose = () => {
         navigate('/');
         Scroll();
     };
-    const updateCart = () => {
-        // axios
-        //     .get('http://localhost:3000/api/cart')
-        //     .then((response) => {
-        //         setCart(response.data);
-        //         setIsCartLoaded(true);
-        //     })
-        //     .catch((error) => {
-        //         console.error(error);
-        //     });
-    };
-    useEffect(() => {
-        if (!isCartLoaded) {
-            updateCart();
-            // SumCart();
-        }
-    }, [cart, isCartLoaded]);
     //tổng đơn giá trị đơn hàng
     const SumCart = () => {
         let totalPrice = 0;
-        // for (let i = 0; i < cart.length; i++) {
-        //     totalPrice += cart[i].price * cart[i].quantity;
-        // }
         for (let i = 0; i < items.length; i++) {
             totalPrice += items[i].price * items[i].quantity;
         }
         return priceConvert(totalPrice);
     };
     const clear = () => {
-        dispatch(clearCart())
-    }
+        dispatch(clearCart());
+        toast.success('Xóa thành công!', {
+            position: toast.POSITION.TOP_RIGHT,
+            top: '3rem',
+        });
+    };
     const handleClickDelete = (data) => {
         toast.success('Xóa thành công!', {
             position: toast.POSITION.TOP_RIGHT,
             top: '3rem',
         });
-        dispatch(removeItem(data))
+        dispatch(removeItem(data));
     };
     const handleCart = (type, id) => {
         // navigate(`/${type}/${id}`)
         console.log(`handleCart`, type, id);
     };
     const handleBuy = () => {
-        // axios.get(`http://localhost:3000/api/cart`)
-        //     .then(cartResponse => {
-        //         const cartItems = cartResponse.data;
-        //         const products = cartItems.map(item => `${item.name} - Size ${item.size}`);
-        //         axios.post('http://localhost:3000/api/order', {
-        //             nameOrder: nameOrder,
-        //             address: address,
-        //             phone: sdt,
-        //             note: note,
-        //             product: products.join(', '),
-        //             total: SumCart()
-        //         }).then(orderResponse => {
-        //             // Xử lí khi đặt hàng thành công
-        //             setNameOrder('')
-        //             setNote('')
-        //             setSdt('')
-        //             setAddress('')
-        //             toast.success('Mua hàng thành công!', {
-        //                 position: toast.POSITION.TOP_RIGHT,
-        //                 top: '3rem',
-        //             });
-        //             handleCloseModal()
+        const products = items.map(item => `${item.name} - Size ${item.size}`);
+        axios.post('http://localhost:3000/api/order', {
+            nameOrder: nameOrder,
+            address: address,
+            phone: sdt,
+            note: note,
+            product: products.join(', '),
+            total: SumCart(),
+            status: "Đang chờ xử lý",
+        }).then(orderResponse => {
+            // setNameOrder('')
+            // setNote('')
+            // setSdt('')
+            // setAddress('')
+            handleCloseModal()
+            dispatch(clearCart());
+            toast.success('Mua hàng thành công!', {
+                position: toast.POSITION.TOP_RIGHT,
+                top: '3rem',
+            });
+        });
 
-        //         });
-        //     });
+    }
+    const handleBuy1 = () => {
+        navigate('/buy');
     };
     const style = {
         position: 'absolute',
@@ -141,36 +129,57 @@ export default function Cart() {
                         <Box className="address">
                             <div>
                                 <label>Tên khách hàng</label>
-                                <input type="text" value={nameOrder} onChange={(e) => setNameOrder(e.target.value)}></input>
+                                <input
+                                    type="text"
+                                    value={nameOrder}
+                                    onChange={(e) => setNameOrder(e.target.value)}></input>
                             </div>
                             <div>
                                 <label>Địa chỉ</label>
-                                <input value={address} onChange={(e) => setAddress(e.target.value)}></input>
+                                <input
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}></input>
                             </div>
                             <div>
                                 <label>SĐT</label>
-                                <input type="number" value={sdt} onChange={(e) => setSdt(e.target.value)}></input>
+                                <input
+                                    type="number"
+                                    value={sdt}
+                                    onChange={(e) => setSdt(e.target.value)}></input>
                             </div>
                             <div>
                                 <label>Ghi chú</label>
                                 <TextareaAutosize
                                     value={note}
                                     aria-label="empty textarea"
-                                    placeholder="Ghi chú" onChange={(e) => setNote(e.target.value)}
+                                    placeholder="Ghi chú"
+                                    onChange={(e) => setNote(e.target.value)}
                                     style={{ minWidth: 292, minHeight: 50 }}
                                 />
                             </div>
                         </Box>
-                        <Button variant="contained" onClick={() => handleBuy()}>Xong</Button>
+                        <Button
+                            variant="contained"
+                            onClick={() => handleBuy()}>
+                            Xong
+                        </Button>
                     </Box>
                 </Modal>
                 <div className="title">
                     <h1>Giỏ hàng của bạn có {quantityCart} sản phẩm</h1>
+                    <div>
+                        <Button
+                            onClick={() => handleBuy1()}
+                            variant="contained">
+                            Đơn mua
+                        </Button>
+                    </div>
+                    <hr />
                 </div>
                 <div className="content">
                     {items &&
                         items.map((item) => {
-                            const countQuantity = item.quantity
+                            const countQuantity = item.quantity;
                             return (
                                 <div
                                     className="content-wrapper"
@@ -195,9 +204,7 @@ export default function Cart() {
                                                     disabled={item.quantity === 1 ? true : false}>
                                                     <RemoveIcon />
                                                 </button>
-                                                <input
-                                                    value={countQuantity}
-                                                />
+                                                <input value={countQuantity} />
                                                 <button onClick={() => Increase(item)}>
                                                     <AddIcon />
                                                 </button>
@@ -214,17 +221,19 @@ export default function Cart() {
                         })}
 
                     <hr />
-                    <div className="buy">
-                        {/* <div className="left">
-							<TextareaAutosize
-								aria-label="empty textarea"
-								placeholder="Ghi chú"
-								style={{ minWidth: 400, maxWidth: 700, minHeight: 100 }}
-							/>
-						</div> */}
+                    <div className="buys">
+                        <div className="left">
+                            <Button
+                                variant="contained"
+                                onClick={clear}
+                                className={quantityCart > 0 ? "" : "button"}
+                                disabled={quantityCart > 0 ? false : true}>
+                                Xóa tất cả
+                            </Button>
+                        </div>
                         <div className="right">
                             <div className="sum">
-                                <p onClick={clear}>Tổng tiền</p>
+                                <p>Tổng tiền</p>
                                 <h3>{SumCart()}</h3>
                             </div>
                             <div className="button">
@@ -234,10 +243,11 @@ export default function Cart() {
                                     Quay lại mua sắm
                                 </Button>
                                 <Button
-                                    className="buy"
+                                    className="buys"
                                     onClick={() => handleOpenModal()}
-                                >
+                                    disabled={quantityCart > 0 ? false : true}>
                                     Thanh Toán
+
                                 </Button>
                             </div>
                         </div>
@@ -247,5 +257,3 @@ export default function Cart() {
         </>
     );
 }
-
-

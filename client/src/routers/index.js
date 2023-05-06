@@ -12,8 +12,9 @@ import RegisterPage from '../pages/RegisterPage';
 import WarehouseAdminPage from '../pages/WarehouseAdminPage';
 import HomeAdminPage from '../pages/HomeAdminPage';
 import UserAdminPage from '../pages/UserAdminPage';
-import StatusAdminPage from '../pages/StatusAdminPage';
 import OrderAdminPage from '../pages/OrderAdminPage';
+import BuyPage from '../pages/Buy';
+import OverviewAdminPage from '../pages/OverviewAdminPage';
 
 export const privateRouters = [
     {
@@ -45,6 +46,10 @@ export const privateRouters = [
         component: <CartPage />
     },
     {
+        path: '/buy',
+        component: <BuyPage />
+    },
+    {
         path: '/search',
         component: <SearchResultsPage />
     },
@@ -56,7 +61,7 @@ export const privateRouters = [
 export const privateAdmin = [
     {
         path: '/',
-        component: <StatusAdminPage />
+        component: <OverviewAdminPage />
     },
     {
         path: '/admin/user',

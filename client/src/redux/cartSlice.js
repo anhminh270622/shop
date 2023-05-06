@@ -1,26 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { fetchSomeData } from "./productSlice";
-// export const addToCartById = (productId) => async (dispatch) => {
-//     console.log("productId", productId);
-//     try {
-//         const response = await axios.post("http://localhost:3000/api/carts", { productId });
-//         // console.log("response", response.data);
-
-//         dispatch(addItem(response.data));
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };
-// export const removeCart = (id) => async (dispatch, getState) => {
-//     try {
-//         await axios.delete(`http://localhost:3000/api/carts/${id}`);
-//         dispatch(removeItem(id));
-//         console.log('redux xóa ', id);
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };
 const cartSlice = createSlice({
     name: "car",
     initialState: {
@@ -54,6 +34,8 @@ const cartSlice = createSlice({
         },
         clearCart: (state) => {
             state.items = [];
+            localStorage.setItem("productCart", JSON.stringify(state.items))
+            state.quantityCart = 0;
         },
         quantityIncrease: (state, action) => {
             const index = state.items.findIndex((item) => item.id === action.payload.id);

@@ -93,14 +93,14 @@ export const Filter = () => {
 					<span>Trên 5,000,000₫</span>
 				</div>
 			</div>
-			<div>
+			{/* <div>
 				<h4>KÍCH CỠ</h4>
 				<div className="size">
 					{numbers.map((n, i) => {
 						return <button key={i}>{n}</button>;
 					})}
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };

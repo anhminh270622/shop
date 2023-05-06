@@ -7,7 +7,6 @@ import { Filter, Sort } from '../../Define';
 import './Sandal.scss';
 export default function Sandal() {
     const [sandal, setSandal] = useState('');
-
     const [sort, setSort] = useState('price');
     const [order, setOrder] = useState('asc');
     const [tag, setTag] = useState('')
@@ -25,19 +24,15 @@ export default function Sandal() {
                 )
                 .catch((error) => console.log(error));
         }
-        // console.log('sort:', sort, 'order:', order);
-        // console.log('tag', tag)
     }, [sort, order, tag]);
     const handleOnchange = (e) => {
         if (e.target.value === 'new') {
             setTag('new')
-
         } else {
             setSort(e.target.value.split(' ')[0]);
             setOrder(e.target.value.split(' ')[1]);
             setTag('')
         }
-
     };
     return (
         <div className="sandal">

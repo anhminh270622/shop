@@ -1,18 +1,18 @@
 import React from 'react';
-import { Input, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useState } from 'react';
 export default function AddProduct() {
-    const [age, setAge] = React.useState('soccer-shoe');
-
+    const [age, setAge] = useState('soccer-shoe');
     const handleChange = (event) => {
         setAge(event.target.value);
     };
-    const [trademark, setTrademark] = React.useState('');
+    const [trademark, setTrademark] = useState('');
     const handleChangeTrademark = (event) => {
         setTrademark(event.target.value);
     };

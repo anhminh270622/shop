@@ -1422,6 +1422,38 @@
     }
   ],
   "carts": [],
+  "order": [
+    {
+      "nameOrder": "124",
+      "address": "42334",
+      "phone": "4234332",
+      "note": "432432",
+      "product": "Dép thể thao adidas ADILETTE AQUA - F35538 - Size 35",
+      "total": "600,000đ",
+      "status": "Đang chờ xử lý",
+      "id": 1
+    },
+    {
+      "nameOrder": "anhminh",
+      "address": "thanh hóa",
+      "phone": "285205",
+      "note": "alo",
+      "product": "Tất sportswear nike NSW EVERYDAY ESSENTIAL AN DX5074-010 - Size 40",
+      "total": "489,000đ",
+      "status": "Đang chờ xử lý",
+      "id": 2
+    },
+    {
+      "nameOrder": "anhminh",
+      "address": "hóa",
+      "phone": "54325235325",
+      "note": "abc",
+      "product": "Dép thể thao adidas ADILETTE AQUA - F35538 - Size 40",
+      "total": "3,600,000đ",
+      "status": "Đang chờ xử lý",
+      "id": 3
+    }
+  ],
   "user": [
     {
       "email": "anhminh@gmail.com",

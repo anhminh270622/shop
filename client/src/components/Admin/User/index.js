@@ -11,29 +11,30 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+
+import MenuItem from '@mui/material/MenuItem';
 export default function User() {
     const [user, setUser] = useState('');
-    // const [addUser, setAddUser] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [role, setRole] = useState('client');
     const [id, setId] = useState('');
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
 
     const handleOpen = () => {
-        setOpen(true)
-    }
-    // const handleOpenEdit = () => {
-    //     setOpenEdit(true)
-    // }
+        setOpen(true);
+    };
     const handleClose = () => {
-        setEmail('')
-        setPassword('')
-        setId('')
+        setEmail('');
+        setPassword('');
+        setId('');
         setOpen(false);
-        setOpenEdit(false)
-    }
-
+        setOpenEdit(false);
+    };
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'email', headerName: 'Email', width: 200 },
@@ -78,37 +79,37 @@ export default function User() {
             })
             .catch((error) => console.error(error));
         toast.success('Xóa thành công!', {
-            position: toast.POSITION.TOP_RIGHT
+            position: toast.POSITION.TOP_RIGHT,
         });
     };
 
     const handleEdit = (id) => {
-        axios.get(`http://localhost:3000/api/user/${id}`)
-            .then((response) => {
-                // handleOpen()
-                setEmail(response.data.email)
-                setPassword(response.data.password)
-                setId(id)
-            })
-        setOpenEdit(true)
-
+        axios.get(`http://localhost:3000/api/user/${id}`).then((response) => {
+            // handleOpen()
+            setEmail(response.data.email);
+            setPassword(response.data.password);
+            setRole(response.data.role);
+            setId(id);
+        });
+        setOpenEdit(true);
     };
     const handleSubmitEdit = () => {
-        axios.put(`http://localhost:3000/api/user/${id}`, {
-            email: email,
-            password: password,
-            role: "client"
-        }).then((response) => {
-            fetchData()
-        })
-        handleClose()
+        axios
+            .put(`http://localhost:3000/api/user/${id}`, {
+                email: email,
+                password: password,
+                role: role,
+            })
+            .then((response) => {
+                fetchData();
+            });
+        handleClose();
 
         // handleClose()
         // setEmail('')
         // setPassword('')
         // setId('')
-
-    }
+    };
     const fetchData = () => {
         axios
             .get('http://localhost:3000/api/user')
@@ -116,9 +117,9 @@ export default function User() {
                 setUser(response.data);
             })
             .catch((error) => console.error(error));
-    }
+    };
     useEffect(() => {
-        fetchData()
+        fetchData();
     }, []);
     const style = {
         position: 'absolute',
@@ -135,22 +136,28 @@ export default function User() {
     };
     const handleSubmit = () => {
         if (email && password) {
-            axios.post('http://localhost:3000/api/user/', {
-                email: email,
-                password: password
-            }).then(response => {
-                // setUser([...user, data])
-                fetchData()
-            })
-            handleClose()
+            axios
+                .post('http://localhost:3000/api/user/', {
+                    email: email,
+                    password: password,
+                    role: role,
+                })
+                .then((response) => {
+                    // setUser([...user, data])
+                    fetchData();
+                });
+            handleClose();
         } else {
             toast.warning('Vui lòng nhập!', {
-                position: toast.POSITION.TOP_RIGHT
+                position: toast.POSITION.TOP_RIGHT,
             });
         }
-        setEmail('')
-        setPassword('')
-    }
+        setEmail('');
+        setPassword('');
+    };
+    const handleChangeRole = (event) => {
+        setRole(event.target.value);
+    };
     return (
         <Box className="user">
             <ToastContainer />
@@ -183,8 +190,7 @@ export default function User() {
                         <Box
                             component="form"
                             id="modal-modal-description"
-                            sx={{ mt: 2 }}
-                        >
+                            sx={{ mt: 2 }}>
                             <Box>
                                 <TextField
                                     label="Email"
@@ -201,6 +207,18 @@ export default function User() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
+                            </Box>
+                            <Box>
+                                <FormControl variant="standard" sx={{ width: '100%' }}>
+                                    <InputLabel>Phân Quyền</InputLabel>
+                                    <Select
+                                        value={role}
+                                        onChange={(e) => setRole(e.target.value)}
+                                    >
+                                        <MenuItem value={"admin"}>admin</MenuItem>
+                                        <MenuItem value={"client"}>client</MenuItem>
+                                    </Select>
+                                </FormControl>
                             </Box>
                             <Button
                                 variant="contained"
@@ -233,8 +251,7 @@ export default function User() {
                         <Box
                             component="form"
                             id="modal-modal-description"
-                            sx={{ mt: 2 }}
-                        >
+                            sx={{ mt: 2 }}>
                             <Box>
                                 <TextField
                                     label="Email"
@@ -251,6 +268,20 @@ export default function User() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
+                            </Box>
+
+
+                            <Box>
+                                <FormControl variant="standard" sx={{ width: '100%' }}>
+                                    <InputLabel>Thương hiệu</InputLabel>
+                                    <Select
+                                        value={role}
+                                        onChange={handleChangeRole}
+                                    >
+                                        <MenuItem value={"admin"}>admin</MenuItem>
+                                        <MenuItem value={"client"}>client</MenuItem>
+                                    </Select>
+                                </FormControl>
                             </Box>
                             <Button
                                 variant="contained"
@@ -270,7 +301,7 @@ export default function User() {
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
-                    checkboxSelection
+                // checkboxSelection
                 />
             </div>
         </Box>

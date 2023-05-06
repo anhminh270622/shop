@@ -32,25 +32,12 @@ function Header() {
 		}
 
 	};
-	const updateCart = () => {
-		axios
-			.get('http://localhost:3000/api/cart')
-			.then((response) => {
-				setCountCart(response.data);
-			})
-			.catch((error) => console.error(error));
-	};
-
-	useEffect(() => {
-		updateCart();
-	}, []);
 	const Login = () => {
 		navigate('/login');
 		Scroll();
 	}
 
 	const Admin = () => {
-
 		navigate('/');
 		localStorage.setItem('admin', 'true')
 		Scroll();

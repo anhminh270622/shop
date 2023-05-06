@@ -7,10 +7,14 @@
 	}
 	.title {
 		margin-top: 55px;
-
+		// display: flex;
+		// justify-content: space-between;
 		h1 {
 			text-align: center;
 			padding: 20px 0;
+		}
+		div {
+			text-align: right;
 		}
 	}
 	.content {
@@ -72,24 +76,18 @@
 				}
 			}
 		}
-		.buy {
+		.buys {
 			display: flex;
-			justify-content: right;
-			// .left {
-			// 	.all {
-			// 		display: flex;
-			// 		align-items: center;
-			// 		padding: 10px 0;
-			// 		input {
-			// 			width: 20px;
-			// 			height: 20px;
-			// 			cursor: pointer;
-			// 		}
-			// 		span {
-			// 			padding-left: 10px;
-			// 		}
-			// 	}
-			// }
+			justify-content: space-between;
+			.left {
+				button {
+					background: red;
+					color: white;
+				}
+				.button {
+					background: #ccc;
+				}
+			}
 			.right {
 				.sum {
 				}
@@ -100,7 +98,7 @@
 						background-color: #007fff;
 						margin-right: 10px;
 					}
-					.buy {
+					.buys {
 						background-color: green;
 						color: white;
 					}
