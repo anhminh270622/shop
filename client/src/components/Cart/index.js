@@ -14,7 +14,7 @@ import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItem, clearCart } from '../../redux/cartSlice';
+import { removeItem, clearCart, quantityIncrease, quantityReduce } from '../../redux/cartSlice';
 
 export default function Cart() {
     const [counts, setCounts] = useState(0);
@@ -30,12 +30,14 @@ export default function Cart() {
     //đếm số lượng size
     const items = useSelector(state => state.cart.items);
     const quantityCart = useSelector(state => state.cart.quantityCart);
-    // const quantityProduct = useSelector(state => state.cart.quantityProduct);
-    console.log("items", items)
     const dispatch = useDispatch();
-    const Increase = (id) => { };
-    const Reduce = (id) => { };
     const navigate = useNavigate();
+    const Reduce = (item) => {
+        dispatch(quantityReduce(item))
+    };
+    const Increase = (item) => {
+        dispatch(quantityIncrease(item))
+    };
     const handleClose = () => {
         navigate('/');
         Scroll();
@@ -71,7 +73,6 @@ export default function Cart() {
     const clear = () => {
         dispatch(clearCart())
     }
-
     const handleClickDelete = (data) => {
         toast.success('Xóa thành công!', {
             position: toast.POSITION.TOP_RIGHT,
@@ -121,7 +122,6 @@ export default function Cart() {
         boxShadow: 24,
         p: 4,
     };
-    // console.log("productSlice", fetchSomeData)
     return (
         <>
             <div className="cart">
@@ -166,12 +166,11 @@ export default function Cart() {
                 </Modal>
                 <div className="title">
                     <h1>Giỏ hàng của bạn có {quantityCart} sản phẩm</h1>
-                    {/* <h1>Giỏ hàng của bạn có 1 sản phẩm</h1> */}
                 </div>
                 <div className="content">
                     {items &&
                         items.map((item) => {
-                            const data = item
+                            const countQuantity = item.quantity
                             return (
                                 <div
                                     className="content-wrapper"
@@ -192,21 +191,21 @@ export default function Cart() {
                                             <p className="size">{item.size}</p>
                                             <div className="quantity">
                                                 <button
-                                                    onClick={() => Reduce(item.id)}
+                                                    onClick={() => Reduce(item)}
                                                     disabled={item.quantity === 1 ? true : false}>
                                                     <RemoveIcon />
                                                 </button>
                                                 <input
-                                                    value={item.quantity}
+                                                    value={countQuantity}
                                                 />
-                                                <button onClick={() => Increase(item.id)}>
+                                                <button onClick={() => Increase(item)}>
                                                     <AddIcon />
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="right">
-                                        <Button onClick={() => handleClickDelete(data)}>
+                                        <Button onClick={() => handleClickDelete(item)}>
                                             Delete
                                         </Button>
                                     </div>
@@ -248,3 +247,5 @@ export default function Cart() {
         </>
     );
 }
+
+

@@ -38,34 +38,7 @@ function ProductDetails() {
         setImg(index);
     }
     const userId = localStorage.getItem('id')
-
     const dispatch = useDispatch();
-    // const handleClick = () => {
-    //     if (size) {
-    //         toast.success('Đã thêm vào giỏ hàng!', {
-    //             position: toast.POSITION.TOP_RIGHT,
-    //         });
-    //         const product = {
-    //             id: id,
-    //             name: name,
-    //             type: type,
-    //             size: size,
-    //             quantity: count,
-    //             firstImg: firstImg,
-    //             price: price,
-    //             cost: priceConvertCost(price, sale),
-    //         }
-    //         const userId = localStorage.getItem('id')
-    //         console.log("userId", userId);
-    //         dispatch(addProductToCart({ userId: userId, product }));
-    //         setActive('');
-    //         setCount(1);
-    //     } else {
-    //         toast.error('Vui lòng chọn size!', {
-    //             position: toast.POSITION.TOP_RIGHT,
-    //         });
-    //     }
-    // };
     const [isClicked, setIsClicked] = useState(false);
     const handleClick = () => {
         if (!isClicked) {
@@ -83,30 +56,9 @@ function ProductDetails() {
                 firstImg: firstImg,
                 size: size,
                 quantity: count,
-
             }))
-            // const product = {
-            //     user: userId,
-            //     id: id,
-            //     name: name,
-            //     type: type,
-            //     size: size,
-            //     quantity: count,
-            //     firstImg: firstImg,
-            //     price: price,
-            //     cost: priceConvertCost(price, sale),
-            // }
-            // dispatch(addToCart({
-            //     user: userId,
-            //     idCart: id,
-            //     name: name,
-            //     type: type,
-            //     size: size,
-            //     quantity: count,
-            //     firstImg: firstImg,
-            //     price: price,
-            //     cost: priceConvertCost(price, sale),
-            // }));
+            setActive('');
+            setCount(1);
         } else {
             toast.error('Vui lòng chọn size!', {
                 position: toast.POSITION.TOP_RIGHT,

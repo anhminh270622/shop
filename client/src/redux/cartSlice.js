@@ -30,38 +30,43 @@ const cartSlice = createSlice({
         quantityCart: localStorage.getItem("productCart")
             ? JSON.parse(localStorage.getItem("productCart")).length
             : 0,
+        // quantityProduct: 0
     },
+
     reducers: {
         addItem: (state, action) => {
-            const index = state.items.findIndex((item) => item.id === action.payload.id);
-            const size = state.items.findIndex((item) => item.size === action.payload.size);
-            if (index === -1 && size === -1) {
+            // nếu sai trả về -1
+            const index = state.items.findIndex((item) => item.id === action.payload.id && item.size === action.payload.size);
+            if (index === -1) {
                 state.items.push(action.payload);
                 state.quantityCart += 1;
-            } else if (index === 0 && size === -1) {
-                state.items.push(action.payload);
-                state.quantityCart += 1;
-            }
-            else {
+            } else {
                 state.items[index].quantity += action.payload.quantity;
             }
             localStorage.setItem("productCart", JSON.stringify(state.items));
-            console.log("index", index, "size", size)
         },
         removeItem: (state, action) => {
             const idToRemove = action.payload.id;
-            state.items = state.items.filter((cartItem) => cartItem.id !== idToRemove);
+            const sizeToRemove = action.payload.size;
+            state.items = state.items.filter((cartItem) => !(cartItem.id === idToRemove && cartItem.size === sizeToRemove));
             state.quantityCart -= 1
             localStorage.setItem("productCart", JSON.stringify(state.items))
         },
-
         clearCart: (state) => {
             state.items = [];
         },
+        quantityIncrease: (state, action) => {
+            const index = state.items.findIndex((item) => item.id === action.payload.id);
+            state.items[index].quantity += 1;
+        },
+        quantityReduce: (state, action) => {
+            const index = state.items.findIndex((item) => item.id === action.payload.id);
+            state.items[index].quantity -= 1;
+        }
     },
 
 
 });
 
-export const { addItem, removeItem, clearCart } = cartSlice.actions;
+export const { addItem, removeItem, clearCart, quantityIncrease, quantityReduce } = cartSlice.actions;
 export default cartSlice.reducer;
