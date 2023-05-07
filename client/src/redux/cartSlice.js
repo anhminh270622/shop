@@ -1,14 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { fetchSomeData } from "./productSlice";
+const data = JSON.parse(localStorage.getItem("productCart"))
+const userId = localStorage.getItem("id");
+const dataCart = data.filter(index => index.userId === userId)
+console.log(data)
 const cartSlice = createSlice({
     name: "car",
     initialState: {
-        items: localStorage.getItem("productCart")
-            ? JSON.parse(localStorage.getItem("productCart"))
-            : [],
+        items: data,
+        data: dataCart,
         quantityCart: localStorage.getItem("productCart")
-            ? JSON.parse(localStorage.getItem("productCart")).length
+            ? dataCart.length
             : 0,
         // quantityProduct: 0
     },
