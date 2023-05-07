@@ -25,8 +25,6 @@ export default function SearchResults() {
                 )
                 .catch((error) => console.log(error));
         }
-        // console.log('sort:', sort, 'order:', order);
-        // console.log('tag', tag)
     }, [sort, order, tag, input]);
     const handleOnchange = (e) => {
         if (e.target.value === 'new') {

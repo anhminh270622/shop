@@ -1,4 +1,5 @@
 import axios from 'axios';
+import "./User.scss"
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
@@ -14,7 +15,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-
 import MenuItem from '@mui/material/MenuItem';
 export default function User() {
     const [user, setUser] = useState('');
@@ -24,7 +24,6 @@ export default function User() {
     const [id, setId] = useState('');
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
-
     const handleOpen = () => {
         setOpen(true);
     };

@@ -25,7 +25,6 @@ export const Filter = () => {
 	const [value, setValue] = useState(false);
 	const handleOnchange = (e) => {
 		if (isChecked === false) {
-			console.log(e.target.value);
 			setIsChecked(true);
 			setValue(e.target.value);
 		} else {

@@ -7,8 +7,6 @@ import "./SoccerShoes.scss"
 import { Filter } from '../../Define'
 export default function SoccerShoes() {
     const [soccerShoes, setSoccerShoes] = useState("")
-    // const { type } = useParams()
-    // console.log(type)
     const [sort, setSort] = useState('price');
     const [order, setOrder] = useState('asc');
     const [tag, setTag] = useState('')
@@ -26,8 +24,7 @@ export default function SoccerShoes() {
                 )
                 .catch((error) => console.log(error));
         }
-        // console.log('sort:', sort, 'order:', order);
-        // console.log('tag', tag)
+
     }, [sort, order, tag]);
     const handleOnchange = (e) => {
         if (e.target.value === 'new') {

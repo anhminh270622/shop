@@ -1,12 +1,24 @@
 .overview {
+	width: 95%;
+	margin: auto;
 	.overview-container {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: 10px;
 		div {
+			text-align: center;
 			border: 1px solid #ccc;
-			padding: 5px;
+			padding: 0 10px;
 			border-radius: 10px;
 		}
+		// .warehouse-quantity {
+		// 	display: flex;
+		// 	width: 100%;
+		// 	justify-content: space-around;
+		// }
+		// .sum-warehouse {
+		// 	display: flex;
+
+		// }
 	}
 }

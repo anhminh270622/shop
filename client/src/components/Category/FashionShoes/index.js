@@ -8,7 +8,7 @@ import { Filter } from '../../Define'
 export default function FashionShoes() {
     const [fashionShoes, setFashionShoes] = useState("")
     // const { type } = useParams()
-    // console.log(type)
+
     const [sort, setSort] = useState('price');
     const [order, setOrder] = useState('asc');
     const [tag, setTag] = useState('')

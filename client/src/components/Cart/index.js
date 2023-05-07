@@ -69,8 +69,7 @@ export default function Cart() {
         dispatch(removeItem(data));
     };
     const handleCart = (type, id) => {
-        // navigate(`/${type}/${id}`)
-        console.log(`handleCart`, type, id);
+
     };
     const handleBuy = () => {
         const products = items.map(item => `${item.name} - Size ${item.size}`);

@@ -1,43 +1,84 @@
-import { useEffect, useState } from 'react'
-import "./Overview.scss"
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchSomeData } from '../../../redux/productSlice'
-export default function Overview() {
-  const product = useSelector(state => state.product.data)
-  const dispatch = useDispatch()
-  const [userData, setUserData] = useState([])
-  useEffect(() => {
-    // dispatch(fetchSomeData("products"))
-    dispatch(fetchSomeData("products"))
+import { useEffect } from 'react';
+import './Overview.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchSomeData } from '../../../redux/productSlice';
 
-  }, [dispatch])
+export default function Overview() {
+  const dispatch = useDispatch();
+  const types = ['products', 'order', 'user'];
+
+  useEffect(() => {
+    types.forEach((type) => {
+      dispatch(fetchSomeData(type));
+    });
+  }, [dispatch]);
+
+  const products = useSelector((state) => state.product.products);
+  const orders = useSelector((state) => state.product.order);
+  const users = useSelector((state) => state.product.user);
   return (
     <div className="overview">
       <h1>Tổng quan Admin</h1>
       <div className="overview-container">
         <div>
           <h4>Đơn đặt hàng</h4>
-          <p>20</p>
+          <p>{orders.data.length}</p>
         </div>
         <div>
           <h4>Chờ xử lý</h4>
-          <p>20</p>
+          <p>
+            {
+              orders.data.filter((order) => order.status === 'Đang chờ xử lý')
+                .length
+            }
+          </p>
         </div>
         <div>
           <h4>Tài khoản</h4>
-          {/* <p>{userData.length}</p> */}
+          <p>{users.data.length}</p>
+        </div>
+        <div className="sum-warehouse">
+          <h4>Tổng Kho</h4>
+          <p>{products.data.length}</p>
         </div>
         <div>
-          <h4>Đơn đặt hàng</h4>
-          <p>20</p>
+          {' '}
+          <h4>Dép</h4>
+          <p>
+            {
+              products.data.filter((products) => products.type === 'sandal')
+                .length
+            }
+          </p>
         </div>
         <div>
-          <h4>Kho</h4>
-          <p>{product.length}</p>
-
+          <h4>Tất</h4>
+          <p>
+            {
+              products.data.filter((products) => products.type === 'hose')
+                .length
+            }
+          </p>
+        </div>
+        <div>
+          <h4>Tất</h4>
+          <p>
+            {
+              products.data.filter((products) => products.type === 'hose')
+                .length
+            }
+          </p>
+        </div>
+        <div>
+          <h4>Tất</h4>
+          <p>
+            {
+              products.data.filter((products) => products.type === 'hose')
+                .length
+            }
+          </p>
         </div>
       </div>
     </div>
-
-  )
+  );
 }

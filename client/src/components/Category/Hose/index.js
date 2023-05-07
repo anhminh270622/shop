@@ -10,7 +10,6 @@ import 'react-horizontal-scrolling-menu/dist/styles.css';
 export default function Hose() {
     const [hose, setHose] = useState("")
     const { type } = useParams()
-    // console.log(type)
     const [sort, setSort] = useState('price');
     const [order, setOrder] = useState('asc');
 
@@ -30,8 +29,6 @@ export default function Hose() {
                 )
                 .catch((error) => console.log(error));
         }
-        // console.log('sort:', sort, 'order:', order);
-        // console.log('tag', tag)
     }, [sort, order, tag]);
     const handleOnchange = (e) => {
         if (e.target.value === 'new') {

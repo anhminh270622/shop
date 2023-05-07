@@ -3,7 +3,6 @@ import { animateScroll } from 'react-scroll';
 import './ScrollToTopButton.scss';
 function ScrollToTopButton() {
     const [isVisible, setIsVisible] = useState(false);
-    // console.log(`ScrollToTopButton`, scrollTop)
     const threshold = window.innerHeight * 0.9;
     useEffect(() => {
         function handleScroll() {

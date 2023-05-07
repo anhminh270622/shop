@@ -8,7 +8,6 @@ import 'react-horizontal-scrolling-menu/dist/styles.css';
 export default function ProductRelated() {
     const { id, type } = useParams()
     const [ralated, setRalated] = useState("")
-    //  console.log("id: ", id, "type: ", type)
     useEffect(() => {
         axios.get(`http://localhost:3000/api/products?type=${type}`)
             .then((response) => setRalated(response.data)

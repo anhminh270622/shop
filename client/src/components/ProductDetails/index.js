@@ -11,9 +11,9 @@ import {
 } from '../Define';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSeletor } from 'react-router-dom';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem, addToCartById } from '../../redux/cartSlice';
 function ProductDetails() {
     const [img, setImg] = useState(0);
@@ -65,6 +65,7 @@ function ProductDetails() {
             });
         }
     }
+    const index = useSelector(state => state.product.product)
     const Increase = () => {
         setCount(count + 1);
     };

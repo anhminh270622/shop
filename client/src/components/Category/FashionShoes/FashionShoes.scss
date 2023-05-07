@@ -9,13 +9,13 @@
 		display: flex;
 		width: 100%;
 		.filter {
-			width: 30%;
+			width: 20%;
 			.filter {
 				width: 100%;
 			}
 		}
 		.items {
-			width: 70%;
+			width: 80%;
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 			gap: 20px;
