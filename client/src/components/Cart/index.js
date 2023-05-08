@@ -36,6 +36,9 @@ export default function Cart() {
     const quantityCart = useSelector((state) => state.cart.quantityCart);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const userId = JSON.parse(localStorage.getItem('id'))
+    // console.log("userId", userId)
+
     const Reduce = (item) => {
         dispatch(quantityReduce(item));
     };
@@ -81,6 +84,7 @@ export default function Cart() {
             product: products.join(', '),
             total: SumCart(),
             status: "Đang chờ xử lý",
+            userId: userId
         }).then(orderResponse => {
             // setNameOrder('')
             // setNote('')

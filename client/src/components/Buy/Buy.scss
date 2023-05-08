@@ -3,7 +3,15 @@
 	height: 70vh;
 	width: 90%;
 	margin: auto;
-
+	.status {
+		background: green;
+		&:hover {
+			background: green;
+		}
+	}
+	.button {
+		cursor: default;
+	}
 	.buy-top {
 	}
 	.buy-container {

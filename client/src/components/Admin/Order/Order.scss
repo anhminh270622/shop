@@ -1,4 +1,10 @@
 .order {
 	width: 95%;
 	margin: auto;
+	.status {
+		background: green;
+		&:hover {
+			background: green;
+		}
+	}
 }

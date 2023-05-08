@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { fetchSomeData } from "./productSlice";
-const data = JSON.parse(localStorage.getItem("productCart"))
 const userId = localStorage.getItem("id");
-const dataCart = data.filter(index => index.userId === userId)
+const data = JSON.parse(localStorage.getItem(`productCart${userId}`))
+// const dataCart = data.filter(index => index.userId === userId)
 console.log(data)
 const cartSlice = createSlice({
     name: "car",
     initialState: {
-        items: data,
-        data: dataCart,
-        quantityCart: localStorage.getItem("productCart")
-            ? dataCart.length
+        // data: data,
+        items: localStorage.getItem(`productCart${userId}`) ? data : [],
+        quantityCart: localStorage.getItem(`productCart${userId}`)
+            ? data.length
             : 0,
         // quantityProduct: 0
     },
@@ -26,18 +26,18 @@ const cartSlice = createSlice({
             } else {
                 state.items[index].quantity += action.payload.quantity;
             }
-            localStorage.setItem("productCart", JSON.stringify(state.items));
+            localStorage.setItem(`productCart${userId}`, JSON.stringify(state.items));
         },
         removeItem: (state, action) => {
             const idToRemove = action.payload.id;
             const sizeToRemove = action.payload.size;
             state.items = state.items.filter((cartItem) => !(cartItem.id === idToRemove && cartItem.size === sizeToRemove));
             state.quantityCart -= 1
-            localStorage.setItem("productCart", JSON.stringify(state.items))
+            localStorage.setItem(`productCart${userId}`, JSON.stringify(state.items))
         },
         clearCart: (state) => {
             state.items = [];
-            localStorage.setItem("productCart", JSON.stringify(state.items))
+            localStorage.setItem(`productCart${userId}`, JSON.stringify(state.items))
             state.quantityCart = 0;
         },
         quantityIncrease: (state, action) => {
@@ -47,7 +47,7 @@ const cartSlice = createSlice({
         quantityReduce: (state, action) => {
             const index = state.items.findIndex((item) => item.id === action.payload.id);
             state.items[index].quantity -= 1;
-        }
+        },
     },
 
 

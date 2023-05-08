@@ -25,6 +25,15 @@ export default function Overview() {
           <p>{orders.data.length}</p>
         </div>
         <div>
+          <h4>Thành Công</h4>
+          <p>
+            {
+              orders.data.filter((order) => order.status === 'Thành công')
+                .length
+            }
+          </p>
+        </div>
+        <div>
           <h4>Chờ xử lý</h4>
           <p>
             {
@@ -52,19 +61,19 @@ export default function Overview() {
           </p>
         </div>
         <div>
-          <h4>Tất</h4>
+          <h4>Giày thời trang</h4>
           <p>
             {
-              products.data.filter((products) => products.type === 'hose')
+              products.data.filter((products) => products.type === 'fashion-shoe')
                 .length
             }
           </p>
         </div>
         <div>
-          <h4>Tất</h4>
+          <h4>Giày bóng đá</h4>
           <p>
             {
-              products.data.filter((products) => products.type === 'hose')
+              products.data.filter((products) => products.type === 'soccer-shoe')
                 .length
             }
           </p>

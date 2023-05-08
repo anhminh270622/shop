@@ -5,7 +5,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchSomeData } from "../../../redux/productSlice";
+import { fetchSomeData, updateOrderStatus, updateStatus } from "../../../redux/productSlice";
 function Order() {
   const [rows, setRows] = useState("")
   const [confirm, setConfirm] = useState("Xác nhận")
@@ -14,14 +14,14 @@ function Order() {
     dispatch(fetchSomeData("order"))
   }, [])
   const order = useSelector(state => state.product.order.data)
-  const handleConfirm = (items) => {
-    const index = order.filter(item => item.id === items)
-
-    console.log("items", items)
+  // console.log("order", order)
+  const handleConfirm = (id) => {
+    dispatch(updateStatus(id))
   }
   // console.log("order", order)
   const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
+    { field: 'userId', headerName: 'UserId', width: 80 },
     {
       field: 'product',
       headerName: 'Chi tiết đơn hàng',
@@ -45,8 +45,9 @@ function Order() {
         <>
           <Button
             variant="contained" onClick={() => handleConfirm(params.row.id)}
+            className={params.row.status === "Đang chờ xử lý" ? "" : "status"}
           >
-            {confirm}
+            {params.row.status === "Đang chờ xử lý" ? "Xác Nhận" : params.row.status}
           </Button>
         </>
       ),

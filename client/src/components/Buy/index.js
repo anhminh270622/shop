@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 function Buy() {
     const [rows, setRows] = useState("")
+    const userId = JSON.parse(localStorage.getItem("id"))
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
@@ -31,9 +32,9 @@ function Buy() {
                 <>
                     <Button
                         variant="contained"
-
+                        className={`button ${params.row.status === "Thành công" ? "status" : ""}`}
                     >
-                        Đang chờ xử lý
+                        {params.row.status}
                     </Button>
                 </>
             ),
@@ -43,7 +44,8 @@ function Buy() {
         const fetchData = async () => {
             try {
                 const response = await axios.get("http://localhost:3000/api/order")
-                setRows(response.data) // Cập nhật state rows với dữ liệu trả về từ API
+                const buy = response.data.filter(item => item.userId === userId)
+                setRows(buy) // Cập nhật state rows với dữ liệu trả về từ API
             } catch (error) {
                 console.log(error)
             }
