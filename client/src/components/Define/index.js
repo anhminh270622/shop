@@ -2,6 +2,8 @@ import './Define.scss';
 import { animateScroll } from 'react-scroll';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { addValue, addTrademark } from '../../redux/valueFilter';
+import { useDispatch } from 'react-redux';
 export const priceConvert = (price) => {
 	const convert = price?.toLocaleString() + 'đ';
 	return convert;
@@ -17,53 +19,44 @@ export const priceSaleConvert = (sale) => {
 	return convert;
 };
 export const Filter = () => {
-	const numbers = [];
-	for (let i = 35; i <= 46; i++) {
-		numbers.push(i);
-	}
 	const [isChecked, setIsChecked] = useState(false);
-	const [value, setValue] = useState(false);
+	const [values, setValues] = useState(false);
 	const handleOnchange = (e) => {
-		if (isChecked === false) {
-			setIsChecked(true);
-			setValue(e.target.value);
-		} else {
-			setIsChecked(false);
-		}
+		dispatch(addTrademark(e.target.value))
 	};
+	const dispatch = useDispatch()
+	const handleChangePrice = (e) => {
+		dispatch(addValue(e.target.value))
+	}
 	return (
 		<div className="filter">
 			<div className="trademark">
 				<h4>THƯƠNG HIỆU</h4>
 				<div>
 					<input
-						checked={isChecked}
 						type="checkbox"
-						value={isChecked === false ? 'ADIDAS' : ''}
+						value={'ADIDAS'}
 						onChange={(e) => handleOnchange(e)}></input>
 					<span>ADIDAS</span>
 				</div>
 				<div>
 					<input
-						checked={isChecked}
 						type="checkbox"
-						value={isChecked === false ? 'NIKE' : ''}
+						value={'NIKE'}
 						onChange={(e) => handleOnchange(e)}></input>
 					<span>NIKE</span>
 				</div>{' '}
 				<div>
 					<input
-						checked={isChecked}
 						type="checkbox"
-						value={isChecked === false ? 'JOGARBOLA' : ''}
+						value={'JOGARBOLA'}
 						onChange={(e) => handleOnchange(e)}
 					/>
 					<span>JOGARBOLA</span>
 				</div>
 				<div>
 					<input
-						checked={isChecked}
-						value={isChecked === false ? 'KAKA' : ''}
+						value={'KAKA'}
 						type="checkbox"
 						onChange={(e) => handleOnchange(e)}></input>
 					<span>KAKA</span>
@@ -72,34 +65,30 @@ export const Filter = () => {
 			<div className="price">
 				<h4>GIÁ SẢN PHẨM</h4>
 				<div>
-					<input type="checkbox"></input>
+					<input type="radio" onChange={(e) => handleChangePrice(e)} name="price" value="all"></input>
+					<span>Tất cả</span>
+				</div>
+				<div>
+					<input type="radio" onChange={(e) => handleChangePrice(e)} name="price" value="max500" ></input>
 					<span>Dưới 500,000₫</span>
 				</div>
 				<div>
-					<input type="checkbox"></input>
+					<input type="radio" onChange={(e) => handleChangePrice(e)} name="price" value="max1000"></input>
 					<span>500,000₫ - 1,000,000₫</span>
 				</div>
 				<div>
-					<input type="checkbox"></input>
+					<input type="radio" onChange={(e) => handleChangePrice(e)} name="price" value="max1500"></input>
 					<span>1,000,000₫ - 1,500,000₫</span>
 				</div>
 				<div>
-					<input type="checkbox"></input>
+					<input type="radio" onChange={(e) => handleChangePrice(e)} name="price" value="max5000"></input>
 					<span>2,000,000₫ - 5,000,000₫</span>
 				</div>
 				<div>
-					<input type="checkbox"></input>
+					<input type="radio" onChange={(e) => handleChangePrice(e)} name="price" value="min5001"></input>
 					<span>Trên 5,000,000₫</span>
 				</div>
 			</div>
-			{/* <div>
-				<h4>KÍCH CỠ</h4>
-				<div className="size">
-					{numbers.map((n, i) => {
-						return <button key={i}>{n}</button>;
-					})}
-				</div>
-			</div> */}
 		</div>
 	);
 };

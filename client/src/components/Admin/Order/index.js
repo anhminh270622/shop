@@ -7,18 +7,20 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSomeData, updateOrderStatus, updateStatus } from "../../../redux/productSlice";
 function Order() {
-  const [rows, setRows] = useState("")
-  const [confirm, setConfirm] = useState("Xác nhận")
+  // const [rows, setRows] = useState("")
+  // const [confirm, setConfirm] = useState("Xác nhận")
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchSomeData("order"))
+    dispatch(fetchSomeData("products"))
   }, [])
   const order = useSelector(state => state.product.order.data)
-  // console.log("order", order)
-  const handleConfirm = (id) => {
-    dispatch(updateStatus(id))
+  const products = useSelector(state => state.product.products.data)
+  const sortedOrder = [...order].sort((a, b) => b.id - a.id);
+  const handleConfirm = (id, productId) => {
+    // console.log("id", id, "productId", productId)
+    dispatch(updateStatus(id, productId))
   }
-  // console.log("order", order)
   const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
     { field: 'userId', headerName: 'UserId', width: 80 },
@@ -44,7 +46,7 @@ function Order() {
       renderCell: (params) => (
         <>
           <Button
-            variant="contained" onClick={() => handleConfirm(params.row.id)}
+            variant="contained" onClick={() => handleConfirm(params.row.id, params.row.productId)}
             className={params.row.status === "Đang chờ xử lý" ? "" : "status"}
           >
             {params.row.status === "Đang chờ xử lý" ? "Xác Nhận" : params.row.status}
@@ -61,7 +63,7 @@ function Order() {
       </div>
       <Box sx={{ height: 400, width: '100%' }}>
         <DataGrid
-          rows={order}
+          rows={sortedOrder}
           columns={columns}
           initialState={{
             pagination: {

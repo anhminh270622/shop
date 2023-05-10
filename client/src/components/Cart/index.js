@@ -76,6 +76,8 @@ export default function Cart() {
     };
     const handleBuy = () => {
         const products = items.map(item => `${item.name} - Size ${item.size}`);
+        const productsId = items.map(item => item.id);
+        // console.log("productsId", productsId)
         axios.post('http://localhost:3000/api/order', {
             nameOrder: nameOrder,
             address: address,
@@ -84,7 +86,8 @@ export default function Cart() {
             product: products.join(', '),
             total: SumCart(),
             status: "Đang chờ xử lý",
-            userId: userId
+            userId: userId,
+            productId: productsId
         }).then(orderResponse => {
             // setNameOrder('')
             // setNote('')

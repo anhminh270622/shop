@@ -14,12 +14,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, useSeletor } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, addToCartById } from '../../redux/cartSlice';
+import { addItem, addToCartById, addCart } from '../../redux/cartSlice';
+import { fetchSomeData } from '../../redux/productSlice';
 function ProductDetails() {
     const [img, setImg] = useState(0);
     const [count, setCount] = useState(1);
     const [size, setSize] = useState('');
     const [active, setActive] = useState('');
+    const [isClicked, setIsClicked] = useState(false);
+    const [warehouseQuantity, setWarehouseQuantity] = useState('');
+    const userId = localStorage.getItem('id');
+    const login = localStorage.getItem('login');
+    const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
     const { id, price, description, tag, name, trademark, image, sale, type } =
@@ -37,35 +43,54 @@ function ProductDetails() {
     function handleOnClick(index) {
         setImg(index);
     }
-    const userId = localStorage.getItem('id')
-    const dispatch = useDispatch();
-    const [isClicked, setIsClicked] = useState(false);
-    const handleClick = () => {
+    const index = useSelector((state) => state.product.products.data);
+    useEffect(() => {
+        dispatch(fetchSomeData('products'));
+    }, []);
+    const indexId = index.findIndex((index) => index.id === id);
+    const quantityCart = index[indexId]?.quantity;
+    const handleAddCart = () => {
+        setWarehouseQuantity(quantityCart);
         if (!isClicked) {
             setIsClicked(true);
         }
-        if (size) {
-            toast.success('Đã thêm vào giỏ hàng!', {
-                position: toast.POSITION.TOP_RIGHT,
-            });
-            dispatch(addItem({
-                userId: userId,
-                id: id,
-                price: price,
-                name: name,
-                firstImg: firstImg,
-                size: size,
-                quantity: count,
-            }))
-            setActive('');
-            setCount(1);
+        if (login === 'true') {
+            if (size) {
+                if (count <= quantityCart) {
+                    toast.success('Đã thêm vào giỏ hàng!', {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                    dispatch(
+                        addItem({
+                            userId: userId,
+                            id: id,
+                            price: price,
+                            name: name,
+                            firstImg: firstImg,
+                            size: size,
+                            quantity: count,
+                        })
+                    );
+                    setActive('');
+                    setCount(1);
+                } else {
+                    toast.warning('Vượt quá số lượng trong kho!', {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                    setCount(quantityCart);
+                }
+            } else {
+                toast.error('Vui lòng chọn size!', {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            }
         } else {
-            toast.error('Vui lòng chọn size!', {
+            toast.warning('Vui lòng đăng nhập!', {
                 position: toast.POSITION.TOP_RIGHT,
             });
         }
-    }
-    const index = useSelector(state => state.product.product)
+    };
+
     const Increase = () => {
         setCount(count + 1);
     };
@@ -117,27 +142,27 @@ function ProductDetails() {
                                     <button
                                         key={item}
                                         onClick={() => handleSize(item)}
-                                        className={buttonClass}
-                                    >
+                                        className={buttonClass}>
                                         {item}
                                     </button>
                                 );
                             })}
                     </span>
                 </p>
+                <p>Số lượng trong kho: {quantityCart}</p>
                 <div className="count">
                     <button
                         onClick={Reduce}
                         disabled={count === 1 ? true : false}>
                         <RemoveIcon />
                     </button>
-                    <input value={count} onChange={(e) => setCount(e.target.value)} />
+                    <input value={count} />
                     <button onClick={Increase}>
                         <AddIcon />
                     </button>
                 </div>
                 <div className="cart">
-                    <button onClick={() => handleClick()}>Thêm vào giỏ hàng</button>
+                    <button onClick={() => handleAddCart()}>Thêm vào giỏ hàng</button>
                 </div>
                 <div className="tag">
                     <p>Tag</p>

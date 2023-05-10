@@ -3,8 +3,10 @@ import axios from "axios";
 import { fetchSomeData } from "./productSlice";
 const userId = localStorage.getItem("id");
 const data = JSON.parse(localStorage.getItem(`productCart${userId}`))
-// const dataCart = data.filter(index => index.userId === userId)
-console.log(data)
+// export const addCart = (product) => async (dispatch) => {
+//     await axios.post("http://localhost:3000/api/carts", product)
+//     dispatch(addItem(product))
+// }
 const cartSlice = createSlice({
     name: "car",
     initialState: {

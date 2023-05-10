@@ -77,8 +77,9 @@
 			}
 		}
 		.buys {
-			display: flex;
-			justify-content: space-between;
+			// display: flex;
+			// justify-content: space-between;
+			text-align: right;
 			.left {
 				button {
 					background: red;
@@ -93,6 +94,7 @@
 				}
 				.button {
 					display: flex;
+					justify-content: right;
 					.close {
 						color: white;
 						background-color: #007fff;

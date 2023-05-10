@@ -109,7 +109,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100
+      "quantity": 34
     },
     {
       "id": "NKA307CU39596025",
@@ -180,7 +180,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100
+      "quantity": 54
     },
     {
       "id": "AD307F3553860",
@@ -217,7 +217,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100
+      "quantity": 10
     },
     {
       "id": "AD307GZ589360",
@@ -254,7 +254,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100
+      "quantity": 23
     },
     {
       "id": "AD307GZ592160",
@@ -291,7 +291,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100
+      "quantity": 43
     },
     {
       "id": " NKA307CN96783016",
@@ -328,7 +328,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100
+      "quantity": 25
     },
     {
       "id": "NKA307DC14600046",
@@ -402,7 +402,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100
+      "quantity": 53
     },
     {
       "id": "AD306FW653080",
@@ -532,7 +532,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100
+      "quantity": 25
     },
     {
       "id": "AD306GX779675",
@@ -698,7 +698,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100
+      "quantity": 43
     },
     {
       "id": "AK306TV8506TF40",
@@ -740,7 +740,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100
+      "quantity": 87
     },
     {
       "id": "NKA306DA1191004E",
@@ -974,7 +974,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100,
+      "quantity": 34,
       "trademark": "NIKE"
     },
     {
@@ -1206,7 +1206,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100,
+      "quantity": 76,
       "trademark": "NIKE"
     },
     {
@@ -1243,7 +1243,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100,
+      "quantity": 46,
       "trademark": "NIKE"
     },
     {
@@ -1421,51 +1421,140 @@
       "url": "https://bizweb.dktcdn.net/100/320/146/themes/788807/assets/slider_1_image.png?1678244567902"
     }
   ],
-  "carts": [],
-  "order": [
+  "carts": [
     {
-      "nameOrder": "53453",
-      "address": "5435435",
-      "phone": "3534",
-      "note": "3454355",
-      "product": "Tất sportswear nike NSW EVERYDAY ESSENTIAL AN DX5074-010 - Size 35, Tất sportswear nike NSW EVERYDAY ESSENTIAL AN DX5074-010 - Size 42",
-      "total": "978,000đ",
-      "status": "Thành công",
-      "userId": 3,
-      "id": 8
+      "userId": "9",
+      "id": "NKA307CU39596025",
+      "price": 779000,
+      "name": "Dép sportswear Nike On Deck nữ CU3959-602",
+      "firstImg": {
+        "url": "https://product.hstatic.net/200000174405/product/1_e66ac201f2374064b357166a79ba22bb_master.jpg"
+      },
+      "size": 40,
+      "quantity": 1
     },
     {
-      "nameOrder": "dsad",
-      "address": "đá",
-      "phone": "43",
+      "userId": "9",
+      "id": "NKA307DC14600046",
+      "price": 1559000,
+      "name": "Dép sportswear Air Max Cirro nam DC1460-004",
+      "firstImg": {
+        "url": "https://product.hstatic.net/200000174405/product/1_64b79a235d0d4b6b86f713ea2e0e5adc_master.jpg"
+      },
+      "size": 43,
+      "quantity": 1
+    },
+    {
+      "userId": "9",
+      "id": "AD307F3553860",
+      "price": 600000,
+      "name": "Dép thể thao adidas ADILETTE AQUA - F35538",
+      "firstImg": {
+        "url": "https://product.hstatic.net/200000174405/product/f35538-1_9d20486f06094ef5a63a069de2968353_master.jpg"
+      },
+      "size": 41,
+      "quantity": 3
+    }
+  ],
+  "order": [
+    {
+      "nameOrder": "ff",
+      "address": "fewsr",
+      "phone": "5434",
+      "note": "et",
+      "product": "Tất sportswear nike NSW EVERYDAY ESSENTIAL AN DX5074-010 - Size 40",
+      "total": "489,000đ",
+      "status": "Thành công",
+      "userId": 3,
+      "productId": [
+        "NKA308DX5074010S"
+      ],
+      "id": 16
+    },
+    {
+      "nameOrder": "4656",
+      "address": "564",
+      "phone": "465",
+      "note": "645",
+      "product": "Dép sportswear nike nam CN9675-600 - Size 40",
+      "total": "939,000đ",
+      "status": "Thành công",
+      "userId": 3,
+      "productId": [
+        "NKA307CN96756007"
+      ],
+      "id": 17
+    },
+    {
+      "nameOrder": "sdsdffs",
+      "address": "432",
+      "phone": "4324",
+      "note": "24234",
+      "product": "Dép thể thao adidas ADILETTE AQUA - F35538 - Size 35, Dép sportswear NIKE ICON CLASSIC SANDAL nữ DH0223-001 - Size 40",
+      "total": "2,359,000đ",
+      "status": "Thành công",
+      "userId": 3,
+      "productId": [
+        "AD307F3553860",
+        "NKA307DH02230016"
+      ],
+      "id": 18
+    },
+    {
+      "nameOrder": "564",
+      "address": "6543",
+      "phone": "564",
       "note": "",
       "product": "Dép thể thao adidas ADILETTE AQUA - F35538 - Size 40",
       "total": "600,000đ",
       "status": "Thành công",
       "userId": 3,
-      "id": 9
+      "productId": [
+        "AD307F3553860"
+      ],
+      "id": 19
     },
     {
-      "nameOrder": "tểt",
-      "address": "ẻtreerte",
+      "nameOrder": "",
+      "address": "",
       "phone": "",
-      "note": "53455443",
-      "product": "Dép sportswear Nike On Deck nữ CU3959-602 - Size 36",
-      "total": "3,116,000đ",
+      "note": "",
+      "product": "Giầy bóng đá Nike Phantom GX Club TF nam DD9486-446 - Size 40",
+      "total": "1,859,000đ",
       "status": "Thành công",
       "userId": 3,
-      "id": 10
+      "productId": [
+        "NKA306DD9486446E"
+      ],
+      "id": 20
     },
     {
-      "nameOrder": "435435",
-      "address": "345345",
-      "phone": "5435435",
-      "note": "34543",
-      "product": "Dép thể thao adidas ADILETTE AQUA - F35538 - Size 42",
-      "total": "600,000đ",
+      "nameOrder": "356",
+      "address": "634634",
+      "phone": "634634",
+      "note": "63",
+      "product": "Dép sportswear Nike On Deck nữ CU3959-602 - Size 40",
+      "total": "3,895,000đ",
+      "status": "Thành công",
+      "userId": 3,
+      "productId": [
+        "NKA307CU39596025"
+      ],
+      "id": 21
+    },
+    {
+      "nameOrder": "rr3",
+      "address": "",
+      "phone": "",
+      "note": "",
+      "product": "Dép sportswear Nike On Deck nữ CU3959-602 - Size 43",
+      "total": "779,000đ",
       "status": "Đang chờ xử lý",
       "userId": 3,
-      "id": 11
+      "productId": [
+        "NKA307CU39596025"
+      ],
+      "id": 22
     }
   ],
   "user": [

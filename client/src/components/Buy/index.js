@@ -43,9 +43,10 @@ function Buy() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/order")
+                const response = await axios.get("http://localhost:3000/api/order?_sort=id&_order=desc")
                 const buy = response.data.filter(item => item.userId === userId)
-                setRows(buy) // Cập nhật state rows với dữ liệu trả về từ API
+                setRows(buy)
+                // console.log("buy", buy)// Cập nhật state rows với dữ liệu trả về từ API
             } catch (error) {
                 console.log(error)
             }
@@ -56,7 +57,7 @@ function Buy() {
     return (
         <div className="buy">
             <div className="buy-top">
-                <h1>Đơn mua</h1>
+                <h1>Lịch sử đơn hàng</h1>
             </div>
             <Box sx={{ height: 400, width: '100%' }}>
                 <DataGrid
@@ -74,7 +75,6 @@ function Buy() {
                     disableRowSelectionOnClick
                 />
             </Box>
-            <hr />
         </div>
     )
 }
