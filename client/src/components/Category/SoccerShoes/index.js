@@ -1,79 +1,123 @@
-import React from 'react'
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import ProductGeneral from '../../ProductGeneral'
+import React from 'react';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import ProductGeneral from '../../ProductGeneral';
+import { Filter, Sort } from '../../Define';
+import { fetchSomeData } from '../../../redux/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import "./SoccerShoes.scss"
-import { Filter } from '../../Define'
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
 export default function SoccerShoes() {
-    const [soccerShoes, setSoccerShoes] = useState("")
-    const [sort, setSort] = useState('price');
-    const [order, setOrder] = useState('asc');
-    const [tag, setTag] = useState('')
+    const [soccerShoes, setSoccerShoes] = useState('');
+    const dispatch = useDispatch();
+    const product = useSelector(state => state.product.products.data)
+    const value = useSelector(state => state.value.items)
+    const productSandal = product.filter(product => product.type === "soccer-shoe")
+    const trademark = useSelector(state => state.value.data)
     useEffect(() => {
-        if (tag) {
-            axios.get(
-                `http://localhost:3000/api/products?type=soccer-shoe&_sort=${sort}&_order=${order}&tag=${tag}`)
-                .then((response) => setSoccerShoes(response.data)
-                )
-                .catch((error) => console.log(error));
-        } else {
-            axios.get(
-                `http://localhost:3000/api/products?type=soccer-shoe&_sort=${sort}&_order=${order}`)
-                .then((response) => setSoccerShoes(response.data)
-                )
-                .catch((error) => console.log(error));
+        dispatch(fetchSomeData("products"))
+    }, [dispatch])
+    useEffect(() => {
+        if (value === "max500") {
+            const sortFunction = productSandal.filter(product => product.price < 500000);
+            setSoccerShoes(sortFunction);
+        } else if (value === "max1000") {
+            const sortFunction = productSandal.filter(product => product.price >= 500000 && product.price < 1000000);
+            setSoccerShoes(sortFunction);
         }
-
-    }, [sort, order, tag]);
-    const handleOnchange = (e) => {
-        if (e.target.value === 'new') {
-            setTag('new')
-
-        } else {
-            setSort(e.target.value.split(' ')[0]);
-            setOrder(e.target.value.split(' ')[1]);
-            setTag('')
+        else if (value === "max1500") {
+            const sortFunction = productSandal.filter(product => product.price >= 1000000 && product.price <= 1500000);
+            setSoccerShoes(sortFunction);
+        } else if (value === "max5000") {
+            const sortFunction = productSandal.filter(product => product.price >= 2000000 && product.price <= 5000000);
+            setSoccerShoes(sortFunction);
+        } else if (value === "min5001") {
+            const sortFunction = productSandal.filter(product => product.price > 5000000);
+            setSoccerShoes(sortFunction);
         }
+        else {
+            setSoccerShoes(productSandal);
+        }
+    }, [product, value]);
+    useEffect(() => {
+        if (trademark.length > 0) {
+            const sortFunction = productSandal.filter(product =>
+                trademark.includes(product.trademark)
+            );
+            setSoccerShoes(sortFunction);
+        } else {
+            setSoccerShoes(productSandal);
+        }
+        console.log("trademark", trademark)
 
+
+    }, [trademark])
+    const sortFunctions = {
+        new: (sandal) => {
+            const newProducts = sandal.filter((product) => product.tag === "new");
+            const oldProducts = sandal.filter((product) => product.tag !== "new");
+            return [...newProducts, ...oldProducts];
+        },
+        asc: (sandal) => sandal.sort((a, b) => a.price - b.price),
+        desc: (sandal) => sandal.sort((a, b) => b.price - a.price),
+        az: (sandal) => sandal.sort((a, b) => a.trademark.localeCompare(b.trademark)),
+        za: (sandal) => sandal.sort((a, b) => b.trademark.localeCompare(a.trademark)),
     };
+    const handleOnchange = (e) => {
+        const sortFunction = sortFunctions[e.target.value];
+        setSoccerShoes(sortFunction(productSandal));
+    };
+    useEffect(() => {
+        const sortFunction = sortFunctions.asc;
+        setSoccerShoes(sortFunction(productSandal));
+    }, [product])
     return (
-        <div className="sandal">
+        <div className="soccerShoes">
             <div className="top">
                 <h1>Giày bóng đá</h1>
                 <select onChange={handleOnchange}>
-                    <option value="price asc">Giá: Tăng dần</option>
-                    <option value="price desc">Giá: Giảm dần</option>
-                    <option value="trademark asc">Thương hiệu:A-Z</option>
-                    <option value="trademark desc">Thương hiệu:Z-A</option>
+                    <option value="asc">Giá: Tăng dần</option>
+                    <option value="desc">Giá: Giảm dần</option>
+                    <option value="az">Thương hiệu:A-Z</option>
+                    <option value="za">Thương hiệu:Z-A</option>
                     <option value="new">Sản phẩm: Mới</option>
                 </select>
             </div>
             <div className="container">
                 <div className="filter">
                     <Filter />
+                    {/* <Box sx={{ width: "100%" }}>
+                        <Slider
+                            getAriaLabel={() => 'Temperature range'}
+                            value={value}
+                            onChange={handleChange}
+                            valueLabelDisplay="auto"
+                            getAriaValueText={valuetext}
+                        />
+                    </Box> */}
                 </div>
-
-                <div className='items'>
-                    {soccerShoes && soccerShoes.map(item => {
-                        return (
-                            <ProductGeneral
-                                key={item.id}
-                                id={item.id}
-                                name={item.name}
-                                price={item.price}
-                                sale={item.price_sale}
-                                image={item.images}
-                                trademark={item.trademark}
-                                tag={item.tag}
-                                description={item.description}
-                                type={item.type}
-                            />
-                        )
-                    })}
+                <div className="items">
+                    {soccerShoes &&
+                        soccerShoes.map((item) => {
+                            return (
+                                <ProductGeneral
+                                    key={item.id}
+                                    id={item.id}
+                                    name={item.name}
+                                    price={item.price}
+                                    sale={item.price_sale}
+                                    image={item.images}
+                                    trademark={item.trademark}
+                                    tag={item.tag}
+                                    description={item.description}
+                                    type={item.type}
+                                />
+                            );
+                        })}
                 </div>
             </div>
         </div>
-
-    )
+    );
 }

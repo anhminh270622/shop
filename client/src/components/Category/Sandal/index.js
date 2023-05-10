@@ -11,17 +11,6 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 export default function Sandal() {
     const [sandal, setSandal] = useState('');
-    // const [sort, setSort] = useState('price');
-    // const [order, setOrder] = useState('asc');
-    // const [tag, setTag] = useState('')
-    // const [value, setValue] = useState([0, 5000000]);
-    // function valuetext(value) {
-    //     return `${value}°C`;
-    // }
-    // const handleChange = (event, newValue) => {
-    //     setValue(newValue);
-    //     console.log('newValue', newValue)
-    // };
     const dispatch = useDispatch();
     const product = useSelector(state => state.product.products.data)
     const value = useSelector(state => state.value.items)

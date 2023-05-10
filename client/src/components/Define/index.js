@@ -56,10 +56,10 @@ export const Filter = () => {
 				</div>
 				<div>
 					<input
-						value={'KAKA'}
+						value={'AKKA'}
 						type="checkbox"
 						onChange={(e) => handleOnchange(e)}></input>
-					<span>KAKA</span>
+					<span>AKKA</span>
 				</div>
 			</div>
 			<div className="price">
