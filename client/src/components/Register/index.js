@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export default function Register() {
     const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [passwordEnter, setPasswordEnter] = useState('');
     const navigate = useNavigate();
@@ -22,9 +23,12 @@ export default function Register() {
             position: toast.POSITION.TOP_RIGHT,
         });
         axios.post('http://localhost:3000/api/user', {
+            name: name,
             email: email,
             password: password,
-            role: "client"
+            phone: "",
+            role: "client",
+            url: ""
         });
     };
     return (
@@ -35,6 +39,14 @@ export default function Register() {
                     <img src="https://inkythuatso.com/uploads/thumbnails/800/2022/03/avatar-mac-dinh-nu-co-mau-30-10-31-43.jpg"></img>
                     <h1>Đăng ký</h1>
                     <form onSubmit={handleSubmit}>
+                        <div>
+                            <MailIcon />
+                            <input
+                                type="text"
+                                placeholder="Tên người dùng"
+                                onChange={(e) => setName(e.target.value)}
+                                value={name}></input>
+                        </div>
                         <div>
                             <MailIcon />
                             <input

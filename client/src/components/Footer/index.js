@@ -29,7 +29,7 @@ function Footer() {
                                     <li>Jogarbola</li>
                                 </ul>
                             </li>
-                            <li className="contact">
+                            <li className="contacts">
                                 <h3>Liên hệ</h3>
                                 <ul>
                                     <li>Email: anhminh270622@gmail.com</li>

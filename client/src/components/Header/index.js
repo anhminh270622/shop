@@ -52,6 +52,14 @@ function Header() {
 		window.location.reload();
 		Scroll();
 	};
+	const handleContact = () => {
+		navigate('/contact');
+		Scroll();
+	}
+	const handleProfile = () => {
+		navigate('/profile');
+		Scroll();
+	}
 	return (
 		<>
 			<div className="header">
@@ -67,7 +75,6 @@ function Header() {
 					<ul className="center">
 						<div className="sections">
 							<li
-								// exact={true}
 								to="/"
 								onClick={handleScrollToTopClick}>
 								Trang chủ
@@ -94,7 +101,7 @@ function Header() {
 									</Link>
 								</ul>
 							</li>
-							<li to="/contact">Liên hệ</li>
+							<li onClick={handleContact}>Liên hệ</li>
 						</div>
 						<div className="search">
 							<div className="group">
@@ -144,7 +151,7 @@ function Header() {
 									<img src={localStorage.getItem('avatar')}></img>
 									<ul className="profile">
 										<li onClick={LogOut}>Đăng xuất</li>
-										<li >Chỉnh sửa thông tin</li>
+										<li onClick={handleProfile}>Chỉnh sửa thông tin</li>
 										{localStorage.getItem('role') === "admin" ? (
 											<li onClick={Admin}>Admin quản lý</li>
 										) : ""}

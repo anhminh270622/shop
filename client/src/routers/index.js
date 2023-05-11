@@ -15,6 +15,8 @@ import UserAdminPage from '../pages/UserAdminPage';
 import OrderAdminPage from '../pages/OrderAdminPage';
 import BuyPage from '../pages/Buy';
 import OverviewAdminPage from '../pages/OverviewAdminPage';
+import ContactPage from '../pages/ContactPage';
+import ProfilePage from '../pages/ProfilePage';
 
 export const privateRouters = [
     {
@@ -52,6 +54,14 @@ export const privateRouters = [
     {
         path: '/search',
         component: <SearchResultsPage />
+    },
+    {
+        path: '/contact',
+        component: <ContactPage />
+    },
+    {
+        path: '/profile',
+        component: <ProfilePage />
     },
     {
         path: '*',

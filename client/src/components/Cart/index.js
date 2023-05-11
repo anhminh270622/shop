@@ -61,13 +61,11 @@ export default function Cart() {
         dispatch(clearCart());
         toast.success('Xóa thành công!', {
             position: toast.POSITION.TOP_RIGHT,
-            top: '3rem',
         });
     };
     const handleClickDelete = (data) => {
         toast.success('Xóa thành công!', {
             position: toast.POSITION.TOP_RIGHT,
-            top: '3rem',
         });
         dispatch(removeItem(data));
     };
@@ -97,7 +95,6 @@ export default function Cart() {
             dispatch(clearCart());
             toast.success('Mua hàng thành công!', {
                 position: toast.POSITION.TOP_RIGHT,
-                top: '3rem',
             });
         });
 

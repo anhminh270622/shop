@@ -49,6 +49,9 @@ const productSlice = createSlice({
             // console.log("productIndex", productIndex);
             // console.log("state.products.data", state.products);
         },
+        editUser: (state, action) => {
+
+        }
     },
 });
 

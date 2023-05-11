@@ -149,7 +149,7 @@ function ProductDetails() {
                             })}
                     </span>
                 </p>
-                <p>Số lượng trong kho: {quantityCart}</p>
+                <p>{quantityCart} sản phẩm có sẵn</p>
                 <div className="count">
                     <button
                         onClick={Reduce}

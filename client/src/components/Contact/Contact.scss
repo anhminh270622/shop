@@ -1,0 +1,42 @@
+.contact {
+	// margin-top: 55px;
+	width: 90%;
+	margin: 55px auto;
+	.Toastify__toast-container--top-right {
+		top: 3rem;
+		right: 0;
+	}
+	.top {
+		text-align: center;
+	}
+	.content {
+		width: 80%;
+		display: flex;
+		gap: 40px;
+		margin: auto;
+		.content-left {
+			width: 50%;
+			.title {
+			}
+		}
+
+		.content-right {
+			width: 50%;
+
+			.title {
+			}
+			input,
+			textarea {
+				width: 100%;
+				margin-bottom: 10px;
+			}
+			textarea {
+				min-height: 50px;
+			}
+			Button {
+				background-color: #000;
+				color: #fff;
+			}
+		}
+	}
+}

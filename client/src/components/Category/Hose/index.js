@@ -1,69 +1,73 @@
 import React from 'react';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import ProductGeneral from '../../ProductGeneral';
-import { Filter, Sort } from '../../Define';
+import { Filter } from '../../Define';
 import { fetchSomeData } from '../../../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import './Hose.scss';
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
 export default function Hose() {
     const [hose, setHose] = useState('');
     const dispatch = useDispatch();
-    const product = useSelector(state => state.product.products.data)
-    const value = useSelector(state => state.value.items)
-    const productSandal = product.filter(product => product.type === "hose")
-    const trademark = useSelector(state => state.value.data)
+    const product = useSelector((state) => state.product.products.data);
+    const value = useSelector((state) => state.value.items);
+    const productSandal = product.filter((product) => product.type === 'hose');
+    const trademark = useSelector((state) => state.value.data);
     useEffect(() => {
-        dispatch(fetchSomeData("products"))
-    }, [dispatch])
+        dispatch(fetchSomeData('products'));
+    }, [dispatch]);
     useEffect(() => {
-        if (value === "max500") {
-            const sortFunction = productSandal.filter(product => product.price < 500000);
+        if (value === 'max500') {
+            const sortFunction = productSandal.filter(
+                (product) => product.price < 500000
+            );
             setHose(sortFunction);
-        } else if (value === "max1000") {
-            const sortFunction = productSandal.filter(product => product.price >= 500000 && product.price < 1000000);
+        } else if (value === 'max1000') {
+            const sortFunction = productSandal.filter(
+                (product) => product.price >= 500000 && product.price < 1000000
+            );
             setHose(sortFunction);
-        }
-        else if (value === "max1500") {
-            const sortFunction = productSandal.filter(product => product.price >= 1000000 && product.price <= 1500000);
+        } else if (value === 'max1500') {
+            const sortFunction = productSandal.filter(
+                (product) => product.price >= 1000000 && product.price <= 1500000
+            );
             setHose(sortFunction);
-        } else if (value === "max5000") {
-            const sortFunction = productSandal.filter(product => product.price >= 2000000 && product.price <= 5000000);
+        } else if (value === 'max5000') {
+            const sortFunction = productSandal.filter(
+                (product) => product.price >= 2000000 && product.price <= 5000000
+            );
             setHose(sortFunction);
-        } else if (value === "min5001") {
-            const sortFunction = productSandal.filter(product => product.price > 5000000);
+        } else if (value === 'min5001') {
+            const sortFunction = productSandal.filter(
+                (product) => product.price > 5000000
+            );
             setHose(sortFunction);
-        }
-        else {
+        } else {
             setHose(productSandal);
         }
     }, [product, value]);
     useEffect(() => {
         if (trademark.length > 0) {
-            const sortFunction = productSandal.filter(product =>
+            const sortFunction = productSandal.filter((product) =>
                 trademark.includes(product.trademark)
             );
             setHose(sortFunction);
         } else {
             setHose(productSandal);
         }
-        console.log("trademark", trademark)
-
-
-    }, [trademark])
+        console.log('trademark', trademark);
+    }, [trademark]);
     const sortFunctions = {
         new: (sandal) => {
-            const newProducts = sandal.filter((product) => product.tag === "new");
-            const oldProducts = sandal.filter((product) => product.tag !== "new");
+            const newProducts = sandal.filter((product) => product.tag === 'new');
+            const oldProducts = sandal.filter((product) => product.tag !== 'new');
             return [...newProducts, ...oldProducts];
         },
         asc: (sandal) => sandal.sort((a, b) => a.price - b.price),
         desc: (sandal) => sandal.sort((a, b) => b.price - a.price),
-        az: (sandal) => sandal.sort((a, b) => a.trademark.localeCompare(b.trademark)),
-        za: (sandal) => sandal.sort((a, b) => b.trademark.localeCompare(a.trademark)),
+        az: (sandal) =>
+            sandal.sort((a, b) => a.trademark.localeCompare(b.trademark)),
+        za: (sandal) =>
+            sandal.sort((a, b) => b.trademark.localeCompare(a.trademark)),
     };
     const handleOnchange = (e) => {
         const sortFunction = sortFunctions[e.target.value];
@@ -72,7 +76,8 @@ export default function Hose() {
     useEffect(() => {
         const sortFunction = sortFunctions.asc;
         setHose(sortFunction(productSandal));
-    }, [product])
+    }, [product]);
+    console.log("hose", hose)
     return (
         <div className="hose">
             <div className="top">
@@ -88,15 +93,6 @@ export default function Hose() {
             <div className="container">
                 <div className="filter">
                     <Filter />
-                    {/* <Box sx={{ width: "100%" }}>
-                        <Slider
-                            getAriaLabel={() => 'Temperature range'}
-                            value={value}
-                            onChange={handleChange}
-                            valueLabelDisplay="auto"
-                            getAriaValueText={valuetext}
-                        />
-                    </Box> */}
                 </div>
                 <div className="items">
                     {hose &&

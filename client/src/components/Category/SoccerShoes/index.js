@@ -6,64 +6,74 @@ import ProductGeneral from '../../ProductGeneral';
 import { Filter, Sort } from '../../Define';
 import { fetchSomeData } from '../../../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import "./SoccerShoes.scss"
+import './SoccerShoes.scss';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 export default function SoccerShoes() {
     const [soccerShoes, setSoccerShoes] = useState('');
     const dispatch = useDispatch();
-    const product = useSelector(state => state.product.products.data)
-    const value = useSelector(state => state.value.items)
-    const productSandal = product.filter(product => product.type === "soccer-shoe")
-    const trademark = useSelector(state => state.value.data)
+    const product = useSelector((state) => state.product.products.data);
+    const value = useSelector((state) => state.value.items);
+    const productSandal = product.filter(
+        (product) => product.type === 'soccer-shoe'
+    );
+    const trademark = useSelector((state) => state.value.data);
     useEffect(() => {
-        dispatch(fetchSomeData("products"))
-    }, [dispatch])
+        dispatch(fetchSomeData('products'));
+    }, [dispatch]);
     useEffect(() => {
-        if (value === "max500") {
-            const sortFunction = productSandal.filter(product => product.price < 500000);
+        if (value === 'max500') {
+            const sortFunction = productSandal.filter(
+                (product) => product.price < 500000
+            );
             setSoccerShoes(sortFunction);
-        } else if (value === "max1000") {
-            const sortFunction = productSandal.filter(product => product.price >= 500000 && product.price < 1000000);
+        } else if (value === 'max1000') {
+            const sortFunction = productSandal.filter(
+                (product) => product.price >= 500000 && product.price < 1000000
+            );
             setSoccerShoes(sortFunction);
-        }
-        else if (value === "max1500") {
-            const sortFunction = productSandal.filter(product => product.price >= 1000000 && product.price <= 1500000);
+        } else if (value === 'max1500') {
+            const sortFunction = productSandal.filter(
+                (product) => product.price >= 1000000 && product.price <= 1500000
+            );
             setSoccerShoes(sortFunction);
-        } else if (value === "max5000") {
-            const sortFunction = productSandal.filter(product => product.price >= 2000000 && product.price <= 5000000);
+        } else if (value === 'max5000') {
+            const sortFunction = productSandal.filter(
+                (product) => product.price >= 2000000 && product.price <= 5000000
+            );
             setSoccerShoes(sortFunction);
-        } else if (value === "min5001") {
-            const sortFunction = productSandal.filter(product => product.price > 5000000);
+        } else if (value === 'min5001') {
+            const sortFunction = productSandal.filter(
+                (product) => product.price > 5000000
+            );
             setSoccerShoes(sortFunction);
-        }
-        else {
+        } else {
             setSoccerShoes(productSandal);
         }
     }, [product, value]);
     useEffect(() => {
         if (trademark.length > 0) {
-            const sortFunction = productSandal.filter(product =>
+            const sortFunction = productSandal.filter((product) =>
                 trademark.includes(product.trademark)
             );
             setSoccerShoes(sortFunction);
         } else {
             setSoccerShoes(productSandal);
         }
-        console.log("trademark", trademark)
-
-
-    }, [trademark])
+        console.log('trademark', trademark);
+    }, [trademark]);
     const sortFunctions = {
         new: (sandal) => {
-            const newProducts = sandal.filter((product) => product.tag === "new");
-            const oldProducts = sandal.filter((product) => product.tag !== "new");
+            const newProducts = sandal.filter((product) => product.tag === 'new');
+            const oldProducts = sandal.filter((product) => product.tag !== 'new');
             return [...newProducts, ...oldProducts];
         },
         asc: (sandal) => sandal.sort((a, b) => a.price - b.price),
         desc: (sandal) => sandal.sort((a, b) => b.price - a.price),
-        az: (sandal) => sandal.sort((a, b) => a.trademark.localeCompare(b.trademark)),
-        za: (sandal) => sandal.sort((a, b) => b.trademark.localeCompare(a.trademark)),
+        az: (sandal) =>
+            sandal.sort((a, b) => a.trademark.localeCompare(b.trademark)),
+        za: (sandal) =>
+            sandal.sort((a, b) => b.trademark.localeCompare(a.trademark)),
     };
     const handleOnchange = (e) => {
         const sortFunction = sortFunctions[e.target.value];
@@ -72,7 +82,7 @@ export default function SoccerShoes() {
     useEffect(() => {
         const sortFunction = sortFunctions.asc;
         setSoccerShoes(sortFunction(productSandal));
-    }, [product])
+    }, [product]);
     return (
         <div className="soccerShoes">
             <div className="top">
