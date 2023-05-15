@@ -5,10 +5,9 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchSomeData, updateOrderStatus, updateStatus } from "../../../redux/productSlice";
+import { fetchSomeData, updateOrderStatus, updateStatus, updateQuantityOrder } from "../../../redux/productSlice";
+import CheckIcon from '@mui/icons-material/Check';
 function Order() {
-  // const [rows, setRows] = useState("")
-  // const [confirm, setConfirm] = useState("Xác nhận")
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchSomeData("order"))
@@ -18,8 +17,14 @@ function Order() {
   const products = useSelector(state => state.product.products.data)
   const sortedOrder = [...order].sort((a, b) => b.id - a.id);
   const handleConfirm = (id, productId) => {
-    // console.log("id", id, "productId", productId)
     dispatch(updateStatus(id, productId))
+    for (let i = 0; i < productId.length; i++) {
+      const id = productId[i].split(" - ")[0];
+      const quantityId = productId[i].split(" - ")[1];
+      const index = products.findIndex(item => item.id === id)
+      const quantity = products[index].quantity - quantityId
+      dispatch(updateQuantityOrder(id, quantity))
+    }
   }
   const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
@@ -46,10 +51,15 @@ function Order() {
       renderCell: (params) => (
         <>
           <Button
-            variant="contained" onClick={() => handleConfirm(params.row.id, params.row.productId)}
-            className={params.row.status === "Đang chờ xử lý" ? "" : "status"}
+            variant="contained" onClick={() => {
+              handleConfirm(params.row.id, params.row.productId)
+            }
+            }
+            className={params.row.status === "Chờ xử lý" ? "" : "status"}
+            disabled={params.row.status === "Chờ xử lý" ? false : true}
           >
-            {params.row.status === "Đang chờ xử lý" ? "Xác Nhận" : params.row.status}
+            <CheckIcon />
+            {params.row.status === "Chờ xử lý" ? "Xác Nhận" : params.row.status}
           </Button>
         </>
       ),
@@ -61,18 +71,18 @@ function Order() {
       <div className="order-top">
         <h1>Đơn mua</h1>
       </div>
-      <Box sx={{ height: 400, width: '100%' }}>
+      <Box sx={{ width: '100%' }}>
         <DataGrid
           rows={sortedOrder}
           columns={columns}
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 10,
               },
             },
           }}
-          pageSizeOptions={[5]}
+          pageSizeOptions={[10]}
           checkboxSelection
           disableRowSelectionOnClick
         />

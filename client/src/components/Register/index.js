@@ -8,12 +8,19 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 export default function Register() {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [passwordEnter, setPasswordEnter] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
     const navigate = useNavigate();
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword)
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
         setEmail('');
@@ -36,7 +43,7 @@ export default function Register() {
             <ToastContainer />
             <div className="register-wrapper">
                 <div className="main">
-                    <img src="https://inkythuatso.com/uploads/thumbnails/800/2022/03/avatar-mac-dinh-nu-co-mau-30-10-31-43.jpg"></img>
+                    <img src="https://anhdep123.com/wp-content/uploads/2021/01/anh-giay-adidas.jpg"></img>
                     <h1>Đăng ký</h1>
                     <form onSubmit={handleSubmit}>
                         <div>
@@ -58,10 +65,12 @@ export default function Register() {
                         <div>
                             <LockIcon />
                             <input
-                                type="password"
+                                type={showPassword === false ? "password" : "text"}
                                 placeholder="Mật khẩu"
                                 onChange={(e) => setPassword(e.target.value)}
                                 value={password}></input>
+                            {showPassword === false ? <><VisibilityOffIcon onClick={handleShowPassword} /></> : <><VisibilityIcon onClick={handleShowPassword} /></>}
+
                         </div>
                         <div>
                             <LockIcon />

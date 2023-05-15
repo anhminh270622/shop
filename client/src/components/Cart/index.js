@@ -15,6 +15,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import PaymentIcon from '@mui/icons-material/Payment';
 import {
     removeItem,
     clearCart,
@@ -36,7 +39,7 @@ export default function Cart() {
     const quantityCart = useSelector((state) => state.cart.quantityCart);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const userId = JSON.parse(localStorage.getItem('id'))
+    const userId = JSON.parse(localStorage.getItem('id'));
     // console.log("userId", userId)
 
     const Reduce = (item) => {
@@ -69,36 +72,30 @@ export default function Cart() {
         });
         dispatch(removeItem(data));
     };
-    const handleCart = (type, id) => {
-
-    };
+    const handleCart = (type, id) => { };
     const handleBuy = () => {
-        const products = items.map(item => `${item.name} - Size ${item.size}`);
-        const productsId = items.map(item => item.id);
-        // console.log("productsId", productsId)
-        axios.post('http://localhost:3000/api/order', {
-            nameOrder: nameOrder,
-            address: address,
-            phone: sdt,
-            note: note,
-            product: products.join(', '),
-            total: SumCart(),
-            status: "Đang chờ xử lý",
-            userId: userId,
-            productId: productsId
-        }).then(orderResponse => {
-            // setNameOrder('')
-            // setNote('')
-            // setSdt('')
-            // setAddress('')
-            handleCloseModal()
-            dispatch(clearCart());
-            toast.success('Mua hàng thành công!', {
-                position: toast.POSITION.TOP_RIGHT,
+        const products = items.map((item) => `${item.name} - Size ${item.size}`);
+        const productsId = items.map((item) => `${item.id} - ${item.quantity}`);
+        axios
+            .post('http://localhost:3000/api/order', {
+                nameOrder: nameOrder,
+                address: address,
+                phone: sdt,
+                note: note,
+                product: products.join(', '),
+                total: SumCart(),
+                status: 'Chờ xử lý',
+                userId: userId,
+                productId: productsId,
+            })
+            .then((orderResponse) => {
+                handleCloseModal();
+                dispatch(clearCart());
+                toast.success('Mua hàng thành công!', {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
             });
-        });
-
-    }
+    };
     const handleBuy1 = () => {
         navigate('/buy');
     };
@@ -161,11 +158,13 @@ export default function Cart() {
                                 />
                             </div>
                         </Box>
-                        <Button
-                            variant="contained"
-                            onClick={() => handleBuy()}>
-                            Xong
-                        </Button>
+                        <div className="button">
+                            <Button
+                                variant="contained"
+                                onClick={() => handleBuy()}>
+                                Xong
+                            </Button>
+                        </div>
                     </Box>
                 </Modal>
                 <div className="title">
@@ -207,7 +206,7 @@ export default function Cart() {
                                                     disabled={item.quantity === 1 ? true : false}>
                                                     <RemoveIcon />
                                                 </button>
-                                                <input value={countQuantity} />
+                                                <input value={countQuantity} readOnly />
                                                 <button onClick={() => Increase(item)}>
                                                     <AddIcon />
                                                 </button>
@@ -216,7 +215,8 @@ export default function Cart() {
                                     </div>
                                     <div className="right">
                                         <Button onClick={() => handleClickDelete(item)}>
-                                            Delete
+                                            <DeleteIcon />
+                                            Xóa
                                         </Button>
                                     </div>
                                 </div>
@@ -224,12 +224,14 @@ export default function Cart() {
                         })}
 
                     <hr />
+
+
                     <div className="buys">
                         <div className="left">
                             <Button
                                 variant="contained"
                                 onClick={clear}
-                                className={quantityCart > 0 ? "" : "button"}
+                                className={quantityCart > 0 ? '' : 'button'}
                                 disabled={quantityCart > 0 ? false : true}>
                                 Xóa tất cả
                             </Button>
@@ -243,14 +245,15 @@ export default function Cart() {
                                 <Button
                                     className="close"
                                     onClick={handleClose}>
+                                    <ArrowBackIosNewIcon />
                                     Quay lại mua sắm
                                 </Button>
                                 <Button
                                     className="buys"
                                     onClick={() => handleOpenModal()}
                                     disabled={quantityCart > 0 ? false : true}>
+                                    <PaymentIcon />
                                     Thanh Toán
-
                                 </Button>
                             </div>
                         </div>

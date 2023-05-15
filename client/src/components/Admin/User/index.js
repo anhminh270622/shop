@@ -103,11 +103,6 @@ export default function User() {
                 fetchData();
             });
         handleClose();
-
-        // handleClose()
-        // setEmail('')
-        // setPassword('')
-        // setId('')
     };
     const fetchData = () => {
         axios
@@ -142,7 +137,6 @@ export default function User() {
                     role: role,
                 })
                 .then((response) => {
-                    // setUser([...user, data])
                     fetchData();
                 });
             handleClose();
@@ -298,8 +292,8 @@ export default function User() {
                 <DataGrid
                     rows={user}
                     columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
+                    pageSize={10}
+                    rowsPerPageOptions={[10]}
                 // checkboxSelection
                 />
             </div>

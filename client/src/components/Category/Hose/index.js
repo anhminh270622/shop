@@ -54,7 +54,6 @@ export default function Hose() {
         } else {
             setHose(productSandal);
         }
-        console.log('trademark', trademark);
     }, [trademark]);
     const sortFunctions = {
         new: (sandal) => {
@@ -77,7 +76,6 @@ export default function Hose() {
         const sortFunction = sortFunctions.asc;
         setHose(sortFunction(productSandal));
     }, [product]);
-    console.log("hose", hose)
     return (
         <div className="hose">
             <div className="top">
@@ -91,7 +89,7 @@ export default function Hose() {
                 </select>
             </div>
             <div className="container">
-                <div className="filter">
+                <div className="filter-hose">
                     <Filter />
                 </div>
                 <div className="items">

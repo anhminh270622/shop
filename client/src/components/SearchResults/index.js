@@ -50,7 +50,7 @@ export default function SearchResults() {
                     </select>
                 </div>
                 <div className="container">
-                    <div className="filter">
+                    <div className="filter-results">
                         <Filter />
                     </div>
                     <div className="search-item">

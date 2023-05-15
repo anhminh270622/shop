@@ -1,6 +1,7 @@
 .cart {
 	width: 90%;
 	margin: auto;
+	min-height: 60vh;
 	.Toastify__toast-container--top-right {
 		top: 3rem;
 		right: 0;
@@ -55,6 +56,7 @@
 					}
 					.quantity {
 						display: flex;
+						padding-bottom: 10px;
 						button {
 							cursor: pointer;
 							svg {
@@ -103,6 +105,9 @@
 					.buys {
 						background-color: green;
 						color: white;
+						svg {
+							margin-right: 5px;
+						}
 					}
 				}
 			}
@@ -111,6 +116,8 @@
 }
 .modal {
 	.modal-wrapper {
+		border: none;
+		border-radius: 20px;
 		.address {
 			div {
 				display: flex;
@@ -126,9 +133,90 @@
 				}
 			}
 		}
-		button {
-			margin-top: 10px;
-			float: right;
+		.button {
+			text-align: right;
+			padding-top: 41px;
+			button {
+				margin-top: 10px;
+			}
+		}
+	}
+}
+@media only screen and (max-width: 600px) {
+	.cart {
+		.title {
+			h1 {
+				font-size: 25px;
+			}
+		}
+		.content {
+			padding-top: 0;
+			.content-wrapper {
+				border-bottom: 1px dashed #ccc;
+				.left {
+					.image {
+						padding-left: 0;
+						img {
+						}
+					}
+					.detail {
+						.name {
+							font-size: 12px;
+							margin-bottom: 0;
+						}
+						.size {
+							margin-top: 0;
+						}
+					}
+				}
+				.right {
+					button {
+					}
+				}
+			}
+		}
+	}
+	.modal {
+		.modal-wrapper {
+			width: 80%;
+			.address {
+				div {
+					display: block;
+					input,
+					textarea {
+						position: absolute;
+						right: 30px;
+					}
+					textarea {
+						min-width: 165px;
+					}
+				}
+			}
+		}
+	}
+}
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+	.modal {
+		.modal-wrapper {
+			width: 80%;
+			.address {
+				div {
+					display: block;
+					margin: 15px 0;
+					label {
+						width: 30%;
+					}
+					input,
+					textarea {
+						position: absolute;
+						right: 30px;
+						width: 70%;
+					}
+					textarea {
+						min-width: 165px;
+					}
+				}
+			}
 		}
 	}
 }

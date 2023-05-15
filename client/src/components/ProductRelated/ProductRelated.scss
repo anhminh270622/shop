@@ -1,6 +1,7 @@
 .ralated {
 	width: 95%;
 	margin: auto;
+	margin-bottom: 20px;
 	height: auto;
 	.ralated-wrapper {
 		width: 100%;
@@ -16,6 +17,43 @@
 				width: 100%;
 				img {
 					width: 300px;
+				}
+			}
+		}
+	}
+}
+@media only screen and (max-width: 600px) {
+	.ralated {
+		.ralated-wrapper {
+			.items {
+				gap: 2px;
+				.product-general {
+					.item {
+						.image {
+							img {
+								width: 180px;
+							}
+						}
+						.title {
+							h3 {
+								margin: 5px 0;
+							}
+							p {
+								font-size: 12px;
+								height: 45px;
+							}
+							.price {
+								display: flex;
+								flex-direction: column;
+								margin: 0;
+								align-items: right;
+								// text-align: left;
+								.cost {
+									padding: 0;
+								}
+							}
+						}
+					}
 				}
 			}
 		}

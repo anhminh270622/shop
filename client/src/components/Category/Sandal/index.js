@@ -58,7 +58,6 @@ export default function Sandal() {
         } else {
             setSandal(productSandal);
         }
-        console.log('trademark', trademark);
     }, [trademark]);
     const sortFunctions = {
         new: (sandal) => {
@@ -94,7 +93,7 @@ export default function Sandal() {
                 </select>
             </div>
             <div className="container">
-                <div className="filter">
+                <div className="filter-sandal">
                     <Filter />
                 </div>
                 <div className="items">

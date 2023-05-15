@@ -132,7 +132,6 @@
 								// padding: 5px 20px;
 								color: #000;
 								padding: 0;
-
 								li {
 									padding: 5px 20px;
 									&:hover {
@@ -157,7 +156,7 @@
 		a {
 			color: #000;
 		}
-		.cart {
+		.cart-header {
 			position: relative;
 			.count {
 				position: absolute;
@@ -174,6 +173,8 @@
 		li.user {
 			padding-left: 20px;
 			position: relative;
+			// display: none;
+
 			p {
 				font-weight: 600;
 			}
@@ -182,6 +183,9 @@
 				height: 30px;
 				border-radius: 50%;
 				position: relative;
+			}
+			a {
+				pointer-events: none;
 			}
 			ul.profile {
 				background: #fff;
@@ -213,14 +217,72 @@
 @media only screen and (max-width: 600px) {
 	.header {
 		.header_wrapper {
+			width: 95%;
+			display: flex;
 			.left {
+				flex: 1;
 				img {
 					width: 40px;
 					height: 40px;
 				}
 			}
 			ul.center {
-				display: none;
+				flex: 4;
+				padding-left: 10px;
+				.sections {
+					display: none;
+					li {
+						padding: 0 5px;
+						font-size: 12px;
+					}
+					.categories {
+						align-items: center;
+					}
+				}
+				// display: none;
+			}
+			.right {
+				flex: 1;
+				padding-left: 5px;
+				.user {
+					.profile {
+						display: none;
+					}
+					a {
+						pointer-events: auto;
+					}
+				}
+			}
+		}
+	}
+}
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+	/* Thiết lập kiểu cho màn hình máy tính bảng */
+	.header {
+		.header_wrapper {
+			// width: 90%;
+			.left {
+				img {
+				}
+			}
+			ul.center {
+				padding-left: 5px;
+				.sections {
+					display: none;
+					li {
+						padding: 0 20px;
+					}
+				}
+			}
+			.right {
+				li.user {
+					.profile {
+						display: none;
+					}
+					a {
+						pointer-events: auto;
+					}
+				}
 			}
 		}
 	}

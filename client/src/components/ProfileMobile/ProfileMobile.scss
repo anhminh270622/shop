@@ -1,0 +1,56 @@
+.profile-mobile {
+	padding-top: 65px;
+	width: 90%;
+	margin: 0 auto;
+	min-height: 60vh;
+	a {
+		text-decoration: none;
+		color: #000;
+	}
+	.profile-user {
+		display: flex;
+		align-items: center;
+		margin-bottom: 30px;
+		img {
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+		}
+		p {
+			padding-left: 20px;
+		}
+	}
+	.profile-buy,
+	.profile-edit,
+	.profile-logout,
+	.profile-like,
+	.profile-admin,
+	.profile-contact {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		p {
+			margin: 0;
+			display: flex;
+			align-items: center;
+			svg {
+				padding-right: 10px;
+			}
+		}
+		border-bottom: 1px solid #ccc;
+		padding: 5px 0;
+		margin: 3px 0;
+	}
+	.profile-edit {
+	}
+	.profile-logout {
+	}
+}
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+}
+
+// @media only screen and (min-width: 901px) {
+// 	.profile-mobile {
+// 		display: none;
+// 	}
+// }

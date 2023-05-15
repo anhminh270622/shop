@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Scroll } from '../Define';
 import { useSelector } from 'react-redux';
+import { Button } from '@mui/material';
 function Header() {
 	const navigate = useNavigate();
 	const [countCart, setCountCart] = useState('');
@@ -42,19 +43,25 @@ function Header() {
 		localStorage.setItem('admin', 'true')
 		Scroll();
 		window.location.reload();
-
 	}
 	const LogOut = () => {
 		localStorage.setItem('login', 'false');
 		navigate('/');
 		localStorage.setItem('avatar', null);
 		localStorage.setItem('role', null);
+		localStorage.setItem('id', null);
 		window.location.reload();
 		Scroll();
 	};
 	const handleContact = () => {
-		navigate('/contact');
-		Scroll();
+		const logins = localStorage.getItem('login');
+		if (logins === 'false') {
+			navigate('/login');
+
+		} else {
+			navigate('/contact');
+			Scroll();
+		}
 	}
 	const handleProfile = () => {
 		navigate('/profile');
@@ -66,11 +73,13 @@ function Header() {
 				<div className="header_wrapper">
 					<div
 						className="left"
-						onClick={handleScrollToTopClick}>
-						<img
-							src={Logo}
-							alt="Logo"
-						/>
+					>
+						<Link to="/">
+							<img
+								src={Logo}
+								alt="Logo"
+							/>
+						</Link>
 					</div>
 					<ul className="center">
 						<div className="sections">
@@ -130,7 +139,7 @@ function Header() {
 							<Link
 								to="/cart"
 								onClick={Scroll}>
-								<li className="cart">
+								<li className="cart-header">
 									<AddShoppingCartIcon />
 									{quantityCart > 0 ? (
 										<span className="count">{quantityCart}</span>
@@ -148,7 +157,7 @@ function Header() {
 						>
 							{localStorage.getItem('avatar') !== 'null' ? (
 								<>
-									<img src={localStorage.getItem('avatar')}></img>
+									<Link to="/profile-mobile">	<img src={localStorage.getItem('avatar')}></img></Link>
 									<ul className="profile">
 										<li onClick={LogOut}>Đăng xuất</li>
 										<li onClick={handleProfile}>Chỉnh sửa thông tin</li>

@@ -17,7 +17,7 @@
 	.container {
 		display: flex;
 		width: 100%;
-		.filter {
+		.filter-sandal {
 			width: 20%;
 			.filter {
 				width: 100%;
@@ -32,7 +32,85 @@
 	}
 }
 @media only screen and (max-width: 600px) {
+	.sandal {
+		.top {
+			h1 {
+				padding: 0;
+			}
+		}
+		.container {
+			display: block;
+			.filter-sandal {
+				width: 100%;
+				margin-bottom: 10px;
+				.filter {
+					width: 100%;
+					display: flex;
+					justify-content: space-between;
+					h4 {
+						margin-bottom: 3px;
+					}
+				}
+			}
+			.items {
+				grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+				gap: 10px;
+				width: 100%;
+				.product-general {
+					border: 1px solid #ccc;
+					border-radius: 5px;
+					.item {
+						.title {
+							padding: 3px;
+
+							h3 {
+								margin: 5px 0;
+								font-size: 13px;
+							}
+							p {
+								font-size: 12px;
+								height: 65px;
+							}
+							.price {
+								display: flex;
+								flex-direction: column;
+								margin: 0;
+								.cost {
+									padding: 0;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
+
 @media only screen and (min-width: 601px) and (max-width: 900px) {
-	/* Thiết lập kiểu cho màn hình máy tính bảng */
+	.sandal {
+		.container {
+			display: block;
+			.filter-sandal {
+				margin-bottom: 10px;
+				width: 100%;
+				.filter {
+					width: 100%;
+					display: flex;
+					justify-content: left;
+					gap: 30px;
+					h4 {
+						margin-bottom: 3px;
+					}
+				}
+			}
+			.items {
+				grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+				gap: 20px;
+				width: 100%;
+				.product-general {
+				}
+			}
+		}
+	}
 }

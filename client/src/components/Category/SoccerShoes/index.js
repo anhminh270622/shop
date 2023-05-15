@@ -60,7 +60,6 @@ export default function SoccerShoes() {
         } else {
             setSoccerShoes(productSandal);
         }
-        console.log('trademark', trademark);
     }, [trademark]);
     const sortFunctions = {
         new: (sandal) => {
@@ -96,17 +95,8 @@ export default function SoccerShoes() {
                 </select>
             </div>
             <div className="container">
-                <div className="filter">
+                <div className="filter-soccerShoes">
                     <Filter />
-                    {/* <Box sx={{ width: "100%" }}>
-                        <Slider
-                            getAriaLabel={() => 'Temperature range'}
-                            value={value}
-                            onChange={handleChange}
-                            valueLabelDisplay="auto"
-                            getAriaValueText={valuetext}
-                        />
-                    </Box> */}
                 </div>
                 <div className="items">
                     {soccerShoes &&

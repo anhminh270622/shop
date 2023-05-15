@@ -16,6 +16,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, addToCartById, addCart } from '../../redux/cartSlice';
 import { fetchSomeData } from '../../redux/productSlice';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 function ProductDetails() {
     const [img, setImg] = useState(0);
     const [count, setCount] = useState(1);
@@ -73,6 +74,7 @@ function ProductDetails() {
                     );
                     setActive('');
                     setCount(1);
+                    setSize("")
                 } else {
                     toast.warning('Vượt quá số lượng trong kho!', {
                         position: toast.POSITION.TOP_RIGHT,
@@ -156,13 +158,14 @@ function ProductDetails() {
                         disabled={count === 1 ? true : false}>
                         <RemoveIcon />
                     </button>
-                    <input value={count} />
+                    <input value={count} readOnly />
                     <button onClick={Increase}>
                         <AddIcon />
                     </button>
                 </div>
-                <div className="cart">
-                    <button onClick={() => handleAddCart()}>Thêm vào giỏ hàng</button>
+                <div className="carts">
+
+                    <button onClick={() => handleAddCart()}><AddShoppingCartIcon />Thêm vào giỏ hàng</button>
                 </div>
                 <div className="tag">
                     <p>Tag</p>

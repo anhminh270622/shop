@@ -1,7 +1,7 @@
 .sidebar {
 	background: #0c2162ed;
 	color: #fff;
-	height: 100%;
+	height: auto;
 	.sidebar-wrapper {
 		h1 {
 			text-align: center;
@@ -22,12 +22,12 @@
 				font-weight: 700;
 				color: #000;
 				border-radius: 20px;
-				padding: 5px 10px;
+				padding: 0 10px;
 				text-decoration: none;
 				min-height: 52px;
 				svg {
-					width: 20%;
-					height: 20%;
+					width: 10%;
+					height: 10%;
 					margin-right: 5px;
 				}
 				h2 {
@@ -37,6 +37,12 @@
 			}
 			.close {
 				cursor: pointer;
+				display: flex;
+				justify-content: left;
+				align-items: center;
+				p {
+					font-size: 15px;
+				}
 				&:hover {
 					color: red;
 				}

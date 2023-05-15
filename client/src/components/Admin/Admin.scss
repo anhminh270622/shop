@@ -24,3 +24,40 @@
 		}
 	}
 }
+@media only screen and (max-width: 600px) {
+	.admin {
+		h1 {
+			font-size: 25px;
+		}
+		h2 {
+			font-size: 13px !important;
+		}
+		.container {
+			.sidebar {
+				width: 40%;
+				.sidebar-wrapper {
+					ul {
+						margin-top: 0;
+						width: 90%;
+						a {
+							svg {
+								width: 20%;
+							}
+						}
+						.close {
+							p {
+								font-size: 12px;
+							}
+						}
+					}
+				}
+			}
+			.content-admin {
+				.overview-container {
+					grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+					gap: 10px;
+				}
+			}
+		}
+	}
+}

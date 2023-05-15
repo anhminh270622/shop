@@ -2,9 +2,12 @@
 	width: 95%;
 	margin: auto;
 	.status {
-		background: green;
+		background-color: green;
 		&:hover {
 			background: green;
 		}
+	}
+	svg {
+		padding-right: 10px;
 	}
 }

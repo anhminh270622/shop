@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSomeData } from '../../redux/productSlice';
 import axios from 'axios';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 function Profile() {
     const [imageUrl, setImageUrl] = useState(localStorage.getItem('avatar'));
     const [profile, setProfile] = useState('');
@@ -13,9 +15,10 @@ function Profile() {
     const [phone, setPhone] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+    const [show, setShow] = useState(false);
     const dispatch = useDispatch();
-    const handleUpdate = () => {
-
+    const handleShow = () => {
+        setShow(!show);
     };
     useEffect(() => {
         dispatch(fetchSomeData('user'));
@@ -29,26 +32,27 @@ function Profile() {
             setPhone(user[index]?.phone);
             setPassword(user[index]?.password);
             setName(user[index]?.name);
-            setProfile(user[index])
+            setProfile(user[index]);
         }
     }, [user, id]);
     const handleSubmitEdit = async () => {
         // const response = await axios.post('https://tinyurl.com/api-create.php?url=' + imageUrl);
         // const shortImageUrl = response.data;
-        await axios.put(`http://localhost:3000/api/user/${id}`, {
-            ...profile,
-            email: email,
-            name: name,
-            password: password,
-            phone: phone,
-            // imageUrl: imageUrl
-        }).then((response) => {
-            toast.success('Cập nhật thành công!', {
-                position: toast.POSITION.TOP_RIGHT,
+        await axios
+            .put(`http://localhost:3000/api/user/${id}`, {
+                ...profile,
+                email: email,
+                name: name,
+                password: password,
+                phone: phone,
+                // imageUrl: imageUrl
+            })
+            .then((response) => {
+                toast.success('Cập nhật thành công!', {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
             });
-        })
     };
-
     function handleOnChange(e) {
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -60,7 +64,7 @@ function Profile() {
     return (
         <div className="profile">
             <ToastContainer />
-            <h1>Profile</h1>
+            <h1>Hồ Sơ</h1>
             <div className="content">
                 <div className="left">
                     <img
@@ -77,15 +81,34 @@ function Profile() {
                         <div>Email:</div>
                         <input
                             value={email}
+                            type="email"
                             onChange={(e) => setEmail(e.target.value)}></input>
                         <div>Tên:</div>
-                        <input value={name} onChange={(e) => setName(e.target.value)}></input>
+                        <input
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}></input>
                     </div>
                     <div className="right-content">
                         <div>Số điện thoại:</div>
-                        <input value={phone} onChange={(e) => setPhone(e.target.value)}></input>
+                        <input
+                            value={phone}
+                            type="number"
+                            onChange={(e) => setPhone(e.target.value)}></input>
                         <div>Mật khẩu:</div>
-                        <input value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                        <input
+                            value={password}
+                            type={show === false ? 'password' : 'text'}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="password"></input>
+                        {show === false ? (
+                            <>
+                                <VisibilityOffIcon onClick={handleShow} />
+                            </>
+                        ) : (
+                            <>
+                                <VisibilityIcon onClick={handleShow} />
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

@@ -13,10 +13,12 @@ import WarehouseAdminPage from '../pages/WarehouseAdminPage';
 import HomeAdminPage from '../pages/HomeAdminPage';
 import UserAdminPage from '../pages/UserAdminPage';
 import OrderAdminPage from '../pages/OrderAdminPage';
-import BuyPage from '../pages/Buy';
+import BuyPage from '../pages/BuyPage';
 import OverviewAdminPage from '../pages/OverviewAdminPage';
 import ContactPage from '../pages/ContactPage';
 import ProfilePage from '../pages/ProfilePage';
+import ContactAdminPage from '../pages/ContactAdminPage';
+import ProfileMobilePage from '../pages/ProfileMobilePage';
 
 export const privateRouters = [
     {
@@ -64,6 +66,10 @@ export const privateRouters = [
         component: <ProfilePage />
     },
     {
+        path: '/profile-mobile',
+        component: <ProfileMobilePage />
+    },
+    {
         path: '*',
         component: <NotFoundPage />
     }
@@ -85,7 +91,11 @@ export const privateAdmin = [
         path: '/admin/warehouse',
         component: <WarehouseAdminPage />
     }
-
+    ,
+    {
+        path: '/admin/contact',
+        component: <ContactAdminPage />
+    }
 ]
 export const publicRouters = [
     {

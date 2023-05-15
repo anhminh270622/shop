@@ -11,20 +11,30 @@ export const fetchSomeData = (type) => async (dispatch) => {
     }
 };
 export const updateStatus = (id, productId) => async (dispatch) => {
-    const response = await axios.get(`http://localhost:3000/api/order/${id}`)
-    const order = response.data
+    const response = await axios.get(`http://localhost:3000/api/order/${id}`);
+    const order = response.data;
     const updatedOrder = {
         ...order,
-        status: "Thành công",
-    }
-    await axios.put(`http://localhost:3000/api/order/${id}`, updatedOrder)
-    dispatch(updateOrderStatus({ id, productId }))
-}
+        status: 'Thành công',
+    };
+    await axios.put(`http://localhost:3000/api/order/${id}`, updatedOrder);
+    dispatch(updateOrderStatus({ id, productId }));
+};
+export const updateQuantityOrder = (id, quantity) => async (dispatch) => {
+    const response = await axios.get(`http://localhost:3000/api/products/${id}`);
+    const order = response.data;
+    const updatedOrder = {
+        ...order,
+        quantity: quantity
+    };
+    await axios.put(`http://localhost:3000/api/products/${id}`, updatedOrder);
+};
 const initialState = {
     products: { data: [], status: null, error: null },
     order: { data: [], status: null, error: null },
     user: { data: [], status: null, error: null },
-}
+    contact: { data: [], status: null, error: null },
+};
 
 const productSlice = createSlice({
     name: 'product',
@@ -44,17 +54,21 @@ const productSlice = createSlice({
         updateOrderStatus: (state, action) => {
             const { id, productId } = action.payload;
             const orderIndex = state.order.data.findIndex((item) => item.id === id);
-            state.order.data[orderIndex].status = "Thành công";
+            state.order.data[orderIndex].status = 'Thành công';
             // const productIndex = state.products.data.findIndex((item) => item.id === productId);
             // console.log("productIndex", productIndex);
             // console.log("state.products.data", state.products);
         },
-        editUser: (state, action) => {
 
-        }
     },
 });
 
-export const { fetchDataSuccess, updateOrderStatus, fetchDataPending, fetchDataFailure } = productSlice.actions;
+export const {
+    fetchDataSuccess,
+    updateOrderStatus,
+    fetchDataPending,
+    fetchDataFailure,
+
+} = productSlice.actions;
 
 export default productSlice.reducer;

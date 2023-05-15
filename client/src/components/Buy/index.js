@@ -71,7 +71,7 @@ function Buy() {
                         },
                     }}
                     pageSizeOptions={[5]}
-                    checkboxSelection
+                    // checkboxSelection
                     disableRowSelectionOnClick
                 />
             </Box>
