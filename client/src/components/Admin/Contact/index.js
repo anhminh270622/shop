@@ -60,13 +60,13 @@ function Contact() {
         },
     ];
     const handleDelete = async (id) => {
-        // await axios.delete(`http://localhost:3000/api/contact/${id}`)
-        //     .then(response => {
-        //         toast.success('Xóa thành công!', {
-        //             position: toast.POSITION.TOP_RIGHT,
-        //         })
-        //         dispatch(fetchSomeData("contact"))
-        //     })
+        await axios.delete(`http://localhost:3000/api/contact/${id}`)
+            .then(response => {
+                toast.success('Xóa thành công!', {
+                    position: toast.POSITION.TOP_RIGHT,
+                })
+                dispatch(fetchSomeData("contact"))
+            })
     }
     return (
         <div className="contact">
