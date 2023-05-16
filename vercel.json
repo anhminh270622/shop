@@ -1,31 +1,14 @@
 {
+	"functions": {
+		"server/server.js": {
+			"memory": 1024,
+			"includeFiles": "db.json"
+		}
+	},
 	"rewrites": [
 		{
-			"source": "/api/.*",
-			"destination": "/api/:path*"
-		},
-		{
 			"source": "/(.*)",
-			"destination": "/$1"
-		}
-	],
-	"env": {
-		"DB_FILE": "path/to/your/db.json"
-	},
-	"builds": [
-		{
-			"src": "path/to/your/react-app",
-			"use": "@vercel/static-build",
-			"config": {
-				"distDir": "build"
-			}
-		},
-		{
-			"src": "path/to/your/json-server",
-			"use": "json-server",
-			"config": {
-				"port": 3000
-			}
+			"destination": "server/server.js"
 		}
 	]
 }
