@@ -23,7 +23,7 @@ export default function Login() {
         fetchData();
     }, []);
     const fetchData = () => {
-        axios.get('http://localhost:3000/api/user').then((response) => {
+        axios.get('https://shop-server-jet.vercel.app/user').then((response) => {
             setLogin(response.data);
         });
     };

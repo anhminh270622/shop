@@ -72,7 +72,7 @@ export default function User() {
     ];
     const handleDelete = (id) => {
         axios
-            .delete(`http://localhost:3000/api/user/${id}`)
+            .delete(`https://shop-server-jet.vercel.app/user/${id}`)
             .then((response) => {
                 setUser(user.filter((user) => user.id !== id));
             })
@@ -83,7 +83,7 @@ export default function User() {
     };
 
     const handleEdit = (id) => {
-        axios.get(`http://localhost:3000/api/user/${id}`).then((response) => {
+        axios.get(`https://shop-server-jet.vercel.app/user/${id}`).then((response) => {
             // handleOpen()
             setEmail(response.data.email);
             setPassword(response.data.password);
@@ -94,7 +94,7 @@ export default function User() {
     };
     const handleSubmitEdit = () => {
         axios
-            .put(`http://localhost:3000/api/user/${id}`, {
+            .put(`https://shop-server-jet.vercel.app/user/${id}`, {
                 email: email,
                 password: password,
                 role: role,
@@ -106,7 +106,7 @@ export default function User() {
     };
     const fetchData = () => {
         axios
-            .get('http://localhost:3000/api/user')
+            .get('https://shop-server-jet.vercel.app/user')
             .then((response) => {
                 setUser(response.data);
             })
@@ -131,7 +131,7 @@ export default function User() {
     const handleSubmit = () => {
         if (email && password) {
             axios
-                .post('http://localhost:3000/api/user/', {
+                .post('https://shop-server-jet.vercel.app/user/', {
                     email: email,
                     password: password,
                     role: role,

@@ -4,7 +4,7 @@ import { fetchSomeData } from "./productSlice";
 const userId = localStorage.getItem("id");
 const data = JSON.parse(localStorage.getItem(`productCart${userId}`))
 // export const addCart = (product) => async (dispatch) => {
-//     await axios.post("http://localhost:3000/api/carts", product)
+//     await axios.post("https://shop-server-jet.vercel.app/carts", product)
 //     dispatch(addItem(product))
 // }
 const cartSlice = createSlice({

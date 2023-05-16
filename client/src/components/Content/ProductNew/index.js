@@ -15,7 +15,7 @@ function ProductNew() {
     useEffect(() => {
         axios
             .get(
-                `http://localhost:3000/api/products?tag=new&_sort=${sort}&_order=${order}`
+                `https://shop-server-jet.vercel.app/products?tag=new&_sort=${sort}&_order=${order}`
             )
             .then((response) => {
                 const products = response.data.slice(0, 10);

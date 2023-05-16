@@ -6,7 +6,7 @@ export default function Slider() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        axios.get("http://localhost:3000/api/advertisement")
+        axios.get("https://shop-server-jet.vercel.app/advertisement")
             .then(response => {
                 setData(response.data);
                 setLoading(false)

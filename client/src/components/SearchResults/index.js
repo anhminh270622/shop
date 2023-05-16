@@ -14,13 +14,13 @@ export default function SearchResults() {
     useEffect(() => {
         if (tag) {
             axios.get(
-                `http://localhost:3000/api/products?q=${input}&_sort=${sort}&_order=${order}&tag=${tag}`)
+                `https://shop-server-jet.vercel.app/products?q=${input}&_sort=${sort}&_order=${order}&tag=${tag}`)
                 .then((response) => setSearchResult(response.data)
                 )
                 .catch((error) => console.log(error));
         } else {
             axios.get(
-                `http://localhost:3000/api/products?q=${input}&_sort=${sort}&_order=${order}`)
+                `https://shop-server-jet.vercel.app/products?q=${input}&_sort=${sort}&_order=${order}`)
                 .then((response) => setSearchResult(response.data)
                 )
                 .catch((error) => console.log(error));

@@ -77,7 +77,7 @@ export default function Cart() {
         const products = items.map((item) => `${item.name} - Size ${item.size}`);
         const productsId = items.map((item) => `${item.id} - ${item.quantity}`);
         axios
-            .post('http://localhost:3000/api/order', {
+            .post('https://shop-server-jet.vercel.app/order', {
                 nameOrder: nameOrder,
                 address: address,
                 phone: sdt,

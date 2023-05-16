@@ -60,7 +60,7 @@ function Contact() {
         },
     ];
     const handleDelete = async (id) => {
-        await axios.delete(`http://localhost:3000/api/contact/${id}`)
+        await axios.delete(`https://shop-server-jet.vercel.app/contact/${id}`)
             .then(response => {
                 toast.success('Xóa thành công!', {
                     position: toast.POSITION.TOP_RIGHT,

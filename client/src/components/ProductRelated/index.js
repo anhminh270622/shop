@@ -10,7 +10,7 @@ export default function ProductRelated() {
     const [ralated, setRalated] = useState('');
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/api/products?type=${type}`)
+            .get(`https://shop-server-jet.vercel.app/products?type=${type}`)
             .then((response) => setRalated(response.data))
             .catch((error) => console.log(error));
     }, []);

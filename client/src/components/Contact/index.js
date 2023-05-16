@@ -13,7 +13,7 @@ export default function Contact() {
     const [notes, setNotes] = useState('')
     const handleSubmit = async () => {
         if (name, email, phone, address, notes) {
-            await axios.post("http://localhost:3000/api/contact", {
+            await axios.post("https://shop-server-jet.vercel.app/contact", {
                 name: name,
                 email: email,
                 phone: phone,

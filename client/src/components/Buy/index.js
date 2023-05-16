@@ -43,7 +43,7 @@ function Buy() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/order?_sort=id&_order=desc")
+                const response = await axios.get("https://shop-server-jet.vercel.app/order?_sort=id&_order=desc")
                 const buy = response.data.filter(item => item.userId === userId)
                 setRows(buy)
                 // console.log("buy", buy)// Cập nhật state rows với dữ liệu trả về từ API
