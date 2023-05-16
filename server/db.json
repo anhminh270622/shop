@@ -146,7 +146,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 96
+      "quantity": 93
     },
     {
       "id": "NKA307AO36220026",
@@ -217,7 +217,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 28
+      "quantity": 27
     },
     {
       "id": "AD307GZ589360",
@@ -254,7 +254,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 23
+      "quantity": 22
     },
     {
       "id": "AD307GZ592160",
@@ -365,7 +365,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 100
+      "quantity": 99
     },
     {
       "id": "NKA307DC14600067",
@@ -402,7 +402,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 49
+      "quantity": 48
     },
     {
       "id": "AD306FW653080",
@@ -1462,13 +1462,12 @@
       "address": "",
       "phone": "",
       "note": "",
-      "product": "Dép thể thao adidas ADILETTE AQUA - F35538 - Size 40, Dép thể thao adidas ADILETTE AQUA - F35538 - Size 39",
-      "total": "1,200,000đ",
-      "status": "Chờ xử lý",
+      "product": "Dép sportswear Nike On Deck nữ CU3959-602 - Size 41",
+      "total": "779,000đ",
+      "status": "Thành công",
       "userId": 3,
       "productId": [
-        "AD307F3553860 - 1",
-        "AD307F3553860 - 1"
+        "NKA307CU39596025 - 1"
       ],
       "id": 1
     },
@@ -1477,29 +1476,16 @@
       "address": "",
       "phone": "",
       "note": "",
-      "product": "Dép sportswear Air Max Cirro nam DC1460-004 - Size 41",
-      "total": "1,559,000đ",
-      "status": "Chờ xử lý",
+      "product": "Dép thể thao adidas ADILETTE COMFORT - GZ5893 - Size 43, Dép thể thao adidas ADILETTE COMFORT - GZ5893 - Size 35, Dép thể thao adidas ADILETTE COMFORT - GZ5893 - Size 36",
+      "total": "5,000,000đ",
+      "status": "Thành công",
       "userId": 3,
       "productId": [
-        "NKA307DC14600046 - 1"
+        "AD307GZ589360 - 3",
+        "AD307GZ589360 - 1",
+        "AD307GZ589360 - 1"
       ],
       "id": 2
-    },
-    {
-      "nameOrder": "",
-      "address": "",
-      "phone": "",
-      "note": "",
-      "product": "Dép sportswear Nike On Deck nữ CU3959-602 - Size 42, Dép sportswear NIKE AIR MAX CIRRO SLIDE nam DC1460-006 - Size 44",
-      "total": "3,117,000đ",
-      "status": "Chờ xử lý",
-      "userId": 3,
-      "productId": [
-        "NKA307CU39596025 - 2",
-        "NKA307DC14600067 - 1"
-      ],
-      "id": 3
     }
   ],
   "user": [

@@ -3,6 +3,9 @@ const server = jsonServer.create();
 const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 
+// Thêm middleware CORS
+const cors = require('cors');
+server.use(cors());
 
 server.use(middlewares);
 server.use('/api', router);
