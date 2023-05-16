@@ -86,7 +86,7 @@ function Header() {
 							<li
 								to="/"
 								onClick={handleScrollToTopClick}>
-								Trang chủ
+								Trang chủ 1
 							</li>
 							<li className="categories">
 								<span>Thể loại</span>
