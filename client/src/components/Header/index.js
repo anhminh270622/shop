@@ -86,7 +86,7 @@ function Header() {
 							<li
 								to="/"
 								onClick={handleScrollToTopClick}>
-								Trang chủ 1
+								Trang chủ
 							</li>
 							<li className="categories">
 								<span>Thể loại</span>
@@ -155,7 +155,7 @@ function Header() {
 						<li
 							className="user"
 						>
-							{localStorage.getItem('avatar') !== 'null' ? (
+							{localStorage.getItem('avatar') && localStorage.getItem('avatar') !== 'null' ? (
 								<>
 									<Link to="/profile-mobile">	<img src={localStorage.getItem('avatar')}></img></Link>
 									<ul className="profile">
