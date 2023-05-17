@@ -39,7 +39,7 @@ function Profile() {
         // const response = await axios.post('https://tinyurl.com/api-create.php?url=' + imageUrl);
         // const shortImageUrl = response.data;
         await axios
-            .put(`https://shop-server-jet.vercel.app/user/${id}`, {
+            .put(`https://server-oum7.onrender.com/user/${id}`, {
                 ...profile,
                 email: email,
                 name: name,

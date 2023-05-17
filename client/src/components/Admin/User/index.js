@@ -72,7 +72,7 @@ export default function User() {
     ];
     const handleDelete = (id) => {
         axios
-            .delete(`https://shop-server-jet.vercel.app/user/${id}`)
+            .delete(`https://server-oum7.onrender.com/user/${id}`)
             .then((response) => {
                 setUser(user.filter((user) => user.id !== id));
             })
@@ -83,7 +83,7 @@ export default function User() {
     };
 
     const handleEdit = (id) => {
-        axios.get(`https://shop-server-jet.vercel.app/user/${id}`).then((response) => {
+        axios.get(`https://server-oum7.onrender.com/user/${id}`).then((response) => {
             // handleOpen()
             setEmail(response.data.email);
             setPassword(response.data.password);
@@ -94,7 +94,7 @@ export default function User() {
     };
     const handleSubmitEdit = () => {
         axios
-            .put(`https://shop-server-jet.vercel.app/user/${id}`, {
+            .put(`https://server-oum7.onrender.com/user/${id}`, {
                 email: email,
                 password: password,
                 role: role,
@@ -106,7 +106,7 @@ export default function User() {
     };
     const fetchData = () => {
         axios
-            .get('https://shop-server-jet.vercel.app/user')
+            .get('https://server-oum7.onrender.com/user')
             .then((response) => {
                 setUser(response.data);
             })
@@ -131,7 +131,7 @@ export default function User() {
     const handleSubmit = () => {
         if (email && password) {
             axios
-                .post('https://shop-server-jet.vercel.app/user/', {
+                .post('https://server-oum7.onrender.com/user/', {
                     email: email,
                     password: password,
                     role: role,

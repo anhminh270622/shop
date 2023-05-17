@@ -52,7 +52,7 @@ export default function Warehouse() {
         },
     ];
     const handleDelete = (id) => {
-        axios.delete(`https://shop-server-jet.vercel.app/products/${id}`)
+        axios.delete(`https://server-oum7.onrender.com/products/${id}`)
             .then((response) =>
                 setWarehouse(warehouse.filter(item => item.id !== id)),
             )
@@ -60,7 +60,7 @@ export default function Warehouse() {
     const handleEdit = (id) => {
     };
     const fetchData = () => {
-        axios.get('https://shop-server-jet.vercel.app/products')
+        axios.get('https://server-oum7.onrender.com/products')
             .then(response => {
                 setWarehouse(response.data);
             }).catch(error => console.error(error))

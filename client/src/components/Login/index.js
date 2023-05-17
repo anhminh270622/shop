@@ -23,7 +23,7 @@ export default function Login() {
         fetchData();
     }, []);
     const fetchData = () => {
-        axios.get('https://shop-server-jet.vercel.app/user').then((response) => {
+        axios.get('https://server-oum7.onrender.com/user').then((response) => {
             setLogin(response.data);
         });
     };

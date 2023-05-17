@@ -29,7 +29,7 @@ export default function Register() {
         toast.success('Đăng ký thành công!', {
             position: toast.POSITION.TOP_RIGHT,
         });
-        axios.post('https://shop-server-jet.vercel.app/user', {
+        axios.post('https://server-oum7.onrender.com/user', {
             name: name,
             email: email,
             password: password,

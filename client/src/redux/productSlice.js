@@ -4,30 +4,30 @@ import axios from 'axios';
 export const fetchSomeData = (type) => async (dispatch) => {
     dispatch(fetchDataPending(type));
     try {
-        const response = await axios.get(`https://shop-server-jet.vercel.app/${type}`);
+        const response = await axios.get(`https://server-oum7.onrender.com/${type}`);
         dispatch(fetchDataSuccess({ type, data: response.data }));
     } catch (error) {
         dispatch(fetchDataFailure({ type, error: error.message }));
     }
 };
 export const updateStatus = (id, productId) => async (dispatch) => {
-    const response = await axios.get(`https://shop-server-jet.vercel.app/order/${id}`);
+    const response = await axios.get(`https://server-oum7.onrender.com/order/${id}`);
     const order = response.data;
     const updatedOrder = {
         ...order,
         status: 'Thành công',
     };
-    await axios.put(`https://shop-server-jet.vercel.app/order/${id}`, updatedOrder);
+    await axios.put(`https://server-oum7.onrender.com/order/${id}`, updatedOrder);
     dispatch(updateOrderStatus({ id, productId }));
 };
 export const updateQuantityOrder = (id, quantity) => async (dispatch) => {
-    const response = await axios.get(`https://shop-server-jet.vercel.app/products/${id}`);
+    const response = await axios.get(`https://server-oum7.onrender.com/products/${id}`);
     const order = response.data;
     const updatedOrder = {
         ...order,
         quantity: quantity
     };
-    await axios.put(`https://shop-server-jet.vercel.app/products/${id}`, updatedOrder);
+    await axios.put(`https://server-oum7.onrender.com/products/${id}`, updatedOrder);
 };
 const initialState = {
     products: { data: [], status: null, error: null },
