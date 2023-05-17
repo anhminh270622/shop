@@ -76,6 +76,11 @@ export default function Cart() {
     const handleBuy = () => {
         const products = items.map((item) => `${item.name} - Size ${item.size}`);
         const productsId = items.map((item) => `${item.id} - ${item.quantity}`);
+        handleCloseModal();
+        dispatch(clearCart());
+        toast.success('Mua hàng thành công!', {
+            position: toast.POSITION.TOP_RIGHT,
+        });
         axios
             .post('https://shop-server-jet.vercel.app/order', {
                 nameOrder: nameOrder,
@@ -88,10 +93,6 @@ export default function Cart() {
                 userId: userId,
                 productId: productsId,
             })
-        handleCloseModal();
-        toast.success('Mua hàng thành công!', {
-            position: toast.POSITION.TOP_RIGHT,
-        });
         // .then((orderResponse) => {
         //     handleCloseModal();
         //     dispatch(clearCart());

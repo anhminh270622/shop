@@ -12,6 +12,15 @@ export default function Contact() {
     const [address, setAddress] = useState('');
     const [notes, setNotes] = useState('')
     const handleSubmit = async () => {
+        console.log(name, email, phone, address, notes)
+        toast.success('Gửi thông tin thành công!', {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+        setName("")
+        setEmail("")
+        setPhone("")
+        setAddress("")
+        setNotes("")
         if (name, email, phone, address, notes) {
             await axios.post("https://shop-server-jet.vercel.app/contact", {
                 name: name,
@@ -21,15 +30,6 @@ export default function Contact() {
                 notes: notes,
                 userId: localStorage.getItem("id")
             })
-            toast.success('Gửi thông tin thành công!', {
-                position: toast.POSITION.TOP_RIGHT,
-            })
-            console.log(name, email, phone, address, notes)
-            setName("")
-            setEmail("")
-            setPhone("")
-            setAddress("")
-            setNotes("")
             // .then((response) => {
             //     toast.success('Gửi thông tin thành công!', {
             //         position: toast.POSITION.TOP_RIGHT,
