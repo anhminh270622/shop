@@ -12,68 +12,35 @@ export default function Contact() {
     const [address, setAddress] = useState('');
     const [notes, setNotes] = useState('')
     const handleSubmit = async () => {
-        // console.log(name, email, phone, address, notes)
-        // toast.success('Gửi thông tin thành công!', {
-        //     position: toast.POSITION.TOP_RIGHT,
-        // })
-        // setName("")
-        // setEmail("")
-        // setPhone("")
-        // setAddress("")
-        // setNotes("")
-        // if (name, email, phone, address, notes) {
-        //     await axios.post("https://shop-server-jet.vercel.app/contact", {
-        //         name: name,
-        //         email: email,
-        //         phone: phone,
-        //         address: address,
-        //         notes: notes,
-        //         userId: localStorage.getItem("id")
-        //     })
-        //     // .then((response) => {
-        //     //     toast.success('Gửi thông tin thành công!', {
-        //     //         position: toast.POSITION.TOP_RIGHT,
-        //     //     })
-        //     //     setName("")
-        //     //     setEmail("")
-        //     //     setPhone("")
-        //     //     setAddress("")
-        //     //     setNotes("")
-        //     // }
-        //     // )
-        // } else {
-        //     toast.warning('Vui lòng điền đầy đủ  thông tin!', {
-        //         position: toast.POSITION.TOP_RIGHT,
-        //     })
-        // }
-        const data = {
-            key1: 'value1',
-            key2: 'value2'
-        };
+        console.log(name, email, phone, address, notes)
 
-        axios.post('https://your-endpoint.com', data, {
-            headers: {
-                'Content-Type': 'application/json',
-                // CORS headers
-                'Access-Control-Allow-Origin': '*', // or your specific origin
-                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type'
-            }
-        })
-            .then(response => {
-                console.log(response);
-                toast.success('Gửi thông tin thành công!', {
-                    position: toast.POSITION.TOP_RIGHT,
-                })
-                setName("")
-                setEmail("")
-                setPhone("")
-                setAddress("")
-                setNotes("")
+
+        if (name, email, phone, address, notes) {
+            await axios.post("https://server-oum7.onrender.com/contact", {
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+                notes: notes,
+                userId: localStorage.getItem("id")
             })
-            .catch(error => {
-                console.error(error);
-            });
+                .then((response) => {
+                    toast.success('Gửi thông tin thành công!', {
+                        position: toast.POSITION.TOP_RIGHT,
+                    })
+                    setName("")
+                    setEmail("")
+                    setPhone("")
+                    setAddress("")
+                    setNotes("")
+                }
+                )
+        } else {
+            toast.warning('Vui lòng điền đầy đủ  thông tin!', {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+        }
+
 
     }
     return (
