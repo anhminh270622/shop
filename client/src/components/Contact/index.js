@@ -20,17 +20,27 @@ export default function Contact() {
                 address: address,
                 notes: notes,
                 userId: localStorage.getItem("id")
-            }).then((response) => {
-                toast.success('Gửi thông tin thành công!', {
-                    position: toast.POSITION.TOP_RIGHT,
-                })
-                setName("")
-                setEmail("")
-                setPhone("")
-                setAddress("")
-                setNotes("")
-            }
-            )
+            })
+            toast.success('Gửi thông tin thành công!', {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+            console.log(name, email, phone, address, notes)
+            setName("")
+            setEmail("")
+            setPhone("")
+            setAddress("")
+            setNotes("")
+            // .then((response) => {
+            //     toast.success('Gửi thông tin thành công!', {
+            //         position: toast.POSITION.TOP_RIGHT,
+            //     })
+            //     setName("")
+            //     setEmail("")
+            //     setPhone("")
+            //     setAddress("")
+            //     setNotes("")
+            // }
+            // )
         } else {
             toast.warning('Vui lòng điền đầy đủ  thông tin!', {
                 position: toast.POSITION.TOP_RIGHT,

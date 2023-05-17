@@ -88,13 +88,17 @@ export default function Cart() {
                 userId: userId,
                 productId: productsId,
             })
-            .then((orderResponse) => {
-                handleCloseModal();
-                dispatch(clearCart());
-                toast.success('Mua hàng thành công!', {
-                    position: toast.POSITION.TOP_RIGHT,
-                });
-            });
+        handleCloseModal();
+        toast.success('Mua hàng thành công!', {
+            position: toast.POSITION.TOP_RIGHT,
+        });
+        // .then((orderResponse) => {
+        //     handleCloseModal();
+        //     dispatch(clearCart());
+        //     toast.success('Mua hàng thành công!', {
+        //         position: toast.POSITION.TOP_RIGHT,
+        //     });
+        // });
     };
     const handleBuy1 = () => {
         navigate('/buy');
