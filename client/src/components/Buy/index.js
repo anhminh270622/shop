@@ -4,9 +4,12 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { fetchSomeData } from "../../redux/productSlice";
+import { useDispatch, useSelector } from "react-redux";
 function Buy() {
     const [rows, setRows] = useState("")
-    const userId = JSON.parse(localStorage.getItem("id"))
+    const userIds = JSON.parse(localStorage.getItem("id"))
+    const dispatch = useDispatch()
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
@@ -44,13 +47,14 @@ function Buy() {
         const fetchData = async () => {
             try {
                 const response = await axios.get("https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order.json");
+                console.log("response.data.", response.data)
                 const orders = response.data;
                 const orderKeys = Object.keys(orders);
                 const rows = orderKeys.map((key, index) => ({
                     id: index + 1, // Thêm thuộc tính id dựa trên index
                     ...orders[key],
                 }));
-                setRows(rows);
+                setRows(rows.filter(order => order.userId === userIds));
             } catch (error) {
                 console.log(error);
             }
