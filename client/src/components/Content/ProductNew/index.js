@@ -12,17 +12,17 @@ function ProductNew() {
     const [order, setOrder] = useState('asc');
     const [selling, setSelling] = useState([]);
     const dispatch = useDispatch();
-    useEffect(() => {
-        axios
-            .get(
-                `http://localhost:3000/api/products?tag=new&_sort=${sort}&_order=${order}`
-            )
-            .then((response) => {
-                const products = response.data.slice(0, 10);
-                setProduct(products);
-            })
-            .catch((error) => console.log(error));
-    }, [sort, order, dispatch]);
+    // useEffect(() => {
+    //     axios
+    //         .get(
+    //             `http://localhost:3000/api/products?tag=new&_sort=${sort}&_order=${order}`
+    //         )
+    //         .then((response) => {
+    //             const products = response.data.slice(0, 10);
+    //             setProduct(products);
+    //         })
+    //         .catch((error) => console.log(error));
+    // }, [sort, order, dispatch]);
     const handleOnchange = (e) => {
         setSort(e.target.value.split(' ')[0]);
         setOrder(e.target.value.split(' ')[1]);
@@ -32,6 +32,7 @@ function ProductNew() {
     }, [dispatch]);
     const productBuy = useSelector((state) => state.product.products.data);
     const productSelling = productBuy.filter((product) => product.quantity < 50);
+    const productNew = productBuy.filter((product) => product.tag === 'new');
     const sortFunctions = {
         new: (products) => {
             const newProducts = products.filter((product) => product.tag === 'new');
@@ -96,8 +97,8 @@ function ProductNew() {
                     </select>
                 </div>
                 <div className="product-item">
-                    {product &&
-                        product.map((item) => (
+                    {productNew &&
+                        productNew.map((item) => (
                             <ProductGeneral
                                 key={item.id}
                                 id={item.id}
