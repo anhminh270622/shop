@@ -12,10 +12,18 @@
 	}
 	.container {
 		display: flex;
+		justify-content: space-between;
+		.filter-results {
+			width: 20%;
+			.filter {
+				width: 100%;
+			}
+		}
 		.search-item {
+			width: 82%;
 			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 20px;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+			gap: 15px;
 		}
 	}
 }

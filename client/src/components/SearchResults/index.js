@@ -6,68 +6,62 @@ import ProductGeneral from "../ProductGeneral"
 import { Filter } from "../Define";
 import { fetchSomeData } from "../../redux/productSlice";
 import { useSelector, useDispatch } from "react-redux";
+
 export default function SearchResults() {
     const location = useLocation();
     const { input } = location.state || {};
-    const [searchResult, setSearchResult] = useState('')
-    const [sort, setSort] = useState('price');
-    const [order, setOrder] = useState('asc');
-    const [tag, setTag] = useState('')
+    const [searchResult, setSearchResult] = useState([]);
     const dispatch = useDispatch();
-    const search = useSelector(state => state.product.products.data)
-    useEffect(() => {
-        const results = search.filter(item => item.name.toLowerCase().includes(input));
-        setSearchResult(results);
-    }, [search, input]);
+    const search = useSelector(state => state.product.products.data);
 
     useEffect(() => {
         dispatch(fetchSomeData("products"))
-
-        // if (tag) {
-        //     axios.get(
-        //         // `http://localhost:3000/api/products?q=${input}&_sort=${sort}&_order=${order}&tag=${tag}`
-
-        //         // `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json?q=${input}&_sort=${sort}&_order=${order}&tag=${tag}`
-        //         `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json?q=${input}&_sort=${sort}&_order=${order}&tag=${tag}
-        //         `
-        //     )
-        //         .then((response) => {
-        //             setSearchResult(response.data)
-        //             console.log("searchResult", response.data)
-
-        //         }
-        //         )
-        //         .catch((error) => console.log(error));
-        // } else {
-        //     axios.get(
-        //         // `http://localhost:3000/api/products?q=${input}&_sort=${sort}&_order=${order}`
-        //         `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json?q=${input}&_sort=${sort}&_order=${order}`)
-        //         .then((response) => setSearchResult(response.data)
-        //         )
-        //         .catch((error) => console.log(error));
-        // }
-        // console.log("input", input)
     }, [dispatch]);
-    const handleOnchange = (e) => {
-        if (e.target.value === 'new') {
-            setTag('new')
-        } else {
-            setSort(e.target.value.split(' ')[0]);
-            setOrder(e.target.value.split(' ')[1]);
-            setTag('')
-        }
 
+    useEffect(() => {
+        if (input) {
+            const results = search.filter(item => item.name.toLowerCase().includes(input.toLowerCase()));
+            setSearchResult(results);
+        }
+    }, [search, input]);
+
+    const sortFunctions = {
+        new: (products) => {
+            const newProducts = products.filter((product) => product.tag === 'new');
+            const oldProducts = products.filter((product) => product.tag !== 'new');
+            return [...newProducts, ...oldProducts];
+        },
+        asc: (products) => products.sort((a, b) => a.price - b.price),
+        desc: (products) => products.sort((a, b) => b.price - a.price),
+        az: (products) =>
+            products.sort((a, b) => a.trademark.localeCompare(b.trademark)),
+        za: (products) =>
+            products.sort((a, b) => b.trademark.localeCompare(a.trademark)),
     };
+
+    const handleOnchange = (e) => {
+        const sortFunction = sortFunctions[e.target.value];
+        const sortedResults = sortFunction(searchResult.slice()); // Create a copy of the array
+        setSearchResult(sortedResults);
+    };
+
+    useEffect(() => {
+        const sortFunction = sortFunctions.asc;
+        const sortedSearch = sortFunction(search.slice()); // Create a copy of the array
+        setSearchResult(sortedSearch);
+    }, [search]);
+
+
     return (
         <>
             <div className="search-results">
                 <div className="top">
                     <h1>Dép</h1>
                     <select onChange={handleOnchange}>
-                        <option value="price asc">Giá: Tăng dần</option>
-                        <option value="price desc">Giá: Giảm dần</option>
-                        <option value="trademark asc">Thương hiệu:A-Z</option>
-                        <option value="trademark desc">Thương hiệu:Z-A</option>
+                        <option value="asc">Giá: Tăng dần</option>
+                        <option value="desc">Giá: Giảm dần</option>
+                        <option value="az">Thương hiệu:A-Z</option>
+                        <option value="za">Thương hiệu:Z-A</option>
                         <option value="new">Sản phẩm: Mới</option>
                     </select>
                 </div>
@@ -89,10 +83,10 @@ export default function SearchResults() {
                                 description={item.description}
                                 type={item.type}
                             />
-                        ))
-                        }
+                        ))}
                     </div>
                 </div>
             </div>
-        </>);
+        </>
+    );
 }

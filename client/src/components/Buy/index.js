@@ -55,6 +55,7 @@ function Buy() {
                     ...orders[key],
                 }));
                 setRows(rows.filter(order => order.userId === userIds));
+                console.log("rows", rows.id);
             } catch (error) {
                 console.log(error);
             }
