@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react";
 import ProductGeneral from "../ProductGeneral"
 import { Filter } from "../Define";
+import { fetchSomeData } from "../../redux/productSlice";
+import { useSelector, useDispatch } from "react-redux";
 export default function SearchResults() {
     const location = useLocation();
     const { input } = location.state || {};
@@ -11,21 +13,41 @@ export default function SearchResults() {
     const [sort, setSort] = useState('price');
     const [order, setOrder] = useState('asc');
     const [tag, setTag] = useState('')
+    const dispatch = useDispatch();
+    const search = useSelector(state => state.product.products.data)
     useEffect(() => {
-        if (tag) {
-            axios.get(
-                `http://localhost:3000/api/products?q=${input}&_sort=${sort}&_order=${order}&tag=${tag}`)
-                .then((response) => setSearchResult(response.data)
-                )
-                .catch((error) => console.log(error));
-        } else {
-            axios.get(
-                `http://localhost:3000/api/products?q=${input}&_sort=${sort}&_order=${order}`)
-                .then((response) => setSearchResult(response.data)
-                )
-                .catch((error) => console.log(error));
-        }
-    }, [sort, order, tag, input]);
+        const results = search.filter(item => item.name.toLowerCase().includes(input));
+        setSearchResult(results);
+    }, [search, input]);
+
+    useEffect(() => {
+        dispatch(fetchSomeData("products"))
+
+        // if (tag) {
+        //     axios.get(
+        //         // `http://localhost:3000/api/products?q=${input}&_sort=${sort}&_order=${order}&tag=${tag}`
+
+        //         // `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json?q=${input}&_sort=${sort}&_order=${order}&tag=${tag}`
+        //         `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json?q=${input}&_sort=${sort}&_order=${order}&tag=${tag}
+        //         `
+        //     )
+        //         .then((response) => {
+        //             setSearchResult(response.data)
+        //             console.log("searchResult", response.data)
+
+        //         }
+        //         )
+        //         .catch((error) => console.log(error));
+        // } else {
+        //     axios.get(
+        //         // `http://localhost:3000/api/products?q=${input}&_sort=${sort}&_order=${order}`
+        //         `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json?q=${input}&_sort=${sort}&_order=${order}`)
+        //         .then((response) => setSearchResult(response.data)
+        //         )
+        //         .catch((error) => console.log(error));
+        // }
+        // console.log("input", input)
+    }, [dispatch]);
     const handleOnchange = (e) => {
         if (e.target.value === 'new') {
             setTag('new')
