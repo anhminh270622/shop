@@ -23,8 +23,14 @@ export default function Login() {
         fetchData();
     }, []);
     const fetchData = () => {
-        axios.get('https://server-oum7.onrender.com/user').then((response) => {
-            setLogin(response.data);
+        axios.get('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json').then((response) => {
+            const login = response.data
+            const loginKeys = Object.keys(login);
+            const rows = loginKeys.map((key, index) => ({
+                id: index + 1, // Thêm thuộc tính id dựa trên index
+                ...login[key],
+            }));
+            setLogin(rows);
         });
     };
     const handleSubmit = (e) => {

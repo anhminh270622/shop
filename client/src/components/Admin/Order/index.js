@@ -13,9 +13,15 @@ function Order() {
     dispatch(fetchSomeData("order"))
     dispatch(fetchSomeData("products"))
   }, [])
+  // const order = useSelector(state => state.product.order.data)
   const order = useSelector(state => state.product.order.data)
   const products = useSelector(state => state.product.products.data)
-  const sortedOrder = [...order].sort((a, b) => b.id - a.id);
+  const orderKeys = Object.keys(order);
+  const rows = orderKeys.map((key, index) => ({
+    id: index + 1, // Thêm thuộc tính id dựa trên index
+    ...order[key],
+  }));
+  const sortedOrder = [...rows].sort((a, b) => b.id - a.id);
   const handleConfirm = (id, productId) => {
     dispatch(updateStatus(id, productId))
     for (let i = 0; i < productId.length; i++) {

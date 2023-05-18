@@ -72,7 +72,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 99
+      "quantity": 98
     },
     {
       "id": "NKA307DH02230016",
@@ -146,7 +146,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 93
+      "quantity": 86
     },
     {
       "id": "NKA307AO36220026",
@@ -217,7 +217,7 @@
           "quantity": 20
         }
       ],
-      "quantity": 27
+      "quantity": 25
     },
     {
       "id": "AD307GZ589360",
@@ -1464,28 +1464,12 @@
       "note": "",
       "product": "Dép sportswear Nike On Deck nữ CU3959-602 - Size 41",
       "total": "779,000đ",
-      "status": "Thành công",
+      "status": "Chờ xử lý",
       "userId": 3,
       "productId": [
         "NKA307CU39596025 - 1"
       ],
       "id": 1
-    },
-    {
-      "nameOrder": "",
-      "address": "",
-      "phone": "",
-      "note": "",
-      "product": "Dép thể thao adidas ADILETTE COMFORT - GZ5893 - Size 43, Dép thể thao adidas ADILETTE COMFORT - GZ5893 - Size 35, Dép thể thao adidas ADILETTE COMFORT - GZ5893 - Size 36",
-      "total": "5,000,000đ",
-      "status": "Thành công",
-      "userId": 3,
-      "productId": [
-        "AD307GZ589360 - 3",
-        "AD307GZ589360 - 1",
-        "AD307GZ589360 - 1"
-      ],
-      "id": 2
     }
   ],
   "user": [
@@ -1504,12 +1488,6 @@
       "id": 8
     },
     {
-      "email": "duan@gmail.com",
-      "password": "duan",
-      "role": "client",
-      "id": 9
-    },
-    {
       "name": "minh45466",
       "email": "anh@gmail.com",
       "password": "anhminh",
@@ -1518,7 +1496,35 @@
       "url": "",
       "id": 11,
       "imageUrl": ""
+    },
+    {
+      "name": "ds",
+      "email": "n@gmail.com",
+      "password": "n",
+      "phone": "",
+      "role": "client",
+      "url": "",
+      "id": 12
     }
   ],
-  "contact": []
+  "contact": [
+    {
+      "name": "dá",
+      "email": "đá",
+      "phone": "dsa",
+      "address": "dádá",
+      "notes": "dd",
+      "userId": "3",
+      "id": 1
+    },
+    {
+      "name": "dg",
+      "email": "gdg",
+      "phone": "gdg",
+      "address": "dgd",
+      "notes": "gdg",
+      "userId": "3",
+      "id": 2
+    }
+  ]
 }

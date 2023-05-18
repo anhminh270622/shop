@@ -78,7 +78,7 @@ export default function Cart() {
         const productsId = items.map((item) => `${item.id} - ${item.quantity}`);
 
         axios
-            .post('https://server-oum7.onrender.com/order', {
+            .post('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order.json', {
                 nameOrder: nameOrder,
                 address: address,
                 phone: sdt,

@@ -7,6 +7,7 @@ export default function ProductGeneral(props) {
     const firtImg = image && image.length > 0 ? image[0] : null;
     // const cost = sale !== 0 ? ((price * sale / 100).toLocaleString() + "đ") : '';
     // const costToString = cost
+    // console.log("image", firtImg.url)
     const navigate = useNavigate();
 
 

@@ -1,9 +1,9 @@
 import React from 'react'
-import Buy from '../components/Buy'
+import BuyCart from '../components/Buy'
 export default function BuyPage() {
     return (
         <div>
-            <Buy />
+            <BuyCart />
         </div>
     )
 }

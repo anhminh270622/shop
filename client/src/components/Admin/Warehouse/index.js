@@ -52,7 +52,7 @@ export default function Warehouse() {
         },
     ];
     const handleDelete = (id) => {
-        axios.delete(`https://server-oum7.onrender.com/products/${id}`)
+        axios.delete(`http://localhost:3000/api/products/${id}`)
             .then((response) =>
                 setWarehouse(warehouse.filter(item => item.id !== id)),
             )
@@ -60,7 +60,7 @@ export default function Warehouse() {
     const handleEdit = (id) => {
     };
     const fetchData = () => {
-        axios.get('https://server-oum7.onrender.com/products')
+        axios.get('http://localhost:3000/api/products')
             .then(response => {
                 setWarehouse(response.data);
             }).catch(error => console.error(error))

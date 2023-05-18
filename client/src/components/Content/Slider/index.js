@@ -6,7 +6,7 @@ export default function Slider() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        axios.get("https://server-oum7.onrender.com/advertisement")
+        axios.get("https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/advertisement.json")
             .then(response => {
                 setData(response.data);
                 setLoading(false)

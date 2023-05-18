@@ -43,16 +43,21 @@ function Buy() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("https://server-oum7.onrender.com/order?_sort=id&_order=desc")
-                const buy = response.data.filter(item => item.userId === userId)
-                setRows(buy)
-                // console.log("buy", buy)// Cập nhật state rows với dữ liệu trả về từ API
+                const response = await axios.get("https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order.json");
+                const orders = response.data;
+                const orderKeys = Object.keys(orders);
+                const rows = orderKeys.map((key, index) => ({
+                    id: index + 1, // Thêm thuộc tính id dựa trên index
+                    ...orders[key],
+                }));
+                setRows(rows);
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
-        }
-        fetchData()
-    }, [])
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <div className="buy">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Register.scss';
 import MailIcon from '@mui/icons-material/Mail';
 import LockIcon from '@mui/icons-material/Lock';
@@ -10,32 +10,40 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { fetchSomeData } from '../../redux/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
 export default function Register() {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [passwordEnter, setPasswordEnter] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-
+    const user = useSelector(state => state.product.user.data)
     const navigate = useNavigate();
     const handleShowPassword = () => {
         setShowPassword(!showPassword)
     }
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchSomeData("user"))
+    }, [dispatch])
     const handleSubmit = (e) => {
         e.preventDefault();
         setEmail('');
         setPassword('');
         setPasswordEnter('');
+        setName("")
         toast.success('Đăng ký thành công!', {
             position: toast.POSITION.TOP_RIGHT,
         });
-        axios.post('https://server-oum7.onrender.com/user', {
+        axios.post('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json', {
             name: name,
             email: email,
             password: password,
             phone: "",
             role: "client",
-            url: ""
+            url: "",
+            id: user.length + 2
         });
     };
     return (

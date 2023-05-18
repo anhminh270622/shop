@@ -15,7 +15,7 @@ function ProductNew() {
     useEffect(() => {
         axios
             .get(
-                `https://server-oum7.onrender.com/products?tag=new&_sort=${sort}&_order=${order}`
+                `http://localhost:3000/api/products?tag=new&_sort=${sort}&_order=${order}`
             )
             .then((response) => {
                 const products = response.data.slice(0, 10);
@@ -128,8 +128,8 @@ function ProductNew() {
                     </select>
                 </div>
                 <div className="product-item">
-                    {selling &&
-                        selling.map((item) => (
+                    {productSelling &&
+                        productSelling.map((item) => (
                             <ProductGeneral
                                 key={item.id}
                                 id={item.id}

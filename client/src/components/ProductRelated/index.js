@@ -10,7 +10,7 @@ export default function ProductRelated() {
     const [ralated, setRalated] = useState('');
     useEffect(() => {
         axios
-            .get(`https://server-oum7.onrender.com/products?type=${type}`)
+            .get(`http://localhost:3000/api/products?type=${type}`)
             .then((response) => setRalated(response.data))
             .catch((error) => console.log(error));
     }, []);

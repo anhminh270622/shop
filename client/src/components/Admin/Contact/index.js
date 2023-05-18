@@ -60,7 +60,9 @@ function Contact() {
         },
     ];
     const handleDelete = async (id) => {
-        await axios.delete(`https://server-oum7.onrender.com/contact/${id}`)
+        // console.log("delete", id);
+        // console.log("sortedContact", sortedContact);
+        await axios.delete(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/contact/${id}.json`)
             .then(response => {
                 toast.success('Xóa thành công!', {
                     position: toast.POSITION.TOP_RIGHT,

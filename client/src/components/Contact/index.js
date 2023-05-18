@@ -12,11 +12,8 @@ export default function Contact() {
     const [address, setAddress] = useState('');
     const [notes, setNotes] = useState('')
     const handleSubmit = async () => {
-        console.log(name, email, phone, address, notes)
-
-
         if (name, email, phone, address, notes) {
-            await axios.post("https://server-oum7.onrender.com/contact", {
+            await axios.post("https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/contact.json", {
                 name: name,
                 email: email,
                 phone: phone,

@@ -33,13 +33,14 @@ function Profile() {
             setPassword(user[index]?.password);
             setName(user[index]?.name);
             setProfile(user[index]);
+            // console.log("user[index]", user);
         }
     }, [user, id]);
     const handleSubmitEdit = async () => {
         // const response = await axios.post('https://tinyurl.com/api-create.php?url=' + imageUrl);
         // const shortImageUrl = response.data;
         await axios
-            .put(`https://server-oum7.onrender.com/user/${id}`, {
+            .put(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`, {
                 ...profile,
                 email: email,
                 name: name,

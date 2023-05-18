@@ -16,6 +16,8 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSomeData } from '../../../redux/productSlice';
 export default function User() {
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
@@ -24,6 +26,7 @@ export default function User() {
     const [id, setId] = useState('');
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
+    const dispatch = useDispatch();
     const handleOpen = () => {
         setOpen(true);
     };
@@ -71,19 +74,21 @@ export default function User() {
         },
     ];
     const handleDelete = (id) => {
+        console.log("id", id)
         axios
-            .delete(`https://server-oum7.onrender.com/user/${id}`)
+            .delete(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`)
             .then((response) => {
-                setUser(user.filter((user) => user.id !== id));
+                // dispatch(fetchSomeData("user"))
+                setUser(user.filter(item => item.id !== id))
+                toast.success('Xóa thành công!', {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
             })
             .catch((error) => console.error(error));
-        toast.success('Xóa thành công!', {
-            position: toast.POSITION.TOP_RIGHT,
-        });
     };
 
     const handleEdit = (id) => {
-        axios.get(`https://server-oum7.onrender.com/user/${id}`).then((response) => {
+        axios.get(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json/${id}`).then((response) => {
             // handleOpen()
             setEmail(response.data.email);
             setPassword(response.data.password);
@@ -93,28 +98,36 @@ export default function User() {
         setOpenEdit(true);
     };
     const handleSubmitEdit = () => {
+        const data = {
+            email: email,
+            password: password,
+            role: role,
+        };
         axios
-            .put(`https://server-oum7.onrender.com/user/${id}`, {
-                email: email,
-                password: password,
-                role: role,
-            })
+            .put(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`, [data])
             .then((response) => {
-                fetchData();
+                // fetchData();
             });
         handleClose();
     };
     const fetchData = () => {
-        axios
-            .get('https://server-oum7.onrender.com/user')
-            .then((response) => {
-                setUser(response.data);
-            })
-            .catch((error) => console.error(error));
+        // axios
+        //     .get('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json')
+        //     .then((response) => {
+        //         const dataArray = response.data;
+        //         setUser(dataArray);
+        //     })
+        //     .catch((error) => console.error(error));
     };
+    const user1 = useSelector(state => state.product.user.data)
     useEffect(() => {
-        fetchData();
-    }, []);
+        dispatch(fetchSomeData("user"))
+    }, [dispatch])
+    useEffect(() => {
+        if (user1 && user1.length > 0) {
+            setUser(user1);
+        }
+    }, [user1]);
     const style = {
         position: 'absolute',
         top: '50%',
@@ -131,10 +144,11 @@ export default function User() {
     const handleSubmit = () => {
         if (email && password) {
             axios
-                .post('https://server-oum7.onrender.com/user/', {
+                .post('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json/', {
                     email: email,
                     password: password,
                     role: role,
+                    id: user1.length + 1
                 })
                 .then((response) => {
                     fetchData();
