@@ -9,11 +9,18 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AddProduct from './AddProduct';
+import { fetchSomeData } from '../../../redux/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
 export default function Warehouse() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [warehouse, setWarehouse] = useState('')
+    // const [warehouse, setWarehouse] = useState('')
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(fetchSomeData("products"))
+    }, [dispatch])
+    const warehouse = useSelector(state => state.product.products.data)
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'name', headerName: 'Name', width: 200 },
@@ -52,22 +59,22 @@ export default function Warehouse() {
         },
     ];
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:3000/api/products/${id}`)
-            .then((response) =>
-                setWarehouse(warehouse.filter(item => item.id !== id)),
-            )
+        // axios.delete(`http://localhost:3000/api/products/${id}`)
+        //     .then((response) =>
+        //         setWarehouse(warehouse.filter(item => item.id !== id)),
+        //     )
     };
     const handleEdit = (id) => {
     };
-    const fetchData = () => {
-        axios.get('http://localhost:3000/api/products')
-            .then(response => {
-                setWarehouse(response.data);
-            }).catch(error => console.error(error))
-    }
-    useEffect(() => {
-        fetchData();
-    }, [])
+    // const fetchData = () => {
+    //     axios.get('http://localhost:3000/api/products')
+    //         .then(response => {
+    //             setWarehouse(response.data);
+    //         }).catch(error => console.error(error))
+    // }
+    // useEffect(() => {
+    //     fetchData();
+    // }, [])
     const style = {
         position: 'absolute',
         top: '50%',

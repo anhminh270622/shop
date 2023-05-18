@@ -13,6 +13,37 @@ export default function SearchResults() {
     const [searchResult, setSearchResult] = useState([]);
     const dispatch = useDispatch();
     const search = useSelector(state => state.product.products.data);
+    const value = useSelector((state) => state.value.items);
+    const trademark = useSelector((state) => state.value.data);
+
+    useEffect(() => {
+        let result = search;
+        if (value === 'max500') {
+            result = result.filter((product) => product.price < 500000);
+        } else if (value === 'max1000') {
+            result = result.filter(
+                (product) => product.price >= 500000 && product.price < 1000000
+            );
+        } else if (value === 'max1500') {
+            result = result.filter(
+                (product) => product.price >= 1000000 && product.price <= 1500000
+            );
+        } else if (value === 'max5000') {
+            result = result.filter(
+                (product) => product.price >= 2000000 && product.price <= 5000000
+            );
+        } else if (value === 'min5001') {
+            result = result.filter((product) => product.price > 5000000);
+        }
+
+        let updatedResults = result;
+        if (trademark.length > 0) {
+            updatedResults = result.filter((product) =>
+                trademark.includes(product.trademark)
+            );
+        }
+        setSearchResult(updatedResults);
+    }, [search, value, trademark]);
 
     useEffect(() => {
         dispatch(fetchSomeData("products"))
@@ -41,22 +72,23 @@ export default function SearchResults() {
 
     const handleOnchange = (e) => {
         const sortFunction = sortFunctions[e.target.value];
-        const sortedResults = sortFunction(searchResult.slice()); // Create a copy of the array
+        const sortedResults = sortFunction([...searchResult]);
         setSearchResult(sortedResults);
     };
 
     useEffect(() => {
         const sortFunction = sortFunctions.asc;
-        const sortedSearch = sortFunction(search.slice()); // Create a copy of the array
+        const sortedSearch = sortFunction([...search]);
         setSearchResult(sortedSearch);
     }, [search]);
-
-
     return (
         <>
             <div className="search-results">
                 <div className="top">
-                    <h1>Dép</h1>
+                    <span>
+                        {input !== "" ? input : "Tất cả"}
+                        <hr />
+                    </span>
                     <select onChange={handleOnchange}>
                         <option value="asc">Giá: Tăng dần</option>
                         <option value="desc">Giá: Giảm dần</option>

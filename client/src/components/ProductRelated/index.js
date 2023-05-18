@@ -7,13 +7,19 @@ import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import 'react-horizontal-scrolling-menu/dist/styles.css';
 export default function ProductRelated() {
     const { id, type } = useParams();
-    const [ralated, setRalated] = useState('');
+    const [related, setRelated] = useState([]);
+    console.log("type", type)
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/api/products?type=${type}`)
-            .then((response) => setRalated(response.data))
+            .get('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json')
+            .then((response) => {
+                const data = response.data;
+                const filteredData = data.filter(item => item.type === type);
+                setRelated(filteredData);
+            })
             .catch((error) => console.log(error));
-    }, []);
+
+    }, [type]);
     return (
         <div className="ralated">
             <hr />
@@ -21,8 +27,8 @@ export default function ProductRelated() {
                 <h2>Sản phẩm liên quan</h2>
                 <ScrollMenu>
                     <div className="items">
-                        {ralated &&
-                            ralated.map((item) => {
+                        {related &&
+                            related.map((item) => {
                                 return (
                                     <ProductGeneral
                                         key={item.id}

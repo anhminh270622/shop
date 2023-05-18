@@ -79,7 +79,8 @@ export default function Hose() {
     return (
         <div className="hose">
             <div className="top">
-                <h1>Vớ</h1>
+                <h1>Vớ
+                </h1>
                 <select onChange={handleOnchange}>
                     <option value="asc">Giá: Tăng dần</option>
                     <option value="desc">Giá: Giảm dần</option>

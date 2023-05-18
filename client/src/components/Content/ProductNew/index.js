@@ -16,7 +16,7 @@ function ProductNew() {
     }, [dispatch]);
     const productBuy = useSelector((state) => state.product.products.data);
     const productSelling = productBuy.filter((product) => product.quantity < 50);
-    const productNew = productBuy.filter((product) => product.tag === 'new');
+    const productNew = productBuy.filter((product) => product.tag === 'new').slice(0, 10);
     const sortFunctions = {
         new: (products) => {
             const newProducts = products.filter((product) => product.tag === 'new');
