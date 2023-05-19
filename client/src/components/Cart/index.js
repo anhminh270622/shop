@@ -39,9 +39,7 @@ export default function Cart() {
     const quantityCart = useSelector((state) => state.cart.quantityCart);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const userId = JSON.parse(localStorage.getItem('id'));
-    // console.log("userId", userId)
-
+    const userId = localStorage.getItem('id');
     const Reduce = (item) => {
         dispatch(quantityReduce(item));
     };

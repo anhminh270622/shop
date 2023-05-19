@@ -86,15 +86,17 @@ export default function User() {
             })
             .catch((error) => console.error(error));
     };
-
     const handleEdit = (id) => {
-        axios.get(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json/${id}`).then((response) => {
-            // handleOpen()
-            setEmail(response.data.email);
-            setPassword(response.data.password);
-            setRole(response.data.role);
-            setId(id);
-        });
+        console.log("id", id)
+        axios.get(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`)
+            .then((response) => {
+                // handleOpen()
+                // setEmail(response.data.email);
+                setPassword(response.data.password);
+                setRole(response.data.role);
+                setId(id);
+                // console.log(response.data);
+            });
         setOpenEdit(true);
     };
     const handleSubmitEdit = () => {
@@ -120,6 +122,8 @@ export default function User() {
         //     .catch((error) => console.error(error));
     };
     const user1 = useSelector(state => state.product.user.data)
+    console.log("user1", user1)
+
     useEffect(() => {
         dispatch(fetchSomeData("user"))
     }, [dispatch])
@@ -148,7 +152,7 @@ export default function User() {
                     email: email,
                     password: password,
                     role: role,
-                    id: user1.length + 1
+                    // id: user1.length + 1
                 })
                 .then((response) => {
                     fetchData();

@@ -9,7 +9,7 @@ import axios from 'axios';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 function Profile() {
-    const [imageUrl, setImageUrl] = useState(localStorage.getItem("avatar"));
+    const [imageUrl, setImageUrl] = useState('');
     const [profile, setProfile] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -24,7 +24,8 @@ function Profile() {
         dispatch(fetchSomeData('user'));
     }, []);
     const user = useSelector((state) => state.product.user.data);
-    const id = JSON.parse(localStorage.getItem('id'));
+    // const id = JSON.parse(localStorage.getItem('id'));
+    const id = localStorage.getItem('id');
     useEffect(() => {
         if (user && user.length > 0) {
             const index = user.findIndex((user) => user.id === id);
@@ -33,8 +34,7 @@ function Profile() {
             setPassword(user[index]?.password);
             setName(user[index]?.name);
             setImageUrl(user[index]?.imageUrl)
-            // setProfile(user[index]);
-            // console.log("user[index]", user);
+            setProfile(user[index]);
         }
     }, [user, id]);
     const handleSubmitEdit = async () => {
@@ -45,7 +45,7 @@ function Profile() {
                 name: name,
                 password: password,
                 phone: phone,
-                // imageUrl: imageUrl
+                imageUrl: imageUrl
             })
             .then((response) => {
                 toast.success('Cập nhật thành công!', {
@@ -54,21 +54,14 @@ function Profile() {
             });
     };
     const handleOnChange = (e) => {
-        // const file = e.target.files[0];
-        // const reader = new FileReader();
+        const file = e.target.files[0];
+        const reader = new FileReader();
 
-        // reader.onload = function (e) {
-        //     const thumbnail = e.target.result;
-        //     setImageUrl(thumbnail);
-
-        //     // Call API to upload the full-size image and store it on the server
-        //     // ...
-
-        //     // Optionally, display a preview of the full-size image
-        //     // ...
-        // };
-
-        // reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            const thumbnail = e.target.result;
+            setImageUrl(thumbnail);
+        };
+        reader.readAsDataURL(file);
     };
     return (
         <div className="profile">
@@ -77,7 +70,7 @@ function Profile() {
             <div className="content">
                 <div className="left">
                     <img
-                        src={localStorage.getItem("avatar")}
+                        src={imageUrl ? imageUrl : localStorage.getItem("avatar")}
                         alt="Avatar"
                     />
                     <input

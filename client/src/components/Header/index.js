@@ -7,13 +7,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Scroll } from '../Define';
-import { useSelector } from 'react-redux';
 import { Button } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSomeData } from '../../redux/productSlice';
 function Header() {
 	const navigate = useNavigate();
-	const [countCart, setCountCart] = useState('');
 	const [input, setInput] = useState('');
-	const quantityCart = useSelector(state => state.cart.quantityCart)
+	const quantityCart = useSelector((state) => state.cart.quantityCart);
+	const id = localStorage.getItem('id');
+	const image = useSelector((state) => state.product.user.data);
+	const avatar = image.find((img) => img.id === id)?.imageUrl;
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(fetchSomeData('user'));
+	}, [dispatch, window.location.href]);
 	function handleScrollToTopClick() {
 		Scroll();
 		navigate('/');
@@ -31,19 +38,18 @@ function Header() {
 			handleSearch();
 			Scroll();
 		}
-
 	};
 	const Login = () => {
 		navigate('/login');
 		Scroll();
-	}
+	};
 
 	const Admin = () => {
 		navigate('/');
-		localStorage.setItem('admin', 'true')
+		localStorage.setItem('admin', 'true');
 		Scroll();
 		window.location.reload();
-	}
+	};
 	const LogOut = () => {
 		localStorage.setItem('login', 'false');
 		navigate('/');
@@ -57,23 +63,20 @@ function Header() {
 		const logins = localStorage.getItem('login');
 		if (logins === 'false') {
 			navigate('/login');
-
 		} else {
 			navigate('/contact');
 			Scroll();
 		}
-	}
+	};
 	const handleProfile = () => {
 		navigate('/profile');
 		Scroll();
-	}
+	};
 	return (
 		<>
 			<div className="header">
 				<div className="header_wrapper">
-					<div
-						className="left"
-					>
+					<div className="left">
 						<Link to="/">
 							<img
 								src={Logo}
@@ -152,18 +155,28 @@ function Header() {
 							<AddShoppingCartIcon />
 						)}
 
-						<li
-							className="user"
-						>
-							{localStorage.getItem('avatar') && localStorage.getItem('avatar') !== 'null' ? (
+						<li className="user">
+							{localStorage.getItem('avatar') &&
+								localStorage.getItem('avatar') !== 'null' ? (
 								<>
-									<Link to="/profile-mobile">	<img src={localStorage.getItem('avatar')}></img></Link>
+									<Link to="/profile-mobile">
+										{' '}
+										<img
+											src={
+												avatar
+													? avatar
+													:
+													localStorage.getItem('avatar')
+											}></img>
+									</Link>
 									<ul className="profile">
 										<li onClick={LogOut}>Đăng xuất</li>
 										<li onClick={handleProfile}>Chỉnh sửa thông tin</li>
-										{localStorage.getItem('role') === "admin" ? (
+										{localStorage.getItem('role') === 'admin' ? (
 											<li onClick={Admin}>Admin quản lý</li>
-										) : ""}
+										) : (
+											''
+										)}
 									</ul>
 								</>
 							) : (

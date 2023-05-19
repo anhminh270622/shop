@@ -10,36 +10,28 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { fetchSomeData } from '../../redux/productSlice';
+import { useSelector, useDispatch } from 'react-redux';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [login, setLogin] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.product.user.data)
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
     };
+
     useEffect(() => {
-        fetchData();
-    }, []);
-    const fetchData = () => {
-        axios.get('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json').then((response) => {
-            const login = response.data
-            const loginKeys = Object.keys(login);
-            const rows = loginKeys.map((key, index) => ({
-                id: index + 1, // Thêm thuộc tính id dựa trên index
-                ...login[key],
-            }));
-            setLogin(rows);
-        });
-    };
+        dispatch(fetchSomeData("user"))
+    }, [dispatch]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        setEmail('');
-        setPassword('');
-        if (email && password && login && login.length > 0) {
-            const foundUser = login.find(
-                (user) => user.email === email && user.password === password
+        if (email && password && user.length > 0) {
+            const foundUser = user.find(
+                (item) => item.email === email && item.password === password
             );
             if (foundUser) {
                 localStorage.setItem('login', 'true');

@@ -47,7 +47,7 @@ export default function Register() {
                         phone: "",
                         role: "client",
                         url: "",
-                        id: user.length + 2
+                        // id: user.length + 2
                     });
                 } else {
                     toast.warning('Mật khẩu tối thiểu 8 kí tự, 1 kí tự viết hoa, 1 số!', {
