@@ -8,6 +8,11 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	.Toastify__toast-container--top-right {
+		top: 3rem;
+		right: 0;
+	}
+
 	.login-wrapper {
 		min-width: 30%;
 		height: 70%;
@@ -55,8 +60,10 @@
 					a {
 						text-decoration: none;
 						color: #000;
-
 						font-size: 14px;
+						&:hover {
+							color: red;
+						}
 					}
 				}
 				button {

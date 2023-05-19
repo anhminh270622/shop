@@ -58,6 +58,10 @@ export default function Login() {
                     position: toast.POSITION.TOP_RIGHT,
                 });
             }
+        } else {
+            toast.warning('Vui lòng điền đầy đủ thông tin!', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     };
     return (

@@ -12,6 +12,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { fetchSomeData } from '../../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { checkPassword } from '../Define';
 export default function Register() {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
@@ -29,22 +30,41 @@ export default function Register() {
     }, [dispatch])
     const handleSubmit = (e) => {
         e.preventDefault();
-        setEmail('');
-        setPassword('');
-        setPasswordEnter('');
-        setName("")
-        toast.success('Đăng ký thành công!', {
-            position: toast.POSITION.TOP_RIGHT,
-        });
-        axios.post('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json', {
-            name: name,
-            email: email,
-            password: password,
-            phone: "",
-            role: "client",
-            url: "",
-            id: user.length + 2
-        });
+        if (password && email && name) {
+            if (password === passwordEnter) {
+                if (password.length > 7 && checkPassword(password)) {
+                    setEmail('');
+                    setPassword('');
+                    setPasswordEnter('');
+                    setName("")
+                    toast.success('Đăng ký thành công!', {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                    axios.post('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json', {
+                        name: name,
+                        email: email,
+                        password: password,
+                        phone: "",
+                        role: "client",
+                        url: "",
+                        id: user.length + 2
+                    });
+                } else {
+                    toast.warning('Mật khẩu tối thiểu 8 kí tự, 1 kí tự viết hoa, 1 số!', {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                }
+
+            } else {
+                toast.warning('Mật khẩu không trùng khớp!', {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            }
+        } else {
+            toast.warning('Vui lòng điền đẩy đủ thông tin!', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }
     };
     return (
         <div className="register">
@@ -78,8 +98,8 @@ export default function Register() {
                                 onChange={(e) => setPassword(e.target.value)}
                                 value={password}></input>
                             {showPassword === false ? <><VisibilityOffIcon onClick={handleShowPassword} /></> : <><VisibilityIcon onClick={handleShowPassword} /></>}
-
                         </div>
+                        <li className="password-warning">Mật khẩu tối thiểu 8 kí tự và có ít nhất 1 chữ hoa (vd: Minh123456)</li>
                         <div>
                             <LockIcon />
                             <input

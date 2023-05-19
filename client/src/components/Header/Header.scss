@@ -177,6 +177,9 @@
 
 			p {
 				font-weight: 600;
+				&:hover {
+					color: red;
+				}
 			}
 			img {
 				width: 30px;

@@ -155,3 +155,6 @@ export const HiddenApp = () => {
 	}, [pathname]);
 	return showHeaderFooter;
 };
+export const checkPassword = (password) => {
+	return /[A-Z]/.test(password) && /\d/.test(password);
+}

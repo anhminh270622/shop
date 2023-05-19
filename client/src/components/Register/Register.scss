@@ -1,10 +1,14 @@
 .register {
-	height: 90vh;
 	background-image: url('https://sneakerdaily.vn/wp-content/uploads/2022/10/nhung-doi-giay-dep-5.jpg');
 	background-size: cover;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	padding: 70px 0 20px 0;
+	.Toastify__toast-container--top-right {
+		top: 3rem;
+		right: 0;
+	}
 	.register-wrapper {
 		width: 30%;
 		height: auto;
@@ -46,13 +50,19 @@
 						}
 					}
 				}
+				.password-warning {
+					font-size: 10px;
+					text-align: left;
+				}
 				p {
 					text-align: right;
 					a {
 						text-decoration: none;
 						color: #000;
-
 						font-size: 14px;
+						&:hover {
+							color: red;
+						}
 					}
 				}
 				button {
