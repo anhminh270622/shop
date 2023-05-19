@@ -158,3 +158,7 @@ export const HiddenApp = () => {
 export const checkPassword = (password) => {
 	return /[A-Z]/.test(password) && /\d/.test(password);
 }
+export const reverseArray = (arr) => {
+	const reversedArr = [...arr].reverse();
+	return reversedArr;
+};

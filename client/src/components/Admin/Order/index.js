@@ -7,21 +7,41 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSomeData, updateOrderStatus, updateStatus, updateQuantityOrder } from "../../../redux/productSlice";
 import CheckIcon from '@mui/icons-material/Check';
+import { reverseArray } from "../../Define";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Order() {
+  const [order, setOrder] = useState("")
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchSomeData("order"))
     dispatch(fetchSomeData("products"))
   }, [])
   // const order = useSelector(state => state.product.order.data)
-  const order = useSelector(state => state.product.order.data)
+  const orders = useSelector(state => state.product.order.data)
   const products = useSelector(state => state.product.products.data)
-  const orderKeys = Object.keys(order);
-  const rows = orderKeys.map((key, index) => ({
-    id: index + 1, // Thêm thuộc tính id dựa trên index
-    ...order[key],
-  }));
-  const sortedOrder = [...rows].sort((a, b) => b.id - a.id);
+  // const orderKeys = Object.keys(order);
+  // const rows = orderKeys.map((key, index) => ({
+  //   id: index + 1, // Thêm thuộc tính id dựa trên index
+  //   ...order[key],
+  // }));
+  useEffect(() => {
+    setOrder(reverseArray(orders))
+  }, [orders])
+  // console.log("order", orders)
+  const handleDelete = (id) => {
+    console.log("handleDelete", id)
+    axios.delete(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order/${id}.json`)
+      .then((response) => {
+        const product = order.filter(item => item.id !== id)
+        setOrder(product)
+        toast.success('Xóa thành công!', {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      })
+  }
+
   const handleConfirm = (id, productId) => {
     dispatch(updateStatus(id, productId))
     for (let i = 0; i < productId.length; i++) {
@@ -40,7 +60,7 @@ function Order() {
       headerName: 'Chi tiết đơn hàng',
       description: 'This column has a value getter and is not sortable.',
       sortable: false,
-      width: 500,
+      width: 400,
     },
     {
       field: 'total',
@@ -53,7 +73,7 @@ function Order() {
       field: 'confirm',
       headerName: 'Trang thái',
       align: 'center',
-      width: 200,
+      width: 300,
       renderCell: (params) => (
         <>
           <Button
@@ -67,6 +87,7 @@ function Order() {
             <CheckIcon />
             {params.row.status === "Chờ xử lý" ? "Xác Nhận" : params.row.status}
           </Button>
+          <Button className="delete" onClick={() => handleDelete(params.row.id)}><DeleteIcon /> Xóa</Button>
         </>
       ),
     },
@@ -74,12 +95,13 @@ function Order() {
 
   return (
     <div className="order">
+      <ToastContainer />
       <div className="order-top">
         <h1>Đơn mua</h1>
       </div>
       <Box sx={{ width: '100%' }}>
         <DataGrid
-          rows={sortedOrder}
+          rows={order}
           columns={columns}
           initialState={{
             pagination: {

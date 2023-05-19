@@ -6,9 +6,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { fetchSomeData } from "../../redux/productSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { reverseArray } from "../Define";
 function Buy() {
     const [rows, setRows] = useState("")
-    const userIds = JSON.parse(localStorage.getItem("id"))
+    const userIds = localStorage.getItem("id")
     const dispatch = useDispatch()
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
@@ -44,25 +45,13 @@ function Buy() {
         },
     ];
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order.json");
-                console.log("response.data.", response.data)
-                const orders = response.data;
-                const orderKeys = Object.keys(orders);
-                const rows = orderKeys.map((key, index) => ({
-                    id: index + 1, // Thêm thuộc tính id dựa trên index
-                    ...orders[key],
-                }));
-                setRows(rows.filter(order => order.userId === userIds));
-                console.log("rows", rows.id);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        fetchData();
-    }, []);
+        dispatch(fetchSomeData("order"))
+    }, [dispatch])
+    const order = useSelector(state => state.product.order.data)
+    const product = order?.filter(item => item.userId === userIds)
+    useEffect(() => {
+        setRows(reverseArray(product))
+    }, [order]);
 
     return (
         <div className="buy">

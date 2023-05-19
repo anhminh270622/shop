@@ -40,7 +40,7 @@ export const updateQuantityOrder = (id, quantity) => async (dispatch) => {
         ...order,
         quantity: quantity
     };
-    console.log("updatedOrder", updatedOrder, "id", id, "order", order)
+    // console.log("updatedOrder", updatedOrder, "id", id, "order", order)
     // await axios.put(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`, updatedOrder);
 };
 const initialState = {

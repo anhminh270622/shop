@@ -7,7 +7,18 @@
 			background: green;
 		}
 	}
+	.delete {
+		margin-left: 5px;
+		background-color: red;
+		color: #fff;
+		opacity: 1;
+		&:hover {
+			background-color: red;
+			color: #fff;
+			opacity: 0.8;
+		}
+	}
 	svg {
-		padding-right: 10px;
+		padding-right: 5px;
 	}
 }

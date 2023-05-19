@@ -26,6 +26,7 @@ export default function User() {
     const [id, setId] = useState('');
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
+    const [edit, setEdit] = useState("");
     const dispatch = useDispatch();
     const handleOpen = () => {
         setOpen(true);
@@ -90,15 +91,15 @@ export default function User() {
         console.log("id", id)
         axios.get(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`)
             .then((response) => {
-                // handleOpen()
-                // setEmail(response.data.email);
+                setEmail(response.data.email);
                 setPassword(response.data.password);
                 setRole(response.data.role);
                 setId(id);
-                // console.log(response.data);
+                setEdit(response.data)
             });
         setOpenEdit(true);
     };
+    // console.log("edit", edit)
     const handleSubmitEdit = () => {
         const data = {
             email: email,
@@ -106,24 +107,14 @@ export default function User() {
             role: role,
         };
         axios
-            .put(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`, [data])
+            .put(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`, data)
             .then((response) => {
-                // fetchData();
+                dispatch(fetchSomeData("user"))
             });
+
         handleClose();
     };
-    const fetchData = () => {
-        // axios
-        //     .get('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json')
-        //     .then((response) => {
-        //         const dataArray = response.data;
-        //         setUser(dataArray);
-        //     })
-        //     .catch((error) => console.error(error));
-    };
     const user1 = useSelector(state => state.product.user.data)
-    console.log("user1", user1)
-
     useEffect(() => {
         dispatch(fetchSomeData("user"))
     }, [dispatch])
@@ -155,7 +146,7 @@ export default function User() {
                     // id: user1.length + 1
                 })
                 .then((response) => {
-                    fetchData();
+                    dispatch(fetchSomeData("user"))
                 });
             handleClose();
         } else {

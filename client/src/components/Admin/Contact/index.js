@@ -7,13 +7,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchSomeData } from "../../../redux/productSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { reverseArray } from "../../Define";
 function Contact() {
     const dispatch = useDispatch()
+    const [contacts, setContacts] = useState('')
     const contact = useSelector(state => state.product.contact.data)
     useEffect(() => {
         dispatch(fetchSomeData("contact"))
-    }, [])
-    const sortedContact = [...contact].sort((a, b) => b.id - a.id);
+    }, [dispatch])
+    useEffect(() => {
+        if (contact.length > 0) {
+            setContacts(reverseArray(contact))
+        }
+    }, [contact])
+    console.log("contacts", contacts);
     const columns = [
         { field: 'id', headerName: 'ID', width: 50 },
         { field: 'userId', headerName: 'UserId', width: 80 },
@@ -59,14 +66,17 @@ function Contact() {
             ),
         },
     ];
+
     const handleDelete = async (id) => {
-        // console.log("delete", id);
         // console.log("sortedContact", sortedContact);
         await axios.delete(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/contact/${id}.json`)
             .then(response => {
                 toast.success('Xóa thành công!', {
-                    position: toast.POSITION.TOP_RIGHT,
+                    position: toast.POSITION.TOP_RIGHT
                 })
+                const product = contact.filter(item => item.id !== id)
+                setContacts(product)
+
                 dispatch(fetchSomeData("contact"))
             })
     }
@@ -78,7 +88,7 @@ function Contact() {
             </div>
             <Box sx={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={sortedContact}
+                    rows={contacts}
                     columns={columns}
                     initialState={{
                         pagination: {
