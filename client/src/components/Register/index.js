@@ -32,7 +32,7 @@ export default function Register() {
         e.preventDefault();
         if (password && email && name) {
             if (password === passwordEnter) {
-                if (password.length > 7 && checkPassword(password)) {
+                if (checkPassword(password)) {
                     setEmail('');
                     setPassword('');
                     setPasswordEnter('');

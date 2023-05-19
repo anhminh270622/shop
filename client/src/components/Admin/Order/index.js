@@ -1,57 +1,57 @@
-import "./Order.scss"
-import { Button } from "@mui/material"
+import './Order.scss';
+import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchSomeData, updateOrderStatus, updateStatus, updateQuantityOrder } from "../../../redux/productSlice";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  fetchSomeData,
+  updateOrderStatus,
+  updateStatus,
+  updateQuantityOrder,
+} from '../../../redux/productSlice';
 import CheckIcon from '@mui/icons-material/Check';
-import { reverseArray } from "../../Define";
+import { reverseArray } from '../../Define';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function Order() {
-  const [order, setOrder] = useState("")
-  const dispatch = useDispatch()
+  const [order, setOrder] = useState('');
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchSomeData("order"))
-    dispatch(fetchSomeData("products"))
-  }, [])
-  // const order = useSelector(state => state.product.order.data)
-  const orders = useSelector(state => state.product.order.data)
-  const products = useSelector(state => state.product.products.data)
-  // const orderKeys = Object.keys(order);
-  // const rows = orderKeys.map((key, index) => ({
-  //   id: index + 1, // Thêm thuộc tính id dựa trên index
-  //   ...order[key],
-  // }));
+    dispatch(fetchSomeData('order'));
+    dispatch(fetchSomeData('products'));
+  }, []);
+  const orders = useSelector((state) => state.product.order.data);
+  const products = useSelector((state) => state.product.products.data);
   useEffect(() => {
-    setOrder(reverseArray(orders))
-  }, [orders])
-  // console.log("order", orders)
+    setOrder(reverseArray(orders));
+  }, [orders]);
   const handleDelete = (id) => {
-    console.log("handleDelete", id)
-    axios.delete(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order/${id}.json`)
+    axios
+      .delete(
+        `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order/${id}.json`
+      )
       .then((response) => {
-        const product = order.filter(item => item.id !== id)
-        setOrder(product)
+        const product = order.filter((item) => item.id !== id);
+        setOrder(product);
         toast.success('Xóa thành công!', {
           position: toast.POSITION.TOP_RIGHT,
         });
-      })
-  }
+      });
+  };
 
   const handleConfirm = (id, productId) => {
-    dispatch(updateStatus(id, productId))
+    dispatch(updateStatus(id, productId));
     for (let i = 0; i < productId.length; i++) {
-      const id = productId[i].split(" - ")[0];
-      const quantityId = productId[i].split(" - ")[1];
-      const index = products.findIndex(item => item.id === id)
-      const quantity = products[index].quantity - quantityId
-      dispatch(updateQuantityOrder(id, quantity))
+      const id = productId[i].split(' - ')[0];
+      const quantityId = productId[i].split(' - ')[1];
+      const index = products.findIndex((item) => item.id === id);
+      const quantity = products[index].quantity - quantityId;
+      dispatch(updateQuantityOrder(id, quantity));
     }
-  }
+  };
   const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
     { field: 'userId', headerName: 'UserId', width: 80 },
@@ -77,17 +77,21 @@ function Order() {
       renderCell: (params) => (
         <>
           <Button
-            variant="contained" onClick={() => {
-              handleConfirm(params.row.id, params.row.productId)
-            }
-            }
-            className={params.row.status === "Chờ xử lý" ? "" : "status"}
-            disabled={params.row.status === "Chờ xử lý" ? false : true}
-          >
-            <CheckIcon />
-            {params.row.status === "Chờ xử lý" ? "Xác Nhận" : params.row.status}
+            className="delete"
+            onClick={() => handleDelete(params.row.id)}>
+            <DeleteIcon /> Xóa
           </Button>
-          <Button className="delete" onClick={() => handleDelete(params.row.id)}><DeleteIcon /> Xóa</Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              handleConfirm(params.row.id, params.row.productId);
+            }}
+            className={params.row.status === 'Chờ xử lý' ? '' : 'status'}
+            disabled={params.row.status === 'Chờ xử lý' ? false : true}>
+            <CheckIcon />
+            {params.row.status === 'Chờ xử lý' ? 'Xác Nhận' : params.row.status}
+          </Button>
+
         </>
       ),
     },
@@ -116,7 +120,7 @@ function Order() {
         />
       </Box>
     </div>
-  )
+  );
 }
 
-export default Order
+export default Order;

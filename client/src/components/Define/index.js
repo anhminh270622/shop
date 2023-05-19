@@ -156,8 +156,22 @@ export const HiddenApp = () => {
 	return showHeaderFooter;
 };
 export const checkPassword = (password) => {
-	return /[A-Z]/.test(password) && /\d/.test(password);
+	return /[A-Z]/.test(password) && /\d/.test(password) && password.length > 7;
 }
+export const checkPhoneNumber = (phoneNumber) => {
+	const sanitizedPhoneNumber = phoneNumber.replace(/\s/g, '');
+	const lengthCondition = sanitizedPhoneNumber.length === 10;
+	const digitCondition = /^\d+$/.test(sanitizedPhoneNumber);
+	const startCondition = sanitizedPhoneNumber.startsWith('0');
+
+	return lengthCondition && digitCondition && startCondition;
+}
+
+export const checkEmail = (email) => {
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	return emailRegex.test(email);
+}
+
 export const reverseArray = (arr) => {
 	const reversedArr = [...arr].reverse();
 	return reversedArr;

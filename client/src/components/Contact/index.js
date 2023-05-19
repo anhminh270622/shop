@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState } from "react";
 import axios from "axios";
 import SendIcon from '@mui/icons-material/Send';
+import { checkEmail, checkPhoneNumber } from "../Define";
 export default function Contact() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -13,25 +14,35 @@ export default function Contact() {
     const [notes, setNotes] = useState('')
     const handleSubmit = async () => {
         if (name, email, phone, address, notes) {
-            await axios.post("https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/contact.json", {
-                name: name,
-                email: email,
-                phone: phone,
-                address: address,
-                notes: notes,
-                userId: localStorage.getItem("id")
-            })
-                .then((response) => {
-                    toast.success('Gửi thông tin thành công!', {
-                        position: toast.POSITION.TOP_RIGHT,
-                    })
-                    setName("")
-                    setEmail("")
-                    setPhone("")
-                    setAddress("")
-                    setNotes("")
-                }
-                )
+            if (!checkEmail(email)) {
+                toast.warning('Email không hợp lệ!', {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            } else if (!checkPhoneNumber(phone)) {
+                toast.warning('Số điện thoại phải là 10 số và bắt đầu từ 0!', {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            } else {
+                await axios.post("https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/contact.json", {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    address: address,
+                    notes: notes,
+                    userId: localStorage.getItem("id")
+                })
+                    .then((response) => {
+                        toast.success('Gửi thông tin thành công!', {
+                            position: toast.POSITION.TOP_RIGHT,
+                        })
+                        setName("")
+                        setEmail("")
+                        setPhone("")
+                        setAddress("")
+                        setNotes("")
+                    }
+                    )
+            }
         } else {
             toast.warning('Vui lòng điền đầy đủ  thông tin!', {
                 position: toast.POSITION.TOP_RIGHT,
@@ -67,23 +78,23 @@ export default function Contact() {
                     </div>
                     <div>
                         <p>Họ và Tên:</p>
-                        <input value={name} onChange={e => setName(e.target.value)}></input>
+                        <input type="text" value={name} onChange={e => setName(e.target.value)}></input>
                     </div>
                     <div>
                         <p>Email:</p>
-                        <input value={email} onChange={e => setEmail(e.target.value)}></input>
+                        <input type="email" value={email} onChange={e => setEmail(e.target.value)}></input>
                     </div>
                     <div>
                         <p>Số điện thoại:</p>
-                        <input value={phone} onChange={e => setPhone(e.target.value)}></input>
+                        <input type="number" value={phone} onChange={e => setPhone(e.target.value)}></input>
                     </div>
                     <div>
                         <p>Địa chỉ:</p>
-                        <input value={address} onChange={e => setAddress(e.target.value)}></input>
+                        <input type="text" value={address} onChange={e => setAddress(e.target.value)}></input>
                     </div>
                     <div>
                         <p>Ghi chú:</p>
-                        <textarea value={notes} onChange={e => setNotes(e.target.value)}></textarea>
+                        <textarea type="text" value={notes} onChange={e => setNotes(e.target.value)}></textarea>
                     </div>
                     <Button onClick={handleSubmit}><SendIcon />Gửi Thông tin</Button>
                 </div>

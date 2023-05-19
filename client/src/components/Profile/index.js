@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSomeData } from '../../redux/productSlice';
 import axios from 'axios';
+import { checkPassword, checkEmail, checkPhoneNumber } from '../Define';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 function Profile() {
@@ -24,7 +25,6 @@ function Profile() {
         dispatch(fetchSomeData('user'));
     }, []);
     const user = useSelector((state) => state.product.user.data);
-    // const id = JSON.parse(localStorage.getItem('id'));
     const id = localStorage.getItem('id');
     useEffect(() => {
         if (user && user.length > 0) {
@@ -33,25 +33,60 @@ function Profile() {
             setPhone(user[index]?.phone);
             setPassword(user[index]?.password);
             setName(user[index]?.name);
-            setImageUrl(user[index]?.imageUrl)
+            setImageUrl(user[index]?.imageUrl);
             setProfile(user[index]);
         }
     }, [user, id]);
     const handleSubmitEdit = async () => {
-        await axios
-            .put(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`, {
-                ...profile,
-                email: email,
-                name: name,
-                password: password,
-                phone: phone,
-                imageUrl: imageUrl
-            })
-            .then((response) => {
-                toast.success('Cập nhật thành công!', {
-                    position: toast.POSITION.TOP_RIGHT,
-                });
+        if (checkPassword(password)) {
+            if (phone) {
+                if (checkPhoneNumber(phone)) {
+                    await axios
+                        .put(
+                            `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`,
+                            {
+                                ...profile,
+                                email: email,
+                                name: name,
+                                password: password,
+                                phone: phone,
+                                imageUrl: imageUrl,
+                            }
+                        )
+                        .then((response) => {
+                            toast.success('Cập nhật thành công!', {
+                                position: toast.POSITION.TOP_RIGHT,
+                            });
+                        });
+                } else {
+                    toast.warning('Số điện thoại phải là 10 số và bắt đầu từ 0!', {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                }
+            } else {
+                await axios
+                    .put(
+                        `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`,
+                        {
+                            ...profile,
+                            email: email,
+                            name: name,
+                            password: password,
+                            phone: phone,
+                            imageUrl: imageUrl,
+                        }
+                    )
+                    .then((response) => {
+                        toast.success('Cập nhật thành công!', {
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                    });
+            }
+        } else {
+            toast.warning('Sai định dạng mật khẩu!', {
+                position: toast.POSITION.TOP_RIGHT,
             });
+        }
     };
     const handleOnChange = (e) => {
         const file = e.target.files[0];
@@ -70,7 +105,7 @@ function Profile() {
             <div className="content">
                 <div className="left">
                     <img
-                        src={imageUrl ? imageUrl : localStorage.getItem("avatar")}
+                        src={imageUrl ? imageUrl : localStorage.getItem('avatar')}
                         alt="Avatar"
                     />
                     <input
