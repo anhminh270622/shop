@@ -6,7 +6,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AddProduct from './AddProduct';
 import { fetchSomeData } from '../../../redux/productSlice';
@@ -15,12 +14,17 @@ export default function Warehouse() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    // const [warehouse, setWarehouse] = useState('')
+    const [warehouse, setWarehouse] = useState('')
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(fetchSomeData("products"))
     }, [dispatch])
-    const warehouse = useSelector(state => state.product.products.data)
+    const products = useSelector(state => state.product.products.data)
+    useEffect(() => {
+        if (products && products.length > 0)
+            setWarehouse(products)
+    }, [products])
+
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'name', headerName: 'Name', width: 200 },
@@ -59,10 +63,12 @@ export default function Warehouse() {
         },
     ];
     const handleDelete = (id) => {
-        // axios.delete(`http://localhost:3000/api/products/${id}`)
-        //     .then((response) =>
-        //         setWarehouse(warehouse.filter(item => item.id !== id)),
-        //     )
+        // console.log("delete", id);
+        axios.delete(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`)
+            .then((response) =>
+                setWarehouse(warehouse.filter(item => item.id !== id))
+            )
+            .catch((err) => console.error(err));
     };
     const handleEdit = (id) => {
     };
@@ -116,6 +122,6 @@ export default function Warehouse() {
 
                 />
             </div>
-        </div>
+        </div >
     )
 }

@@ -5,9 +5,6 @@ import { priceConvertCost, priceSaleConvert, Scroll } from '../Define';
 export default function ProductGeneral(props) {
     const { id, price, description, tag, name, trademark, image, sale, type } = props;
     const firtImg = image && image.length > 0 ? image[0] : null;
-    // const cost = sale !== 0 ? ((price * sale / 100).toLocaleString() + "đ") : '';
-    // const costToString = cost
-    // console.log("image", firtImg.url)
     const navigate = useNavigate();
 
 
@@ -32,7 +29,7 @@ export default function ProductGeneral(props) {
             <div className="item">
                 <div className="image" onClick={handleClick}>
                     <img className='product-image'
-                        src={firtImg.url}
+                        src={firtImg.url || firtImg}
                         alt=""
                     />
                 </div>

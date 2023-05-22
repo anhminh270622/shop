@@ -74,7 +74,6 @@ export default function Cart() {
     const handleBuy = () => {
         const products = items.map((item) => `${item.name} - Size ${item.size}`);
         const productsId = items.map((item) => `${item.id} - ${item.quantity}`);
-
         axios
             .post('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order.json', {
                 nameOrder: nameOrder,
@@ -196,7 +195,7 @@ export default function Cart() {
                                         <div
                                             className="image"
                                             onClick={() => handleCart(item.type, item.id)}>
-                                            <img src={item.firstImg.url} />
+                                            <img src={item.firstImg.url || item.firstImg} />
                                         </div>
                                         <div className="detail">
                                             <p className="name">{item.name}</p>

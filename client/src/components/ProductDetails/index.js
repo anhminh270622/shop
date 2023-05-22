@@ -108,7 +108,7 @@ function ProductDetails() {
                         image.map((img, index) => (
                             <img
                                 key={index}
-                                src={img.url}
+                                src={img.url || img}
                                 alt=""
                                 onClick={() => handleOnClick(index)}
                             />
@@ -116,7 +116,7 @@ function ProductDetails() {
                 </div>
                 <div className="image-big">
                     <img
-                        src={firstImg.url}
+                        src={firstImg.url || firstImg}
                         alt=""
                     />
                 </div>

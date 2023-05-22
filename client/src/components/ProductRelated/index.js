@@ -5,21 +5,16 @@ import ProductGeneral from '../ProductGeneral';
 import './ProductRelated.scss';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import 'react-horizontal-scrolling-menu/dist/styles.css';
+import { fetchSomeData } from '../../redux/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
 export default function ProductRelated() {
     const { id, type } = useParams();
-    const [related, setRelated] = useState([]);
-    console.log("type", type)
+    const product = useSelector(state => state.product.products.data)
+    const related = product.filter(item => item.type === type);
+    const dispatch = useDispatch();
     useEffect(() => {
-        axios
-            .get('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json')
-            .then((response) => {
-                const data = response.data;
-                const filteredData = data.filter(item => item.type === type);
-                setRelated(filteredData);
-            })
-            .catch((error) => console.log(error));
-
-    }, [type]);
+        dispatch(fetchSomeData("products"))
+    }, [dispatch])
     return (
         <div className="ralated">
             <hr />

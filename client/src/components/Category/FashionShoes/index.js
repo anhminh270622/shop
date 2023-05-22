@@ -7,8 +7,6 @@ import { Filter, Sort } from '../../Define';
 import { fetchSomeData } from '../../../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import './FashionShoes.scss';
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
 export default function FashionShoes() {
     const [fashionShoes, setFashionShoes] = useState('');
     const dispatch = useDispatch();
