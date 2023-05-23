@@ -1,18 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-
 export const fetchSomeData = (type) => async (dispatch) => {
     dispatch(fetchDataPending(type));
     try {
         const response = await axios.get(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/${type}.json`);
         const data = response.data;
-
         // Chuyển đổi dữ liệu thành mảng các đối tượng với thuộc tính id
         const dataArray = Object.keys(data).map((key) => ({
             id: key,
             ...data[key],
         }));
-
         dispatch(fetchDataSuccess({ type, data: dataArray }));
     } catch (error) {
         dispatch(fetchDataFailure({ type, error: error.message }));
@@ -34,15 +31,19 @@ export const updateStatus = (id, productId) => async (dispatch) => {
 
 };
 export const updateQuantityOrder = (id, quantity) => async (dispatch) => {
-    const response = await axios.get(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`);
-    const order = response.data;
-    const updatedOrder = {
-        ...order,
-        quantity: quantity
-    };
-    // console.log("updatedOrder", updatedOrder, "id", id, "order", order)
+    const response = await axios.get('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json');
+    const result = response.data;
+    // const order = result.find((item) => item.id === id);
+    // console.log('result', result[0]);
+    // const updatedOrder = {
+    //     ...order,
+    //     quantity: quantity,
+    // };
+    // console.log('updatedOrder', updatedOrder, 'id', id, 'order', order);
     // await axios.put(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`, updatedOrder);
 };
+
+
 const initialState = {
     products: { data: [], status: null, error: null },
     order: { data: [], status: null, error: null },

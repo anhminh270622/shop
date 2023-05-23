@@ -5,17 +5,20 @@ import { useLocation } from 'react-router-dom';
 import { addValue, addTrademark } from '../../redux/valueFilter';
 import { useDispatch } from 'react-redux';
 export const priceConvert = (price) => {
-	const convert = price?.toLocaleString() + 'đ';
+	const convert = parseInt(price)?.toLocaleString() + 'đ';
 	return convert;
 };
 export const priceConvertCost = (price, sale) => {
+	const convertPrice = parseInt(price)
+	const convertSale = parseInt(sale)
 	const convert =
-		sale !== 0 ? (price + (price * sale) / 100)?.toLocaleString() + 'đ' : '';
+		convertSale !== 0 ? (convertPrice + (convertPrice * convertSale) / 100)?.toLocaleString() + 'đ' : '';
 	return convert;
 };
 
 export const priceSaleConvert = (sale) => {
-	const convert = sale === 0 ? '' : `-${sale}%`;
+	const convertSale = parseInt(sale)
+	const convert = convertSale === 0 ? '' : `-${convertSale}%`;
 	return convert;
 };
 export const Filter = () => {

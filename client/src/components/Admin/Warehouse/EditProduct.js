@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -8,12 +8,12 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useState } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchSomeData } from '../../../redux/productSlice';
-import { useDispatch } from 'react-redux';
-export default function AddProduct(props) {
-    const { open, setOpen } = props;
+export default function EditProduct(props) {
+    const { openEdit, setOpenEdit, id } = props
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [parameter, setParameter] = useState('');
@@ -24,11 +24,29 @@ export default function AddProduct(props) {
     const [trademark, setTrademark] = useState('');
     const [type, setType] = useState('');
     const [img, setImg] = useState('');
-    const dispatch = useDispatch()
+    const [editProduct, setEditProduct] = useState('');
+    const dispatch = useDispatch();
+    const product = useSelector(state => state.product.products.data)
+    useEffect(() => {
+        dispatch(fetchSomeData("products"))
+    }, [])
+    useEffect(() => {
+        const productId = product.filter(item => item.id === id)
+        setName(productId[0].name)
+        setDescription(productId[0].description)
+        setParameter(productId[0].parameter)
+        setPrice(productId[0].price)
+        setPriceSale(productId[0].price_sale)
+        setTags(productId[0].tag)
+        setQuantity(productId[0].quantity)
+        setTrademark(productId[0].trademark)
+        setType(productId[0].type)
+        setImg(productId[0].images)
+        setEditProduct(productId)
+    }, [product])
     const handleOnChange = (e) => {
         const files = e.target.files;
         const newImages = [];
-
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             const reader = new FileReader();
@@ -41,6 +59,7 @@ export default function AddProduct(props) {
         }
     };
     const handleSubmit = async () => {
+        setOpenEdit(false)
         const productAdd = {
             name: name,
             description: description,
@@ -53,29 +72,22 @@ export default function AddProduct(props) {
             type: type,
             quantity: quantity,
         };
-        if (name && description && price && trademark && img && type && quantity) {
-            await axios
-                .post(
-                    'https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json',
-                    productAdd
-                )
-                .then((response) => {
-                    toast.success('Cập nhật thành công!', {
-                        position: toast.POSITION.TOP_RIGHT,
-                    });
-                    setOpen(!open)
-                    dispatch(fetchSomeData("products"))
-                })
-                .catch((error) => console.error(error));
-        } else {
-            toast.warning('Vui lòng điền đầy đủ thông tin!', {
-                position: toast.POSITION.TOP_RIGHT,
-            });
-        }
-
+        await axios
+            .put(
+                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`,
+                productAdd
+            )
+            .then((response) => {
+                toast.success('Thêm thành công!', {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+                dispatch(fetchSomeData("products"))
+            })
+            .catch((error) => console.error(error));
     };
     return (
         <Box>
+            <ToastContainer />
             <FormControl sx={{ display: 'flex', gap: '10px' }}>
                 <TextField
                     label="Tên sản phẩm"
@@ -156,7 +168,7 @@ export default function AddProduct(props) {
                         variant="standard"
                         sx={{ width: '50%', m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-standard-label">
-                            Thể loại
+                            Thương hiệu
                         </InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
@@ -222,7 +234,7 @@ export default function AddProduct(props) {
                     sx={{}}
                     variant="contained"
                     onClick={handleSubmit}>
-                    Thêm
+                    Sửa
                 </Button>
             </FormControl>
         </Box>

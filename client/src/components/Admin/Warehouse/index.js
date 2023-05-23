@@ -1,5 +1,5 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -8,25 +8,31 @@ import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import AddProduct from './AddProduct';
+import EditProduct from './EditProduct';
 import { fetchSomeData } from '../../../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Warehouse() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [warehouse, setWarehouse] = useState('')
-    const dispatch = useDispatch()
+    const [openEdit, setOpenEdit] = useState(false);
+    const handleOpenEdit = () => setOpenEdit(true);
+    const handleCloseEdit = () => setOpenEdit(false);
+    const [warehouse, setWarehouse] = useState('');
+    const [id, setId] = useState('');
+    const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchSomeData("products"))
-    }, [dispatch])
-    const products = useSelector(state => state.product.products.data)
+        dispatch(fetchSomeData('products'));
+    }, [dispatch]);
+    const products = useSelector((state) => state.product.products.data);
     useEffect(() => {
-        if (products && products.length > 0)
-            setWarehouse(products)
-    }, [products])
+        if (products && products.length > 0) setWarehouse(products);
+    }, [products]);
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
+        { field: 'id', headerName: 'ID', width: 150 },
         { field: 'name', headerName: 'Name', width: 200 },
         { field: 'quantity', headerName: 'Quantity', width: 80 },
         { field: 'trademark', headerName: 'Trademark', width: 100 },
@@ -53,7 +59,6 @@ export default function Warehouse() {
                     </Button>
                     <Button
                         variant="contained"
-                        sx={{}}
                         onClick={() => handleEdit(params.row.id)}
                         startIcon={<EditIcon />}>
                         Sửa
@@ -63,24 +68,22 @@ export default function Warehouse() {
         },
     ];
     const handleDelete = (id) => {
-        // console.log("delete", id);
-        axios.delete(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`)
-            .then((response) =>
-                setWarehouse(warehouse.filter(item => item.id !== id))
+        axios
+            .delete(
+                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`
             )
+            .then((response) => {
+                toast.success('Xóa thành công!', {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+                setWarehouse(warehouse.filter((item) => item.id !== id));
+            })
             .catch((err) => console.error(err));
     };
-    const handleEdit = (id) => {
+    const handleEdit = (ids) => {
+        setId(ids);
+        handleOpenEdit();
     };
-    // const fetchData = () => {
-    //     axios.get('http://localhost:3000/api/products')
-    //         .then(response => {
-    //             setWarehouse(response.data);
-    //         }).catch(error => console.error(error))
-    // }
-    // useEffect(() => {
-    //     fetchData();
-    // }, [])
     const style = {
         position: 'absolute',
         top: '50%',
@@ -94,23 +97,43 @@ export default function Warehouse() {
     };
     return (
         <div className="user">
+            <ToastContainer />
             <div>
                 <h2>Kho</h2>
                 <div>
-                    <Button startIcon={<AddIcon />} onClick={handleOpen} variant='contained'>Thêm sản phẩm</Button>
+                    <Button
+                        startIcon={<AddIcon />}
+                        onClick={handleOpen}
+                        variant="contained">
+                        Thêm sản phẩm
+                    </Button>
                     <Modal
                         open={open}
                         onClose={handleClose}
                         aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
+                        aria-describedby="modal-modal-description">
                         <Box sx={style}>
-                            <AddProduct />
+                            <AddProduct
+                                open={open}
+                                setOpen={setOpen}
+                            />
                         </Box>
                     </Modal>
                 </div>
             </div>
-
+            <Modal
+                open={openEdit}
+                onClose={handleCloseEdit}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description">
+                <Box sx={style}>
+                    <EditProduct
+                        open={openEdit}
+                        setOpenEdit={setOpenEdit}
+                        id={id}
+                    />
+                </Box>
+            </Modal>
             <hr></hr>
             <div style={{ height: '90vh', width: '100%' }}>
                 <DataGrid
@@ -119,9 +142,8 @@ export default function Warehouse() {
                     pageSize={5}
                     rowsPerPageOptions={[5]}
                     checkboxSelection
-
                 />
             </div>
-        </div >
-    )
+        </div>
+    );
 }
