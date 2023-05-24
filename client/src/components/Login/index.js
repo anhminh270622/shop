@@ -12,10 +12,15 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { fetchSomeData } from '../../redux/productSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { Scroll } from '../Define';
+import { useLocation } from 'react-router-dom';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const location = useLocation();
+    const success = location.state?.success;
+
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const user = useSelector(state => state.product.user.data)
@@ -26,7 +31,11 @@ export default function Login() {
     useEffect(() => {
         dispatch(fetchSomeData("user"))
     }, [dispatch]);
-
+    if (success === true) {
+        toast.success('Đăng ký thành công!', {
+            position: toast.POSITION.TOP_RIGHT,
+        });
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
         if (email && password && user.length > 0) {
@@ -45,6 +54,7 @@ export default function Login() {
                 }
                 navigate('/');
                 window.location.reload();
+                Scroll();
             } else {
                 toast.error('Tài khoản hoặc mật khẩu không đúng!', {
                     position: toast.POSITION.TOP_RIGHT,

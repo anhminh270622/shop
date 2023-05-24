@@ -19,6 +19,7 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const [passwordEnter, setPasswordEnter] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [success, setSuccess] = useState(true);
     const user = useSelector(state => state.product.user.data)
     const navigate = useNavigate();
     const handleShowPassword = () => {
@@ -37,9 +38,10 @@ export default function Register() {
                     setPassword('');
                     setPasswordEnter('');
                     setName("")
-                    toast.success('Đăng ký thành công!', {
-                        position: toast.POSITION.TOP_RIGHT,
-                    });
+                    // toast.success('Đăng ký thành công!', {
+                    //     position: toast.POSITION.TOP_RIGHT,
+                    // });
+                    navigate('/login', { state: { success: success } })
                     axios.post('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json', {
                         name: name,
                         email: email,
@@ -47,7 +49,6 @@ export default function Register() {
                         phone: "",
                         role: "client",
                         url: "",
-                        // id: user.length + 2
                     });
                 } else {
                     toast.warning('Mật khẩu tối thiểu 8 kí tự, 1 kí tự viết hoa, 1 số!', {

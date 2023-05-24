@@ -16,6 +16,7 @@ export default function SearchResults() {
     const value = useSelector((state) => state.value.items);
     const trademark = useSelector((state) => state.value.data);
 
+
     useEffect(() => {
         let result = search;
         if (value === 'max500') {
@@ -51,8 +52,15 @@ export default function SearchResults() {
 
     useEffect(() => {
         if (input) {
-            const results = search.filter(item => item.name.toLowerCase().includes(input.toLowerCase()));
+            // const results = search.filter(item => item.name.toLowerCase().includes(input.toLowerCase()));
+            // const results = search.filter(item => item.name)
+            // setSearchResult(search);
+            // console.log("results", results[2].name);
+            // console.log("input", input);
+            const results = search.filter(item => item.name && item.name.toLowerCase().includes(input.toLowerCase()));
+            // console.log("results", results);
             setSearchResult(results);
+            // const test = search.filter(item => item.id === "AD306GW850765")
         }
     }, [search, input]);
 
@@ -109,7 +117,7 @@ export default function SearchResults() {
                                 name={item.name}
                                 price={item.price}
                                 sale={item.price_sale}
-                                image={item.images}
+                                image={item?.images}
                                 trademark={item.trademark}
                                 tag={item.tag}
                                 description={item.description}
