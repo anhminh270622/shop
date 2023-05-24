@@ -19,16 +19,15 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const [passwordEnter, setPasswordEnter] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [success, setSuccess] = useState(true);
-    const user = useSelector(state => state.product.user.data)
+    const user = useSelector((state) => state.product.user.data);
     const navigate = useNavigate();
     const handleShowPassword = () => {
-        setShowPassword(!showPassword)
-    }
+        setShowPassword(!showPassword);
+    };
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchSomeData("user"))
-    }, [dispatch])
+        dispatch(fetchSomeData('user'));
+    }, [dispatch]);
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password && email && name) {
@@ -37,25 +36,24 @@ export default function Register() {
                     setEmail('');
                     setPassword('');
                     setPasswordEnter('');
-                    setName("")
-                    // toast.success('Đăng ký thành công!', {
-                    //     position: toast.POSITION.TOP_RIGHT,
-                    // });
-                    navigate('/login', { state: { success: success } })
-                    axios.post('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json', {
-                        name: name,
-                        email: email,
-                        password: password,
-                        phone: "",
-                        role: "client",
-                        url: "",
-                    });
+                    setName('');
+                    navigate('/login', { state: { success: true } });
+                    axios.post(
+                        'https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json',
+                        {
+                            name: name,
+                            email: email,
+                            password: password,
+                            phone: '',
+                            role: 'client',
+                            url: '',
+                        }
+                    );
                 } else {
                     toast.warning('Mật khẩu tối thiểu 8 kí tự, 1 kí tự viết hoa, 1 số!', {
                         position: toast.POSITION.TOP_RIGHT,
                     });
                 }
-
             } else {
                 toast.warning('Mật khẩu không trùng khớp!', {
                     position: toast.POSITION.TOP_RIGHT,
@@ -94,13 +92,24 @@ export default function Register() {
                         <div>
                             <LockIcon />
                             <input
-                                type={showPassword === false ? "password" : "text"}
+                                type={showPassword === false ? 'password' : 'text'}
                                 placeholder="Mật khẩu"
                                 onChange={(e) => setPassword(e.target.value)}
                                 value={password}></input>
-                            {showPassword === false ? <><VisibilityOffIcon onClick={handleShowPassword} /></> : <><VisibilityIcon onClick={handleShowPassword} /></>}
+                            {showPassword === false ? (
+                                <>
+                                    <VisibilityOffIcon onClick={handleShowPassword} />
+                                </>
+                            ) : (
+                                <>
+                                    <VisibilityIcon onClick={handleShowPassword} />
+                                </>
+                            )}
                         </div>
-                        <li className="password-warning">Mật khẩu tối thiểu 8 kí tự và có ít nhất 1 chữ hoa (vd: Minh123456)</li>
+                        <li className="password-warning">
+                            Mật khẩu tối thiểu 8 kí tự và có ít nhất 1 chữ hoa (vd:
+                            Minh123456)
+                        </li>
                         <div>
                             <LockIcon />
                             <input

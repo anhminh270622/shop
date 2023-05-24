@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -20,7 +19,7 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
     const success = location.state?.success;
-
+    const [successMessage, setSuccessMessage] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const user = useSelector(state => state.product.user.data)
@@ -31,11 +30,14 @@ export default function Login() {
     useEffect(() => {
         dispatch(fetchSomeData("user"))
     }, [dispatch]);
-    if (success === true) {
-        toast.success('Đăng ký thành công!', {
-            position: toast.POSITION.TOP_RIGHT,
-        });
-    }
+    useEffect(() => {
+        if (success === true && !successMessage) {
+            toast.success('Đăng ký thành công!', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+            setSuccessMessage(true);
+        }
+    }, [success, successMessage]);
     const handleSubmit = (e) => {
         e.preventDefault();
         if (email && password && user.length > 0) {
@@ -52,7 +54,7 @@ export default function Login() {
                 if (foundUser.role === 'admin') {
                     localStorage.setItem('role', 'admin');
                 }
-                navigate('/');
+                navigate('/', { state: { success: true } });
                 window.location.reload();
                 Scroll();
             } else {

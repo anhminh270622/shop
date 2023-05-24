@@ -50,9 +50,6 @@ function Order() {
       const index = products.findIndex((item) => item.id === id);
       const quantityOrder = products[index].quantity - quantityId;
       dispatch(updateQuantityOrder(id, quantityOrder));
-      // console.log("id", id, "quantityId", quantityId)
-      // console.log("products[index].quantity", products[index].quantity)
-      // console.log("quantityOrder", quantityOrder)
     }
   };
   const columns = [

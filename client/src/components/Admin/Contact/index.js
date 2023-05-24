@@ -20,7 +20,6 @@ function Contact() {
             setContacts(reverseArray(contact));
         }
     }, [contact]);
-    console.log('contacts', contacts);
     const columns = [
         { field: 'id', headerName: 'ID', width: 50 },
         { field: 'userId', headerName: 'UserId', width: 80 },
@@ -77,7 +76,6 @@ function Contact() {
                 });
                 const product = contact.filter((item) => item.id !== id);
                 setContacts(product);
-
                 dispatch(fetchSomeData('contact'));
             });
     };

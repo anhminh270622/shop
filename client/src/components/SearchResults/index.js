@@ -1,22 +1,21 @@
-import axios from "axios";
-import "./SearchResults.scss"
-import { useLocation } from "react-router-dom"
-import { useEffect, useState } from "react";
-import ProductGeneral from "../ProductGeneral"
-import { Filter } from "../Define";
-import { fetchSomeData } from "../../redux/productSlice";
-import { useSelector, useDispatch } from "react-redux";
+import axios from 'axios';
+import './SearchResults.scss';
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import ProductGeneral from '../ProductGeneral';
+import { Filter } from '../Define';
+import { fetchSomeData } from '../../redux/productSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function SearchResults() {
     const location = useLocation();
-    const { input } = location?.state;
+    const { input } = location?.state || "";
     const [searchResult, setSearchResult] = useState([]);
     const [searched, setSearched] = useState(false);
     const dispatch = useDispatch();
-    const search = useSelector(state => state.product.products.data);
+    const search = useSelector((state) => state.product.products.data);
     const value = useSelector((state) => state.value.items);
     const trademark = useSelector((state) => state.value.data);
-
 
     useEffect(() => {
         let result = search;
@@ -48,17 +47,19 @@ export default function SearchResults() {
     }, [search, value, trademark]);
 
     useEffect(() => {
-        dispatch(fetchSomeData("products"))
+        dispatch(fetchSomeData('products'));
     }, [dispatch]);
 
     useEffect(() => {
         if (input) {
-            const results = search.filter(item => item.name && item.name.toLowerCase().includes(input.toLowerCase()));
+            const results = search.filter(
+                (item) =>
+                    item.name && item.name.toLowerCase().includes(input.toLowerCase())
+            );
             setSearchResult(results);
             setSearched(true);
         }
     }, [input, search]);
-    console.log("setSearchResult", searchResult)
     const sortFunctions = {
         new: (products) => {
             const newProducts = products.filter((product) => product.tag === 'new');
@@ -89,7 +90,7 @@ export default function SearchResults() {
             <div className="search-results">
                 <div className="top">
                     <span>
-                        {input !== "" ? input : "Tất cả"}
+                        {input !== '' ? input : 'Tất cả'}
                         <hr />
                     </span>
                     <select onChange={handleOnchange}>
@@ -128,8 +129,8 @@ export default function SearchResults() {
 
                     </div> */}
                     <div className="search-item">
-                        {searched && searchResult && searchResult.length > 0 ? (
-                            searchResult.map(item => (
+                        {searched && searchResult && searchResult.length > 0
+                            ? searchResult.map((item) => (
                                 <ProductGeneral
                                     key={item.id}
                                     id={item.id}
@@ -143,7 +144,7 @@ export default function SearchResults() {
                                     type={item.type}
                                 />
                             ))
-                        ) : null}
+                            : null}
                     </div>
                 </div>
             </div>

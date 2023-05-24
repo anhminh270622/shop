@@ -74,7 +74,7 @@ function ProductDetails() {
                     );
                     setActive('');
                     setCount(1);
-                    setSize("")
+                    setSize('');
                 } else {
                     toast.warning('Vượt quá số lượng trong kho!', {
                         position: toast.POSITION.TOP_RIGHT,
@@ -151,21 +151,30 @@ function ProductDetails() {
                             })}
                     </span>
                 </p>
-                <p>{quantityCart} sản phẩm có sẵn</p>
+                <p>
+                    {quantityCart > 0
+                        ? `${quantityCart} sản phẩm có sẵn`
+                        : 'Sản phẩm tạm thời hết hàng'}{' '}
+                </p>
                 <div className="count">
                     <button
                         onClick={Reduce}
                         disabled={count === 1 ? true : false}>
                         <RemoveIcon />
                     </button>
-                    <input value={count} readOnly />
+                    <input
+                        value={count}
+                        readOnly
+                    />
                     <button onClick={Increase}>
                         <AddIcon />
                     </button>
                 </div>
                 <div className="carts">
-
-                    <button onClick={() => handleAddCart()}><AddShoppingCartIcon />Thêm vào giỏ hàng</button>
+                    <button onClick={() => handleAddCart()}>
+                        <AddShoppingCartIcon />
+                        Thêm vào giỏ hàng
+                    </button>
                 </div>
                 <div className="tag">
                     <p>Tag</p>

@@ -8,8 +8,6 @@
 	}
 	.title {
 		margin-top: 55px;
-		// display: flex;
-		// justify-content: space-between;
 		h1 {
 			text-align: center;
 			padding: 20px 0;
@@ -62,7 +60,6 @@
 							svg {
 								font-size: 10px;
 							}
-							// background: transparent;
 						}
 						input {
 							width: 30px;
@@ -90,8 +87,6 @@
 				}
 			}
 			.right {
-				.sum {
-				}
 				.button {
 					display: flex;
 					justify-content: right;
@@ -137,8 +132,6 @@
 				textarea {
 					flex: 4;
 				}
-				textarea {
-				}
 			}
 		}
 		.button {
@@ -164,8 +157,6 @@
 				.left {
 					.image {
 						padding-left: 0;
-						img {
-						}
 					}
 					.detail {
 						.name {
@@ -175,10 +166,6 @@
 						.size {
 							margin-top: 0;
 						}
-					}
-				}
-				.right {
-					button {
 					}
 				}
 			}

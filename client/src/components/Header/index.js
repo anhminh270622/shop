@@ -126,10 +126,8 @@ function Header() {
 									onChange={(e) => setInput(e.target.value)}
 								/>
 								<svg
-									// onClick={handleSearch}
 									onClick={handleSearch}
 									className="icon"
-									// disabled={input && input.length > 0 ? false : true}
 									aria-hidden="true"
 									viewBox="0 0 24 24">
 									<g>
