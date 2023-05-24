@@ -79,7 +79,7 @@ function ProductDetails() {
                     toast.warning('Vượt quá số lượng trong kho!', {
                         position: toast.POSITION.TOP_RIGHT,
                     });
-                    setCount(quantityCart);
+                    setCount(parseInt(quantityCart));
                 }
             } else {
                 toast.error('Vui lòng chọn size!', {

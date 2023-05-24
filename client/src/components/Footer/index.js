@@ -33,7 +33,6 @@ function Footer() {
                                 <h3>Liên hệ</h3>
                                 <ul>
                                     <li>Email: anhminh270622@gmail.com</li>
-                                    <li>Sđt: 0346555993</li>
                                     <li>Github: https://github.com/anhminh270622</li>
                                     <li>Địa chỉ: Dịch Vọng Hậu - Cầu Giấy - Hà Nội</li>
                                 </ul></li>

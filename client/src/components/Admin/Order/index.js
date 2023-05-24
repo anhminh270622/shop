@@ -87,7 +87,7 @@ function Order() {
               handleConfirm(params.row.id, params.row.productId);
             }}
             className={params.row.status === 'Chờ xử lý' ? '' : 'status'}
-          // disabled={params.row.status === 'Chờ xử lý' ? false : true}
+            disabled={params.row.status === 'Chờ xử lý' ? false : true}
           >
             <CheckIcon />
             {params.row.status === 'Chờ xử lý' ? 'Xác Nhận' : params.row.status}
