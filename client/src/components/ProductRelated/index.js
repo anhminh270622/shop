@@ -10,7 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function ProductRelated() {
     const { id, type } = useParams();
     const product = useSelector(state => state.product.products.data)
-    const related = product.filter(item => item.type === type);
+    const relatedType = product.filter(item => item.type === type);
+    const related = relatedType.filter(item => item.id !== id);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchSomeData("products"))

@@ -9,8 +9,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function SearchResults() {
     const location = useLocation();
-    const { input } = location.state || {};
+    const { input } = location?.state;
     const [searchResult, setSearchResult] = useState([]);
+    const [searched, setSearched] = useState(false);
     const dispatch = useDispatch();
     const search = useSelector(state => state.product.products.data);
     const value = useSelector((state) => state.value.items);
@@ -52,18 +53,12 @@ export default function SearchResults() {
 
     useEffect(() => {
         if (input) {
-            // const results = search.filter(item => item.name.toLowerCase().includes(input.toLowerCase()));
-            // const results = search.filter(item => item.name)
-            // setSearchResult(search);
-            // console.log("results", results[2].name);
-            // console.log("input", input);
             const results = search.filter(item => item.name && item.name.toLowerCase().includes(input.toLowerCase()));
-            // console.log("results", results);
             setSearchResult(results);
-            // const test = search.filter(item => item.id === "AD306GW850765")
+            setSearched(true);
         }
-    }, [search, input]);
-
+    }, [input, search]);
+    console.log("setSearchResult", searchResult)
     const sortFunctions = {
         new: (products) => {
             const newProducts = products.filter((product) => product.tag === 'new');
@@ -109,21 +104,46 @@ export default function SearchResults() {
                     <div className="filter-results">
                         <Filter />
                     </div>
+                    {/* <div className="search-item">
+                        {searched && searchResult && searchResult.length > 0 ? (
+                            searchResult.map(item => (
+                                <ProductGeneral
+                                    key={item.id}
+                                    id={item.id}
+                                    name={item.name}
+                                    price={item.price}
+                                    sale={item.price_sale}
+                                    image={item?.images}
+                                    trademark={item.trademark}
+                                    tag={item.tag}
+                                    description={item.description}
+                                    type={item.type}
+                                />
+                            ))) : (
+                            !searched && (
+                                <p>Bắt đầu tìm kiếm để hiển thị kết quả</p>
+                            )
+                        )
+                        }
+
+                    </div> */}
                     <div className="search-item">
-                        {searchResult && searchResult.map(item => (
-                            <ProductGeneral
-                                key={item.id}
-                                id={item.id}
-                                name={item.name}
-                                price={item.price}
-                                sale={item.price_sale}
-                                image={item?.images}
-                                trademark={item.trademark}
-                                tag={item.tag}
-                                description={item.description}
-                                type={item.type}
-                            />
-                        ))}
+                        {searched && searchResult && searchResult.length > 0 ? (
+                            searchResult.map(item => (
+                                <ProductGeneral
+                                    key={item.id}
+                                    id={item.id}
+                                    name={item.name}
+                                    price={item.price}
+                                    sale={item.price_sale}
+                                    image={item?.images}
+                                    trademark={item.trademark}
+                                    tag={item.tag}
+                                    description={item.description}
+                                    type={item.type}
+                                />
+                            ))
+                        ) : null}
                     </div>
                 </div>
             </div>
