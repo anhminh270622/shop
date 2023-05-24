@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import './Cart.scss';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import { useNavigate } from 'react-router-dom';
@@ -24,9 +23,8 @@ import {
     quantityIncrease,
     quantityReduce,
 } from '../../redux/cartSlice';
-
+import { checkPhoneNumber } from '../Define';
 export default function Cart() {
-    const [isCartLoaded, setIsCartLoaded] = useState(false);
     const [open, setOpen] = React.useState(false);
     const handleOpenModal = () => setOpen(true);
     const handleCloseModal = () => setOpen(false);
@@ -34,7 +32,6 @@ export default function Cart() {
     const [sdt, setSdt] = useState('');
     const [note, setNote] = useState('');
     const [nameOrder, setNameOrder] = useState('');
-    //đếm số lượng size
     const items = useSelector((state) => state.cart.items);
     const quantityCart = useSelector((state) => state.cart.quantityCart);
     const dispatch = useDispatch();
@@ -50,7 +47,6 @@ export default function Cart() {
         navigate('/');
         Scroll();
     };
-    //tổng đơn giá trị đơn hàng
     const SumCart = () => {
         let totalPrice = 0;
         for (let i = 0; i < items.length; i++) {
@@ -74,31 +70,46 @@ export default function Cart() {
     const handleBuy = () => {
         const products = items.map((item) => `${item.name} - Size ${item.size}`);
         const productsId = items.map((item) => `${item.id} - ${item.quantity}`);
-        axios
-            .post('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order.json', {
-                nameOrder: nameOrder,
-                address: address,
-                phone: sdt,
-                note: note,
-                product: products.join(', '),
-                total: SumCart(),
-                status: 'Chờ xử lý',
-                userId: userId,
-                productId: productsId,
-            })
-            .then((orderResponse) => {
-                handleCloseModal();
-                dispatch(clearCart());
-                toast.success('Mua hàng thành công!', {
+        if ((nameOrder && address, sdt)) {
+            if (checkPhoneNumber(sdt)) {
+                axios
+                    .post(
+                        'https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order.json',
+                        {
+                            nameOrder: nameOrder,
+                            address: address,
+                            phone: sdt,
+                            note: note,
+                            product: products.join(', '),
+                            total: SumCart(),
+                            status: 'Chờ xử lý',
+                            userId: userId,
+                            productId: productsId,
+                        }
+                    )
+                    .then((orderResponse) => {
+                        handleCloseModal();
+                        dispatch(clearCart());
+                        toast.success('Mua hàng thành công!', {
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        toast.error('Có lỗi xảy ra khi mua hàng!', {
+                            position: toast.POSITION.TOP_RIGHT,
+                        });
+                    });
+            } else {
+                toast.warning('Số điện thoại không hợp lệ!', {
                     position: toast.POSITION.TOP_RIGHT,
                 });
-            })
-            .catch((error) => {
-                console.error(error);
-                toast.error('Có lỗi xảy ra khi mua hàng!', {
-                    position: toast.POSITION.TOP_RIGHT,
-                });
+            }
+        } else {
+            toast.warning('Vui lòng điền đầy đủ thông tin!', {
+                position: toast.POSITION.TOP_RIGHT,
             });
+        }
     };
 
     const handleBuy1 = () => {
@@ -128,7 +139,8 @@ export default function Cart() {
                         className="modal-wrapper">
                         <Typography
                             variant="h6"
-                            component="h2">
+                            component="h2"
+                            sx={{ fontWeight: 'bold', textAlign: "center" }}>
                             Thông tin giao hàng
                         </Typography>
                         <Box className="address">
@@ -159,7 +171,7 @@ export default function Cart() {
                                     aria-label="empty textarea"
                                     placeholder="Ghi chú"
                                     onChange={(e) => setNote(e.target.value)}
-                                    style={{ minWidth: 292, minHeight: 50 }}
+                                    style={{ minHeight: 50 }}
                                 />
                             </div>
                         </Box>
@@ -211,7 +223,10 @@ export default function Cart() {
                                                     disabled={item.quantity === 1 ? true : false}>
                                                     <RemoveIcon />
                                                 </button>
-                                                <input value={countQuantity} readOnly />
+                                                <input
+                                                    value={countQuantity}
+                                                    readOnly
+                                                />
                                                 <button onClick={() => Increase(item)}>
                                                     <AddIcon />
                                                 </button>
@@ -229,7 +244,6 @@ export default function Cart() {
                         })}
 
                     <hr />
-
 
                     <div className="buys">
                         <div className="left">

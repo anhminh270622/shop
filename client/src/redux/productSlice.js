@@ -3,9 +3,10 @@ import axios from 'axios';
 export const fetchSomeData = (type) => async (dispatch) => {
     dispatch(fetchDataPending(type));
     try {
-        const response = await axios.get(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/${type}.json`);
+        const response = await axios.get(
+            `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/${type}.json`
+        );
         const data = response.data;
-        // Chuyển đổi dữ liệu thành mảng các đối tượng với thuộc tính id
         const dataArray = Object.keys(data).map((key) => ({
             id: key,
             ...data[key],
@@ -17,32 +18,43 @@ export const fetchSomeData = (type) => async (dispatch) => {
 };
 
 export const updateStatus = (id, productId) => async (dispatch) => {
-    const response = await axios.get(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order/${id}.json`);
+    const response = await axios.get(
+        `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order/${id}.json`
+    );
     const order = response.data;
 
     const updatedOrder = {
         ...order,
         status: 'Thành công',
     };
-    console.log("updatedOrder1", updatedOrder, "id1", id, "order1", order)
-
-    await axios.put(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order/${id}.json`, updatedOrder);
+    await axios.put(
+        `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order/${id}.json`,
+        updatedOrder
+    );
     dispatch(updateOrderStatus({ id, productId }));
-
 };
 export const updateQuantityOrder = (id, quantity) => async (dispatch) => {
-    const response = await axios.get('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json');
-    const result = response.data;
-    // const order = result.find((item) => item.id === id);
-    // console.log('result', result[0]);
-    // const updatedOrder = {
-    //     ...order,
-    //     quantity: quantity,
-    // };
-    // console.log('updatedOrder', updatedOrder, 'id', id, 'order', order);
-    // await axios.put(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`, updatedOrder);
+    const response = await axios.get(
+        'https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json'
+    );
+    const data = response.data;
+    const dataArray = Object.keys(data).map((key) => ({
+        id: key,
+        ...data[key],
+    }));
+    const index = dataArray.findIndex((product) => product.id === id);
+    if (index >= 0) {
+        const updatedProduct = {
+            ...dataArray[index],
+            quantity: quantity.toString(),
+        };
+        dataArray.splice(index, 1, updatedProduct);
+        await axios.put(
+            `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`,
+            updatedProduct
+        );
+    }
 };
-
 
 const initialState = {
     products: { data: [], status: null, error: null },
@@ -74,7 +86,6 @@ const productSlice = createSlice({
             // console.log("productIndex", productIndex);
             // console.log("state.products.data", state.products);
         },
-
     },
 });
 
@@ -83,7 +94,6 @@ export const {
     updateOrderStatus,
     fetchDataPending,
     fetchDataFailure,
-
 } = productSlice.actions;
 
 export default productSlice.reducer;

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import './Overview.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchSomeData } from '../../../redux/productSlice';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 export default function Overview() {
   const dispatch = useDispatch();
   const types = ['products', 'order', 'user', 'contact'];
@@ -52,14 +52,12 @@ export default function Overview() {
             <h4>Tài khoản</h4>
             <p>{users.data.length}</p>
           </Link>
-
         </div>
         <div className="sum-warehouse">
           <Link to="/admin/warehouse">
             <h4>Tổng Kho</h4>
             <p>{products.data.length}</p>
           </Link>
-
         </div>
         <div>
           {' '}
@@ -105,7 +103,6 @@ export default function Overview() {
             <h4>Khách hàng liên hệ</h4>
             <p>{contact.data.length}</p>
           </Link>
-
         </div>
       </div>
     </div>

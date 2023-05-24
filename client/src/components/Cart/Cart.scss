@@ -79,8 +79,6 @@
 			}
 		}
 		.buys {
-			// display: flex;
-			// justify-content: space-between;
 			text-align: right;
 			.left {
 				button {
@@ -118,6 +116,13 @@
 	.modal-wrapper {
 		border: none;
 		border-radius: 20px;
+		label {
+			font-weight: bold;
+			font-size: 15px;
+		}
+		h2 {
+			padding-bottom: 20px;
+		}
 		.address {
 			div {
 				display: flex;
@@ -125,11 +130,14 @@
 				gap: 10px;
 				margin-top: 5px;
 				label {
-					flex: 1;
+					flex: 2;
 					margin-right: 20px;
 				}
-				input {
+				input,
+				textarea {
 					flex: 4;
+				}
+				textarea {
 				}
 			}
 		}

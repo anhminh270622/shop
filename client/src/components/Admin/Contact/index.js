@@ -1,26 +1,26 @@
-import { Button } from "@mui/material"
+import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchSomeData } from "../../../redux/productSlice";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchSomeData } from '../../../redux/productSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { reverseArray } from "../../Define";
+import { reverseArray } from '../../Define';
 function Contact() {
-    const dispatch = useDispatch()
-    const [contacts, setContacts] = useState('')
-    const contact = useSelector(state => state.product.contact.data)
+    const dispatch = useDispatch();
+    const [contacts, setContacts] = useState('');
+    const contact = useSelector((state) => state.product.contact.data);
     useEffect(() => {
-        dispatch(fetchSomeData("contact"))
-    }, [dispatch])
+        dispatch(fetchSomeData('contact'));
+    }, [dispatch]);
     useEffect(() => {
         if (contact.length > 0) {
-            setContacts(reverseArray(contact))
+            setContacts(reverseArray(contact));
         }
-    }, [contact])
-    console.log("contacts", contacts);
+    }, [contact]);
+    console.log('contacts', contacts);
     const columns = [
         { field: 'id', headerName: 'ID', width: 50 },
         { field: 'userId', headerName: 'UserId', width: 80 },
@@ -57,9 +57,8 @@ function Contact() {
                 <>
                     <Button
                         variant="contained"
-                        sx={{ background: "red" }}
-                        onClick={() => handleDelete(params.row.id)}
-                    >
+                        sx={{ background: 'red' }}
+                        onClick={() => handleDelete(params.row.id)}>
                         Xóa
                     </Button>
                 </>
@@ -68,18 +67,20 @@ function Contact() {
     ];
 
     const handleDelete = async (id) => {
-        // console.log("sortedContact", sortedContact);
-        await axios.delete(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/contact/${id}.json`)
-            .then(response => {
+        await axios
+            .delete(
+                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/contact/${id}.json`
+            )
+            .then((response) => {
                 toast.success('Xóa thành công!', {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-                const product = contact.filter(item => item.id !== id)
-                setContacts(product)
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+                const product = contact.filter((item) => item.id !== id);
+                setContacts(product);
 
-                dispatch(fetchSomeData("contact"))
-            })
-    }
+                dispatch(fetchSomeData('contact'));
+            });
+    };
     return (
         <div className="contact">
             <ToastContainer />
@@ -103,7 +104,7 @@ function Contact() {
                 />
             </Box>
         </div>
-    )
+    );
 }
 
-export default Contact
+export default Contact;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import "./User.scss"
+import './User.scss';
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
@@ -26,7 +26,7 @@ export default function User() {
     const [id, setId] = useState('');
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
-    const [edit, setEdit] = useState("");
+    const [edit, setEdit] = useState('');
     const dispatch = useDispatch();
     const handleOpen = () => {
         setOpen(true);
@@ -75,12 +75,14 @@ export default function User() {
         },
     ];
     const handleDelete = (id) => {
-        console.log("id", id)
+        console.log('id', id);
         axios
-            .delete(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`)
+            .delete(
+                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`
+            )
             .then((response) => {
                 // dispatch(fetchSomeData("user"))
-                setUser(user.filter(item => item.id !== id))
+                setUser(user.filter((item) => item.id !== id));
                 toast.success('Xóa thành công!', {
                     position: toast.POSITION.TOP_RIGHT,
                 });
@@ -88,14 +90,17 @@ export default function User() {
             .catch((error) => console.error(error));
     };
     const handleEdit = (id) => {
-        console.log("id", id)
-        axios.get(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`)
+        console.log('id', id);
+        axios
+            .get(
+                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`
+            )
             .then((response) => {
                 setEmail(response.data.email);
                 setPassword(response.data.password);
                 setRole(response.data.role);
                 setId(id);
-                setEdit(response.data)
+                setEdit(response.data);
             });
         setOpenEdit(true);
     };
@@ -107,17 +112,20 @@ export default function User() {
             role: role,
         };
         axios
-            .put(`https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`, data)
+            .put(
+                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`,
+                data
+            )
             .then((response) => {
-                dispatch(fetchSomeData("user"))
+                dispatch(fetchSomeData('user'));
             });
 
         handleClose();
     };
-    const user1 = useSelector(state => state.product.user.data)
+    const user1 = useSelector((state) => state.product.user.data);
     useEffect(() => {
-        dispatch(fetchSomeData("user"))
-    }, [dispatch])
+        dispatch(fetchSomeData('user'));
+    }, [dispatch]);
     useEffect(() => {
         if (user1 && user1.length > 0) {
             setUser(user1);
@@ -139,14 +147,17 @@ export default function User() {
     const handleSubmit = () => {
         if (email && password) {
             axios
-                .post('https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json/', {
-                    email: email,
-                    password: password,
-                    role: role,
-                    // id: user1.length + 1
-                })
+                .post(
+                    'https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json/',
+                    {
+                        email: email,
+                        password: password,
+                        role: role,
+                        // id: user1.length + 1
+                    }
+                )
                 .then((response) => {
-                    dispatch(fetchSomeData("user"))
+                    dispatch(fetchSomeData('user'));
                 });
             handleClose();
         } else {
@@ -211,14 +222,15 @@ export default function User() {
                                 />
                             </Box>
                             <Box>
-                                <FormControl variant="standard" sx={{ width: '100%' }}>
+                                <FormControl
+                                    variant="standard"
+                                    sx={{ width: '100%' }}>
                                     <InputLabel>Phân Quyền</InputLabel>
                                     <Select
                                         value={role}
-                                        onChange={(e) => setRole(e.target.value)}
-                                    >
-                                        <MenuItem value={"admin"}>admin</MenuItem>
-                                        <MenuItem value={"client"}>client</MenuItem>
+                                        onChange={(e) => setRole(e.target.value)}>
+                                        <MenuItem value={'admin'}>admin</MenuItem>
+                                        <MenuItem value={'client'}>client</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Box>
@@ -272,16 +284,16 @@ export default function User() {
                                 />
                             </Box>
 
-
                             <Box>
-                                <FormControl variant="standard" sx={{ width: '100%' }}>
+                                <FormControl
+                                    variant="standard"
+                                    sx={{ width: '100%' }}>
                                     <InputLabel>Thương hiệu</InputLabel>
                                     <Select
                                         value={role}
-                                        onChange={handleChangeRole}
-                                    >
-                                        <MenuItem value={"admin"}>admin</MenuItem>
-                                        <MenuItem value={"client"}>client</MenuItem>
+                                        onChange={handleChangeRole}>
+                                        <MenuItem value={'admin'}>admin</MenuItem>
+                                        <MenuItem value={'client'}>client</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Box>

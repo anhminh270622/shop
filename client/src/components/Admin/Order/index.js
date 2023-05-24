@@ -48,11 +48,11 @@ function Order() {
       const id = productId[i].split(' - ')[0];
       const quantityId = productId[i].split(' - ')[1];
       const index = products.findIndex((item) => item.id === id);
-      const quantity = products[index].quantity - quantityId;
-      dispatch(updateQuantityOrder(id, quantity));
+      const quantityOrder = products[index].quantity - quantityId;
+      dispatch(updateQuantityOrder(id, quantityOrder));
       // console.log("id", id, "quantityId", quantityId)
       // console.log("products[index].quantity", products[index].quantity)
-      // console.log("quantity", quantity)
+      // console.log("quantityOrder", quantityOrder)
     }
   };
   const columns = [
@@ -95,7 +95,6 @@ function Order() {
             <CheckIcon />
             {params.row.status === 'Chờ xử lý' ? 'Xác Nhận' : params.row.status}
           </Button>
-
         </>
       ),
     },
