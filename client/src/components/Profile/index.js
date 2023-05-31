@@ -43,7 +43,7 @@ function Profile() {
                 if (checkPhoneNumber(phone)) {
                     await axios
                         .put(
-                            `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`,
+                            `https://minh-924e1-default-rtdb.firebaseio.com/user/${id}.json`,
                             {
                                 ...profile,
                                 email: email,
@@ -66,7 +66,7 @@ function Profile() {
             } else {
                 await axios
                     .put(
-                        `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`,
+                        `https://minh-924e1-default-rtdb.firebaseio.com/user/${id}.json`,
                         {
                             ...profile,
                             email: email,

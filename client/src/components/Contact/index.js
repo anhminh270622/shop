@@ -23,7 +23,7 @@ export default function Contact() {
                     position: toast.POSITION.TOP_RIGHT,
                 });
             } else {
-                await axios.post("https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/contact.json", {
+                await axios.post("https://minh-924e1-default-rtdb.firebaseio.com/contact.json", {
                     name: name,
                     email: email,
                     phone: phone,

@@ -74,7 +74,7 @@ export default function Cart() {
             if (checkPhoneNumber(sdt)) {
                 axios
                     .post(
-                        'https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order.json',
+                        'https://minh-924e1-default-rtdb.firebaseio.com/order.json',
                         {
                             nameOrder: nameOrder,
                             address: address,

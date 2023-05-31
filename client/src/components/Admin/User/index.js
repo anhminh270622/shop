@@ -78,7 +78,7 @@ export default function User() {
         console.log('id', id);
         axios
             .delete(
-                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`
+                `https://minh-924e1-default-rtdb.firebaseio.com/user/${id}.json`
             )
             .then((response) => {
                 // dispatch(fetchSomeData("user"))
@@ -93,7 +93,7 @@ export default function User() {
         console.log('id', id);
         axios
             .get(
-                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`
+                `https://minh-924e1-default-rtdb.firebaseio.com/user/${id}.json`
             )
             .then((response) => {
                 setEmail(response.data.email);
@@ -113,7 +113,7 @@ export default function User() {
         };
         axios
             .put(
-                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user/${id}.json`,
+                `https://minh-924e1-default-rtdb.firebaseio.com/user/${id}.json`,
                 data
             )
             .then((response) => {
@@ -148,7 +148,7 @@ export default function User() {
         if (email && password) {
             axios
                 .post(
-                    'https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/user.json/',
+                    'https://minh-924e1-default-rtdb.firebaseio.com/user.json/',
                     {
                         email: email,
                         password: password,

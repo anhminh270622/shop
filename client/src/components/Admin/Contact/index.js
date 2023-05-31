@@ -68,7 +68,7 @@ function Contact() {
     const handleDelete = async (id) => {
         await axios
             .delete(
-                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/contact/${id}.json`
+                `https://minh-924e1-default-rtdb.firebaseio.com/contact/${id}.json`
             )
             .then((response) => {
                 toast.success('Xóa thành công!', {

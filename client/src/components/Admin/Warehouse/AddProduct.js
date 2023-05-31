@@ -56,7 +56,7 @@ export default function AddProduct(props) {
         if (name && description && price && trademark && img && type && quantity) {
             await axios
                 .post(
-                    'https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json',
+                    'https://minh-924e1-default-rtdb.firebaseio.com/products.json',
                     productAdd
                 )
                 .then((response) => {

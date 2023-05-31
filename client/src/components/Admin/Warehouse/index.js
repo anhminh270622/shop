@@ -70,7 +70,7 @@ export default function Warehouse() {
     const handleDelete = (id) => {
         axios
             .delete(
-                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`
+                `https://minh-924e1-default-rtdb.firebaseio.com/products/${id}.json`
             )
             .then((response) => {
                 toast.success('Xóa thành công!', {

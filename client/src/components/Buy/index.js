@@ -17,7 +17,7 @@ function Buy() {
     const handleDelete = (id) => {
         axios
             .delete(
-                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order/${id}.json`
+                `https://minh-924e1-default-rtdb.firebaseio.com/order/${id}.json`
             )
             .then((response) => {
                 setRows(rows.filter(item => item.id !== id));

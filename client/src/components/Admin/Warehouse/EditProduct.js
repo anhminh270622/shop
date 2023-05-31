@@ -74,7 +74,7 @@ export default function EditProduct(props) {
         };
         await axios
             .put(
-                `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`,
+                `https://minh-924e1-default-rtdb.firebaseio.com/products/${id}.json`,
                 productAdd
             )
             .then((response) => {

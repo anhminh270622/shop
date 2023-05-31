@@ -4,7 +4,7 @@ export const fetchSomeData = (type) => async (dispatch) => {
     dispatch(fetchDataPending(type));
     try {
         const response = await axios.get(
-            `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/${type}.json`
+            `https://minh-924e1-default-rtdb.firebaseio.com/${type}.json`
         );
         const data = response.data;
         const dataArray = Object.keys(data).map((key) => ({
@@ -19,7 +19,7 @@ export const fetchSomeData = (type) => async (dispatch) => {
 
 export const updateStatus = (id, productId) => async (dispatch) => {
     const response = await axios.get(
-        `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order/${id}.json`
+        `https://minh-924e1-default-rtdb.firebaseio.com/order/${id}.json`
     );
     const order = response.data;
 
@@ -28,14 +28,14 @@ export const updateStatus = (id, productId) => async (dispatch) => {
         status: 'Thành công',
     };
     await axios.put(
-        `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/order/${id}.json`,
+        `https://minh-924e1-default-rtdb.firebaseio.com/order/${id}.json`,
         updatedOrder
     );
     dispatch(updateOrderStatus({ id, productId }));
 };
 export const updateQuantityOrder = (id, quantity) => async (dispatch) => {
     const response = await axios.get(
-        'https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products.json'
+        'https://minh-924e1-default-rtdb.firebaseio.com/products.json'
     );
     const data = response.data;
     const dataArray = Object.keys(data).map((key) => ({
@@ -50,7 +50,7 @@ export const updateQuantityOrder = (id, quantity) => async (dispatch) => {
         };
         dataArray.splice(index, 1, updatedProduct);
         await axios.put(
-            `https://shop-server-b86ab-default-rtdb.asia-southeast1.firebasedatabase.app/products/${id}.json`,
+            `https://minh-924e1-default-rtdb.firebaseio.com/products/${id}.json`,
             updatedProduct
         );
     }
