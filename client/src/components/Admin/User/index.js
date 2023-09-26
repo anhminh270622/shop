@@ -39,9 +39,9 @@ export default function User() {
         setOpenEdit(false);
     };
     const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'email', headerName: 'Email', width: 200 },
-        { field: 'password', headerName: 'Password', width: 130 },
+        { field: 'id', headerName: 'ID', width: 150 },
+        { field: 'email', headerName: 'Email', width: 250 },
+        { field: 'password', headerName: 'Password', width: 150 },
         { field: 'role', headerName: 'Role', width: 70 },
         {
             field: 'actions',
@@ -309,7 +309,7 @@ export default function User() {
                 </Modal>
             </div>
             <hr></hr>
-            <div style={{ width: '100%' }}>
+            <div style={{ width: '100%', height:'84vh' }} >
                 <DataGrid
                     rows={user}
                     columns={columns}

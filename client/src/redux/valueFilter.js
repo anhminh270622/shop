@@ -14,7 +14,6 @@ const valueFilter = createSlice({
             //     state.items = action.payload;
             // } else {
             //     state.items = action.payload;
-
             // }
             state.items = action.payload;
         },

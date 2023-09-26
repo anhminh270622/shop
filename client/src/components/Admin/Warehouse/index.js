@@ -33,11 +33,11 @@ export default function Warehouse() {
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 150 },
-        { field: 'name', headerName: 'Name', width: 200 },
+        { field: 'name', headerName: 'Name', width: 250 },
         { field: 'quantity', headerName: 'Quantity', width: 80 },
         { field: 'trademark', headerName: 'Trademark', width: 100 },
         { field: 'price', headerName: 'Price', width: 100 },
-        { field: 'type', headerName: 'Type', width: 100 },
+        { field: 'type', headerName: 'Type', width: 110 },
         {
             field: 'actions',
             headerName: 'Actions',
@@ -135,7 +135,7 @@ export default function Warehouse() {
                 </Box>
             </Modal>
             <hr></hr>
-            <div style={{ height: '90vh', width: '100%' }}>
+            <div style={{ height: '84vh', width: '100%' }}>
                 <DataGrid
                     rows={warehouse}
                     columns={columns}

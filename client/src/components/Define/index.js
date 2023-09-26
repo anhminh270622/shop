@@ -179,3 +179,4 @@ export const reverseArray = (arr) => {
 	const reversedArr = [...arr].reverse();
 	return reversedArr;
 };
+

@@ -10,6 +10,8 @@ import { Scroll } from '../Define';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSomeData } from '../../redux/productSlice';
+import Loading from '../Loading';
+
 function Header() {
 	const navigate = useNavigate();
 	const [input, setInput] = useState('');
@@ -18,20 +20,29 @@ function Header() {
 	const image = useSelector((state) => state.product.user.data);
 	const avatar = image.find((img) => img.id === id)?.imageUrl;
 	const dispatch = useDispatch();
+	const [isLoading, setIsLoading] = useState(false);
 	useEffect(() => {
 		dispatch(fetchSomeData('user'));
 	}, [dispatch, window.location.href]);
 	function handleScrollToTopClick() {
 		Scroll();
 		navigate('/');
+		setIsLoading(true)
+		setTimeout(() => {
+			setIsLoading(false); // Đặt trạng thái tải là false sau khi hoàn thành
+			navigate('/'); // Điều hướng đến trang '/'
+		}, 500);
 	}
 	function handleSearch() {
-		Scroll();
-		const state = {
-			input: input,
-		};
-		navigate('/search', { state });
-		setInput('');
+		if (input) {
+			Scroll();
+			const state = {
+				input: input,
+			};
+			navigate('/search', { state });
+			setInput('');
+		}
+
 	}
 	const handleKeyDown = (e) => {
 		if (e.keyCode === 13) {
@@ -75,14 +86,15 @@ function Header() {
 	return (
 		<>
 			<div className="header">
+			{isLoading && <Loading />}
 				<div className="header_wrapper">
 					<div className="left">
-						<Link to="/">
+						<a onClick={handleScrollToTopClick}>
 							<img
 								src={Logo}
 								alt="Logo"
 							/>
-						</Link>
+						</a>
 					</div>
 					<ul className="center">
 						<div className="sections">

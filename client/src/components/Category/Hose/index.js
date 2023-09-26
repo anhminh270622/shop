@@ -4,6 +4,7 @@ import ProductGeneral from '../../ProductGeneral';
 import { Filter } from '../../Define';
 import { fetchSomeData } from '../../../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../../Loading';
 import './Hose.scss';
 export default function Hose() {
     const [hose, setHose] = useState('');
@@ -94,7 +95,7 @@ export default function Hose() {
                     <Filter />
                 </div>
                 <div className="items">
-                    {hose &&
+                    {hose == "" ? (<Loading />) : (hose &&
                         hose.map((item) => {
                             return (
                                 <ProductGeneral
@@ -110,7 +111,7 @@ export default function Hose() {
                                     type={item.type}
                                 />
                             );
-                        })}
+                        }))}
                 </div>
             </div>
         </div>

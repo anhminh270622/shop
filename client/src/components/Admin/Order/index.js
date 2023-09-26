@@ -28,6 +28,8 @@ function Order() {
   useEffect(() => {
     setOrder(reverseArray(orders));
   }, [orders]);
+  
+  // hàm xóa đơn hàng khỏi danh sách
   const handleDelete = (id) => {
     axios
       .delete(
@@ -42,6 +44,7 @@ function Order() {
       });
   };
 
+  // hàm xác nhận trạng thái đơn hàng
   const handleConfirm = (id, productId) => {
     dispatch(updateStatus(id, productId));
     for (let i = 0; i < productId.length; i++) {
@@ -51,10 +54,14 @@ function Order() {
       const quantityOrder = products[index].quantity - quantityId;
       dispatch(updateQuantityOrder(id, quantityOrder));
     }
+    toast.success('Xác nhận thành công!', {
+      position: toast.POSITION.TOP_RIGHT,
+    });
   };
   const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
     { field: 'userId', headerName: 'UserId', width: 80 },
+    { field: 'nameOrder', headerName: 'Tên khách hàng', width: 100 },
     {
       field: 'product',
       headerName: 'Chi tiết đơn hàng',
@@ -103,7 +110,7 @@ function Order() {
       <div className="order-top">
         <h1>Đơn mua</h1>
       </div>
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: '100%', height:'84vh' }}>
         <DataGrid
           rows={order}
           columns={columns}

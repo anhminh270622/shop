@@ -6,6 +6,7 @@ import ProductGeneral from '../../ProductGeneral';
 import { fetchSomeData } from '../../../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Loading from '../../Loading';
 function ProductNew() {
     const [product, setProduct] = useState('');
     const [selling, setSelling] = useState([]);
@@ -14,9 +15,13 @@ function ProductNew() {
     useEffect(() => {
         dispatch(fetchSomeData('products'));
     }, [dispatch]);
+
+    // gán giá trị data
     const productBuy = useSelector((state) => state.product.products.data);
+    // lấy ra 50 product
     const productSelling = productBuy.filter((product) => product.quantity < 50);
     const productNew = productBuy.filter((product) => product.tag === 'new').slice(0, 10);
+    // hàm sắp xếp theo bảng chữ cái
     const sortFunctions = {
         new: (products) => {
             const newProducts = products.filter((product) => product.tag === 'new');
@@ -155,9 +160,10 @@ function ProductNew() {
                         <option value="za">Thương hiệu:Z-A</option>
                     </select>
                 </div>
+
                 <div className="product-item">
-                    {product &&
-                        product.map((item) => (
+                    {
+                        product == "" ? (<Loading />) : (product && product.map((item) => (
                             <ProductGeneral
                                 key={item.id}
                                 id={item.id}
@@ -170,7 +176,8 @@ function ProductNew() {
                                 description={item.description}
                                 type={item.type}
                             />
-                        ))}
+                        )))
+                    }
                 </div>
                 <hr />
             </div>

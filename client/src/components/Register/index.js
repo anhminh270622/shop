@@ -37,7 +37,7 @@ export default function Register() {
                     setPassword('');
                     setPasswordEnter('');
                     setName('');
-                    navigate('/login', { state: { success: true } });
+                    navigate('/login', { state: { success: true, password: password, email: email } });
                     axios.post(
                         'https://minh-924e1-default-rtdb.firebaseio.com/user.json',
                         {
@@ -70,7 +70,7 @@ export default function Register() {
             <ToastContainer />
             <div className="register-wrapper">
                 <div className="main">
-                    <img src="https://anhdep123.com/wp-content/uploads/2021/01/anh-giay-adidas.jpg"></img>
+                    <img src="https://img.lovepik.com/free-png/20211206/lovepik-flat-male-avatar-png-image_401348783_wh1200.png"></img>
                     <h1>Đăng ký</h1>
                     <form onSubmit={handleSubmit}>
                         <div>

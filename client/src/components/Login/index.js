@@ -18,7 +18,14 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
-    const success = location.state?.success;
+    /**
+     * hàm để tự động nhập email và password khi đăng kí thành công
+     * edit: 26/09/2023
+     */
+    const successRegister = location.state?.success;
+    const passwordRegister = location.state?.password;
+    const emailRegister = location.state?.email;
+
     const [successMessage, setSuccessMessage] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch()
@@ -26,18 +33,19 @@ export default function Login() {
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
     };
-
     useEffect(() => {
         dispatch(fetchSomeData("user"))
     }, [dispatch]);
     useEffect(() => {
-        if (success === true && !successMessage) {
+        if (successRegister === true && !successMessage) {
             toast.success('Đăng ký thành công!', {
                 position: toast.POSITION.TOP_RIGHT,
             });
             setSuccessMessage(true);
+            setEmail(emailRegister);
+            setPassword(passwordRegister);
         }
-    }, [success, successMessage]);
+    }, [successRegister, successMessage]);
     const handleSubmit = (e) => {
         e.preventDefault();
         if (email && password && user.length > 0) {
@@ -73,7 +81,7 @@ export default function Login() {
             <ToastContainer />
             <div className="login-wrapper">
                 <div className="main">
-                    <img src="https://anhdep123.com/wp-content/uploads/2021/01/anh-giay-adidas.jpg"></img>
+                    <img src="https://img.lovepik.com/free-png/20211206/lovepik-flat-male-avatar-png-image_401348783_wh1200.png"></img>
                     <h1>Đăng nhập</h1>
                     <form onSubmit={handleSubmit}>
                         <div>

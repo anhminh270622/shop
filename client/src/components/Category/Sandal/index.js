@@ -6,6 +6,8 @@ import ProductGeneral from '../../ProductGeneral';
 import { Filter, Sort } from '../../Define';
 import { fetchSomeData } from '../../../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../../Loading';
+
 import './Sandal.scss';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -97,7 +99,7 @@ export default function Sandal() {
                     <Filter />
                 </div>
                 <div className="items">
-                    {sandal &&
+                    {sandal == "" ? (<Loading />) : (sandal &&
                         sandal.map((item) => {
                             return (
                                 <ProductGeneral
@@ -113,7 +115,7 @@ export default function Sandal() {
                                     type={item.type}
                                 />
                             );
-                        })}
+                        }))}
                 </div>
             </div>
         </div>
